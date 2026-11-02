@@ -17,12 +17,12 @@ export function FeaturedStudiosSkeleton() {
       </div>
       <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {Array.from({ length: 6 }).map((_, index) => (
-          <Card key={index} className="pt-0">
-            <Skeleton className="aspect-[4/3] w-full" />
+          <Card key={index} className="pt-0 border border-border/50">
+            <Skeleton className="aspect-[4/3] w-full bg-card" />
             <div className="flex flex-col gap-2 pt-4 pb-4">
-              <Skeleton className="h-5 w-3/4" />
-              <Skeleton className="h-4 w-1/2" />
-              <Skeleton className="mt-2 h-8 w-full" />
+              <Skeleton className="h-5 w-3/4 bg-card" />
+              <Skeleton className="h-4 w-1/2 bg-card" />
+              <Skeleton className="mt-2 h-8 w-full bg-card" />
             </div>
           </Card>
         ))}

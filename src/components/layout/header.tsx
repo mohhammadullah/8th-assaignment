@@ -67,7 +67,7 @@ function NavLink({
         "after:absolute after:inset-x-0 after:-bottom-px after:h-0.5 after:origin-left after:scale-x-0 after:rounded-full after:bg-primary after:transition-transform",
         active
           ? "text-foreground after:scale-x-100"
-          : "text-muted-foreground hover:text-foreground",
+          : "text-muted-foreground hover:text-foreground hover:after:scale-x-100",
         className
       )}
     >
@@ -132,7 +132,7 @@ export function SiteHeader() {
   return (
     <header
       data-slot="site-header"
-      className="sticky top-0 z-50 w-full border-b border-border/70 bg-background/85 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+      className="sticky top-0 z-50 w-full border-b border-border/50 bg-[#111318]/90 backdrop-blur-md supports-[backdrop-filter]:bg-[#111318]/70"
     >
       <div className="mx-auto flex h-14 w-full max-w-7xl items-center gap-4 px-4 sm:px-6">
         <Logo />
@@ -177,7 +177,7 @@ export function SiteHeader() {
       </div>
 
       {mobileOpen && (
-        <div id="mobile-nav" className="border-t bg-background md:hidden">
+        <div id="mobile-nav" className="border-t border-border/50 bg-[#111318]/95 md:hidden">
           <nav
             aria-label="Mobile"
             className="mx-auto flex w-full max-w-7xl flex-col gap-1 px-4 py-3 sm:px-6"
