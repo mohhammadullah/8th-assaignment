@@ -4,6 +4,7 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   reactCompiler: true,
+  serverExternalPackages: ["mongoose"],
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "images.unsplash.com" },

@@ -8,6 +8,7 @@ import { Autoplay, Pagination } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
+import { useHydrated } from "@/hooks/use-hydrated"
 import { Button } from "@/components/ui/button"
 
 import "swiper/css"
@@ -45,71 +46,90 @@ const SLIDES = [
   },
 ] as const
 
+type Slide = (typeof SLIDES)[number]
+
+function SlideVisual({ slide }: { slide: Slide }) {
+  return (
+    <div className="relative h-[520px] w-full overflow-hidden sm:h-[560px] lg:h-[640px]">
+      <Image
+        src={slide.image}
+        alt={slide.alt}
+        fill
+        sizes="100vw"
+        priority={slide.id === "photo-studio"}
+        className="object-cover"
+      />
+      {/* Readability scrim over any photo, stronger at the bottom where the
+          copy sits. */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-black/10" />
+
+      <div className="absolute inset-0 flex items-end">
+        <div className="mx-auto w-full max-w-7xl px-4 pb-28 text-white sm:px-6 sm:pb-32">
+          <div className="max-w-2xl">
+            <h1 className="text-4xl leading-tight font-semibold tracking-tight sm:text-5xl lg:text-6xl">
+              {slide.headline}
+            </h1>
+            <p className="mt-4 max-w-xl text-base text-white/85 sm:text-lg">
+              {slide.subtext}
+            </p>
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <Button
+                size="lg"
+                nativeButton={false}
+                render={<Link href="/studios" />}
+              >
+                Explore Studios
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                nativeButton={false}
+                render={<Link href="/studios" />}
+                className="border-white/50 bg-white/10 text-white hover:border-white hover:bg-white/20 hover:text-white dark:border-white/50"
+              >
+                Host Your Space
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export function SiteHero() {
+  const hydrated = useHydrated()
   const swiperRef = React.useRef<SwiperClass | null>(null)
+
+  // Swiper's autoplay reads `new Date()` during initialization, which fails
+  // the static prerender under cacheComponents, so mount it after hydration.
+  // Until then a static first slide keeps the hero server-rendered.
+  if (!hydrated) {
+    return (
+      <section data-slot="site-hero" aria-label="Featured studio spaces">
+        <SlideVisual slide={SLIDES[0]} />
+      </section>
+    )
+  }
 
   return (
     <section
       data-slot="site-hero"
       aria-label="Featured studio spaces"
-      className="relative"
+      className="relative group/site-hero"
     >
       <Swiper
         modules={[Autoplay, Pagination]}
         loop
         autoplay={{ delay: 5500, disableOnInteraction: false }}
         pagination={{ clickable: true }}
-        className="group/site-hero"
         onSwiper={(swiper) => {
           swiperRef.current = swiper
         }}
       >
         {SLIDES.map((slide) => (
           <SwiperSlide key={slide.id}>
-            <div className="relative h-[520px] w-full overflow-hidden sm:h-[560px] lg:h-[640px]">
-              <Image
-                src={slide.image}
-                alt={slide.alt}
-                fill
-                sizes="100vw"
-                priority={slide.id === "photo-studio"}
-                className="object-cover"
-              />
-              {/* Readability scrim over any photo, stronger at the bottom
-                  where the copy sits. */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-black/10" />
-
-              <div className="absolute inset-0 flex items-end">
-                <div className="mx-auto w-full max-w-7xl px-4 pb-28 text-white sm:px-6 sm:pb-32">
-                  <div className="max-w-2xl">
-                    <h1 className="text-4xl leading-tight font-semibold tracking-tight sm:text-5xl lg:text-6xl">
-                      {slide.headline}
-                    </h1>
-                    <p className="mt-4 max-w-xl text-base text-white/85 sm:text-lg">
-                      {slide.subtext}
-                    </p>
-                    <div className="mt-8 flex flex-wrap items-center gap-3">
-                      <Button
-                        size="lg"
-                        nativeButton={false}
-                        render={<Link href="/studios" />}
-                      >
-                        Explore Studios
-                      </Button>
-                      <Button
-                        size="lg"
-                        variant="outline"
-                        nativeButton={false}
-                        render={<Link href="/studios" />}
-                        className="border-white/50 bg-white/10 text-white hover:border-white hover:bg-white/20 hover:text-white dark:border-white/50"
-                      >
-                        Host Your Space
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <SlideVisual slide={slide} />
           </SwiperSlide>
         ))}
       </Swiper>
