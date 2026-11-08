@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { MapPin, ArrowLeft, Calendar, Clock } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import { MapPin, ArrowLeft } from "lucide-react";
+import React, { useEffect, useState, use } from "react";
 import { API_BASE_URL } from "@/lib/api";
 import { useRouter } from "next/navigation";
 
@@ -32,38 +32,43 @@ type PageProps = {
 };
 
 export default function StudioDetailsPage({ params }: PageProps) {
+  // Next.js 15+ অনুযায়ী React.use() দিয়ে params আনর্যাপ করা হয়েছে
+  const resolvedParams = use(params);
+  const id = resolvedParams.id;
+
   const [studio, setStudio] = useState<Studio | null>(null);
   const [loading, setLoading] = useState(true);
   const [isBooked, setIsBooked] = useState(false);
-  const [bookingError, bookingErrorState] = useState<string | null>(null);
+  const [bookingError, setBookingError] = useState<string | null>(null);
   const router = useRouter();
 
   useEffect(() => {
     let cancelled = false;
 
-    params
-      .then(({ id }) => getStudioDetails(id))
-      .then((studioDetails) => {
-        if (!cancelled) setStudio(studioDetails);
-      })
-      .catch(() => {
-        if (!cancelled) setStudio(null);
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false);
-      });
+    if (id) {
+      getStudioDetails(id)
+        .then((studioDetails) => {
+          if (!cancelled) setStudio(studioDetails);
+        })
+        .catch(() => {
+          if (!cancelled) setStudio(null);
+        })
+        .finally(() => {
+          if (!cancelled) setLoading(false);
+        });
+    }
 
     return () => {
       cancelled = true;
     };
-  }, [params]);
+  }, [id]);
 
   const handleBook = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!studio) return;
 
     setIsBooked(false);
-    bookingErrorState(null);
+    setBookingError(null);
     const formData = new FormData(e.currentTarget);
 
     try {
@@ -90,7 +95,7 @@ export default function StudioDetailsPage({ params }: PageProps) {
       setIsBooked(true);
       router.push("/my-bookings");
     } catch (error: unknown) {
-      bookingErrorState(error instanceof Error ? error.message : "Booking failed");
+      setBookingError(error instanceof Error ? error.message : "Booking failed");
     }
   };
 
