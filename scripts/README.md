@@ -1,0 +1,1 @@
+Scripts directory. Contains build and development scripts for the application.

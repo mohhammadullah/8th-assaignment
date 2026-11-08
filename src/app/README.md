@@ -1,0 +1,1 @@
+App directory. Contains Next.js route segments and page components.

@@ -1,7 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
 import { MapPin, Star } from "lucide-react"
-
 import { cn } from "cn"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -18,7 +17,7 @@ export function StudioCard({
   return (
     <Card
       className={cn(
-        "group/card pt-0 border border-border hover:border-primary/50 hover:shadow-xl hover:shadow-primary/20 transition-all duration-300",
+        "group/card pt-0 border-[#334155] border-2 hover:border-[#38BDF8]/50 hover:shadow-xl hover:shadow-[#38BDF8]/20 transition-all duration-300",
         className
       )}
     >
@@ -30,10 +29,10 @@ export function StudioCard({
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           className="object-cover transition-transform duration-500 group-hover/card:scale-105"
         />
-        <Badge className="absolute top-3 left-3 bg-primary text-primary-foreground backdrop-blur-sm border-transparent">
+        <Badge className="absolute top-3 left-3 bg-[#38BDF8] text-[#F1F5F9] backdrop-blur-sm">
           {studio.category}
         </Badge>
-        <Badge className="absolute top-3 right-3 border-0 bg-[#111318]/80 text-primary backdrop-blur-md">
+        <Badge className="absolute top-3 right-3 border-0 bg-[#0B1120]/80 text-[#38BDF8] backdrop-blur-md">
           <Star className="fill-current" /> {studio.rating.toFixed(1)}
         </Badge>
       </div>
@@ -48,14 +47,14 @@ export function StudioCard({
 
         <div className="mt-auto pt-2 text-base">
           <span className="font-semibold text-foreground">${studio.hourlyRate}</span>
-          <span className="text-muted-foreground"> / hr</span>
+          <span className="text-muted-foreground">/ hr</span>
         </div>
 
         <Button
           variant="outline"
           nativeButton={false}
           render={<Link href={`/studios/${studio.slug}`} />}
-          className="border-border text-foreground hover:border-primary hover:bg-primary/10 hover:text-primary-foreground transition-all duration-300"
+          className="border-[#334155] text-foreground hover:border-[#38BDF8] hover:bg-[#38BDF8]/10 hover:text-foreground transition-all duration-300"
         >
           View Details
         </Button>

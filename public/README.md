@@ -1,0 +1,1 @@
+Public directory. Contains static files such as images (SVG, etc.) used by the application.

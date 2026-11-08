@@ -1,0 +1,1 @@
+Models directory. Contains TypeScript models for data structures.

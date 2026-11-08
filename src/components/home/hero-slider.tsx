@@ -60,16 +60,16 @@ function SlideVisual({ slide }: { slide: Slide }) {
         className="object-cover"
       />
       {/* Cinematic scrim: deep dark base with warm amber glow at bottom edge */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#111318]/95 via-[#111318]/60 to-transparent" />
-      <div className="absolute inset-x-0 bottom-[20%] h-[30%] bg-gradient-to-t from-[#FF6B35]/20 to-transparent pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0B1120]/95 via-[#0B1120]/60 to-transparent" />
+      <div className="absolute inset-x-0 bottom-[20%] h-[30%] bg-gradient-to-t from-[#38BDF8]/20 to-transparent pointer-events-none" />
 
       <div className="absolute inset-0 flex items-end">
         <div className="mx-auto w-full max-w-7xl px-4 pb-32 text-foreground sm:px-6 sm:pb-40">
           <div className="max-w-2xl">
-            <h1 className="text-4xl leading-tight font-semibold tracking-tight sm:text-5xl lg:text-6xl bg-clip-text text-transparent bg-gradient-to-r from-foreground via-accent to-[#E9A23B]">
+            <h1 className="text-4xl leading-tight font-semibold tracking-tight sm:text-5xl lg:text-6xl bg-clip-text text-transparent bg-gradient-to-r from-foreground via-accent to-[#818CF8]">
               {slide.headline}
             </h1>
-            <p className="mt-6 max-w-xl text-base text-muted-foreground sm:text-lg">
+            <p className="mt-6 max-w-xl text-base text-muted-foreground-foreground sm:text-lg">
               {slide.subtext}
             </p>
             <div className="mt-12 flex flex-wrap items-center gap-4">
@@ -85,7 +85,7 @@ function SlideVisual({ slide }: { slide: Slide }) {
                 size="lg"
                 variant="outline"
                 nativeButton={false}
-                render={<Link href="/studios" />}
+                render={<Link href="/add-studio" />}
                 className="border-border bg-transparent text-foreground hover:border-primary hover:bg-primary/10 hover:text-primary-foreground transition-all duration-300"
               >
                 Host Your Space
@@ -139,7 +139,7 @@ export function SiteHero() {
         type="button"
         aria-label="Previous slide"
         onClick={() => swiperRef.current?.slidePrev()}
-        className="absolute top-1/2 left-3 z-10 hidden -translate-y-1/2 items-center justify-center rounded-full bg-[#111318]/80 border border-border size-10 text-foreground opacity-0 backdrop-blur-sm transition-all duration-300 outline-none group-hover/site-hero:opacity-100 focus-visible:opacity-100 hover:bg-primary hover:text-primary-foreground hover:border-primary sm:flex"
+        className="absolute top-1/2 left-3 z-10 hidden -translate-y-1/2 items-center justify-center rounded-full bg-[#0B1120]/80 border border-border size-10 text-foreground opacity-0 backdrop-blur-sm transition-all duration-300 outline-none group-hover/site-hero:opacity-100 focus-visible:opacity-100 hover:bg-primary hover:text-primary-foreground hover:border-primary sm:flex"
       >
         <ChevronLeft className="size-5" />
       </button>
@@ -147,7 +147,7 @@ export function SiteHero() {
         type="button"
         aria-label="Next slide"
         onClick={() => swiperRef.current?.slideNext()}
-        className="absolute top-1/2 right-3 z-10 hidden -translate-y-1/2 items-center justify-center rounded-full bg-[#111318]/80 border border-border size-10 text-foreground opacity-0 backdrop-blur-sm transition-all duration-300 outline-none group-hover/site-hero:opacity-100 focus-visible:opacity-100 hover:bg-primary hover:text-primary-foreground hover:border-primary sm:flex"
+        className="absolute top-1/2 right-3 z-10 hidden -translate-y-1/2 items-center justify-center rounded-full bg-[#0B1120]/80 border border-border size-10 text-foreground opacity-0 backdrop-blur-sm transition-all duration-300 outline-none group-hover/site-hero:opacity-100 focus-visible:opacity-100 hover:bg-primary hover:text-primary-foreground hover:border-primary sm:flex"
       >
         <ChevronRight className="size-5" />
       </button>

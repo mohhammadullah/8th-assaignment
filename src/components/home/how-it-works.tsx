@@ -17,8 +17,8 @@ const WORKFLOW_STEPS = [
     step: 2,
     title: "Select Shoot Hours",
     Icon: Clock,
-    color: "bg-[#E9A23B]",
-    textColor: "text-[#111318]",
+    color: "bg-[#818CF8]",
+    textColor: "text-[#0B1120]",
     description:
       "Pick the date and hours you need. Transparent hourly pricing means no surprises at checkout.",
   },
@@ -80,14 +80,14 @@ function WorkflowStep({
         </div>
         <IconComponent
           className={cn(
-            "mx-auto mb-3 size-5 text-muted-foreground transition-colors duration-300",
+            "mx-auto mb-3 size-5 text-muted-foreground-foreground transition-colors duration-300",
             "group-hover:text-primary"
           )}
         />
         <h3 className="font-heading text-base leading-snug font-medium mb-2 text-foreground">
           {title}
         </h3>
-        <p className="text-sm text-muted-foreground">{description}</p>
+        <p className="text-sm text-muted-foreground-foreground">{description}</p>
       </CardContent>
     </Card>
   )
@@ -100,14 +100,14 @@ export function HowItWorks() {
       data-slot="how-it-works"
       className="mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 relative overflow-hidden"
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#1C2028]/30 to-transparent pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#1E293B]/30 to-transparent pointer-events-none" />
       <div className="relative z-10">
         <div className="flex flex-wrap items-end justify-between gap-4 mb-12">
           <div className="max-w-xl">
             <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl text-foreground">
               How Booking Works
             </h2>
-            <p className="mt-2 text-muted-foreground">
+            <p className="mt-2 text-muted-foreground-foreground">
               From discovery to production in four simple steps — book your next
               creative space by the hour.
             </p>
