@@ -2,11 +2,13 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { StudioCard } from "@/components/home/studio-card";
 import type { Studio } from "@/lib/types";
+import { API_BASE_URL } from "@/lib/api";
 
 async function getFeaturedStudios(): Promise<Studio[]> {
   try {
-    const res = await fetch("http://localhost:5000/api/studios/featured", {
+    const res = await fetch(`${API_BASE_URL}/api/studios/featured`, {
       cache: "no-store",
+      credentials: "include",
     });
     if (!res.ok) return [];
     return res.json();

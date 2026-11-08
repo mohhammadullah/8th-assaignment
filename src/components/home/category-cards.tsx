@@ -2,6 +2,7 @@ import Link from "next/link";
 import { cn } from "cn";
 import { Card, CardContent } from "@/components/ui/card";
 import { Camera, Film, Mic, Music, Palette, type LucideIcon } from "lucide-react";
+import { API_BASE_URL } from "@/lib/api";
 
 const iconMap: Record<string, LucideIcon> = {
   "Photo Studios": Camera,
@@ -13,7 +14,7 @@ const iconMap: Record<string, LucideIcon> = {
 
 async function getCategories() {
   try {
-    const res = await fetch("http://localhost:5000/api/categories", { cache: "no-store" });
+    const res = await fetch(`${API_BASE_URL}/api/categories`, { cache: "no-store", credentials: "include" });
     if (!res.ok) return [];
     return res.json();
   } catch (error) {

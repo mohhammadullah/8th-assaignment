@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <>
       <SiteHero />
-      {/* Studios stream in fresh from MongoDB; skeletons show instantly. */}
+  
       <Suspense fallback={<FeaturedStudiosSkeleton />}>
         <FeaturedStudios />
       </Suspense>

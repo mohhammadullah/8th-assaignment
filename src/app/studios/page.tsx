@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { MapPin, Star } from "lucide-react";
+import { API_BASE_URL } from "@/lib/api";
 
 type Studio = {
   _id: string;
@@ -13,11 +14,11 @@ type Studio = {
 // searchParams প্রপস যোগ করা হলো ক্যাটাগরি ধরার জন্য
 async function getStudios(category?: string): Promise<Studio[]> {
   try {
-    let url = "http://localhost:5000/api/studios";
+    let url = `${API_BASE_URL}/api/studios`;
     if (category) {
-      url = `http://localhost:5000/api/studios?category=${encodeURIComponent(category)}`;
+      url = `${API_BASE_URL}/api/studios?category=${encodeURIComponent(category)}`;
     }
-    const res = await fetch(url, { cache: "no-store" });
+    const res = await fetch(url, { cache: "no-store", credentials: "include" });
     if (!res.ok) return [];
     return res.json();
   } catch (error) {

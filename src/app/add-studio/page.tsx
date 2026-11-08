@@ -12,6 +12,7 @@ import {
   Plus,
   Sparkles,
 } from "lucide-react";
+import { API_BASE_URL } from "@/lib/api";
 
 const categories = [
   "Photography Studio",
@@ -103,11 +104,12 @@ export default function HostingPage() {
 
     try {
      
-     const res = await fetch("http://localhost:5000/api/studios", {
+     const res = await fetch(`${API_BASE_URL}/api/studios`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify(studioData),
       });
 

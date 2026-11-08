@@ -1,78 +1,130 @@
-"use client"
+"use client";
 
-import { useMemo, useSyncExternalStore } from "react"
+import {
+  createContext,
+  createElement,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactNode,
+} from "react";
+import { useRouter } from "next/navigation";
+import { API_BASE_URL } from "@/lib/api";
 
-export type StudioUser = {
-  id: string
-  name: string
-  email: string
-  image?: string
+export type AuthUser = {
+  id?: string;
+  name: string;
+  email: string;
+  photoUrl?: string;
+  image?: string;
+};
+
+// Back-compat aliases for existing consumers.
+export type StudioUser = AuthUser;
+export type UserType = AuthUser;
+
+type AuthContextType = {
+  user: AuthUser | null;
+  isLoading: boolean;
+  /** Alias for {@link AuthContextType.isLoading} kept for older call sites. */
+  loading: boolean;
+  logout: () => Promise<void>;
+  refreshUser: () => Promise<void>;
+};
+
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+const API_BASE = API_BASE_URL;
+
+function normalizeUser(raw: unknown): AuthUser | null {
+  if (!raw || typeof raw !== "object") return null;
+  const u = raw as Record<string, unknown>;
+  const name = typeof u.name === "string" ? u.name : "";
+  const email = typeof u.email === "string" ? u.email : "";
+  if (!name && !email) return null;
+  const photoUrl =
+    (typeof u.photoUrl === "string" && u.photoUrl) ||
+    (typeof u.image === "string" && u.image) ||
+    undefined;
+  const id =
+    (typeof u.id === "string" && u.id) ||
+    (typeof u._id === "string" && u._id) ||
+    undefined;
+  return { id, name, email, photoUrl, image: photoUrl };
 }
 
-// Demo auth: the header needs a concrete "authenticated" state to render its
-// user menu, so call `login()` (e.g. from a temporary login page) to switch
-// the header into the authenticated state. Replace with a real auth session
-// when it becomes available.
-const STORAGE_KEY = "studiospace:user"
+export function AuthProvider({ children }: { children: ReactNode }) {
+  const router = useRouter();
+  const [user, setUser] = useState<AuthUser | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-const listeners = new Set<() => void>()
-
-function emit() {
-  for (const listener of listeners) listener()
-}
-
-function subscribe(listener: () => void) {
-  listeners.add(listener)
-  // `storage` covers other tabs; `emit()` covers our own calls.
-  window.addEventListener("storage", listener)
-  return () => {
-    listeners.delete(listener)
-    window.removeEventListener("storage", listener)
-  }
-}
-
-function getSnapshot(): string | null {
-  return window.localStorage.getItem(STORAGE_KEY)
-}
-
-function getServerSnapshot(): string | null {
-  return null
-}
-
-export function useUser() {
-  const serialized = useSyncExternalStore(
-    subscribe,
-    getSnapshot,
-    getServerSnapshot
-  )
-
-  const user = useMemo<StudioUser | null>(() => {
-    if (!serialized) return null
+  const refreshUser = useCallback(async () => {
     try {
-      return JSON.parse(serialized) as StudioUser
+      const res = await fetch(`${API_BASE}/api/auth/me`, {
+        credentials: "include",
+      });
+      if (!res.ok) {
+        setUser(null);
+        return;
+      }
+      const data: unknown = await res.json().catch(() => null);
+      if (data && typeof data === "object") {
+        const payload = data as Record<string, unknown>;
+        setUser(normalizeUser(payload.user ?? data));
+      } else {
+        setUser(null);
+      }
     } catch {
-      // Corrupted storage entry — treat as logged out.
-      return null
+      setUser(null);
+    } finally {
+      setIsLoading(false);
     }
-  }, [serialized])
+  }, []);
 
-  const login = (
-    overrides: Partial<Pick<StudioUser, "name" | "email" | "image">> = {}
-  ) => {
-    const demo: StudioUser = {
-      id: "demo",
-      name: overrides.name ?? "Alex Carter",
-      email: overrides.email ?? "alex@example.com",
-      image: overrides.image,
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      void refreshUser();
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, [refreshUser]);
+
+  const logout = useCallback(async () => {
+    try {
+      await fetch(`${API_BASE}/api/auth/logout`, {
+        method: "POST",
+        credentials: "include",
+      });
+    } catch {
+      // Ignore network errors — clear local state regardless.
+    } finally {
+      setUser(null);
+      router.push("/login");
     }
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(demo))
-    emit()
-  }
+  }, [router]);
 
-  const logout = () => {
-    window.localStorage.removeItem(STORAGE_KEY)
-    emit()
-  }
+  const value = useMemo<AuthContextType>(
+    () => ({
+      user,
+      isLoading,
+      loading: isLoading,
+      logout,
+      refreshUser,
+    }),
+    [user, isLoading, logout, refreshUser]
+  );
 
-  return { user, login, logout }
+  return createElement(AuthContext.Provider, { value }, children);
 }
+
+export function useUser(): AuthContextType {
+  const ctx = useContext(AuthContext);
+  if (!ctx) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return ctx;
+}
+
+/** Alias kept so old `useAuth` imports keep working during the migration. */
+export const useAuth = useUser;

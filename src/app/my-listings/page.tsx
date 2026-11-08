@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { API_BASE_URL } from '@/lib/api';
 
 interface Listing {
   id: string;
@@ -21,8 +22,9 @@ export default function MyListingsPage() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const fetchListings = async () => {
-    const res = await fetch('/api/listings', {
+    const res = await fetch(`${API_BASE_URL}/api/listings`, {
       method: 'GET',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -59,8 +61,9 @@ export default function MyListingsPage() {
 
   const confirmDelete = async () => {
     try {
-      const res = await fetch(`/api/listings/${selectedId}`, {
+      const res = await fetch(`${API_BASE_URL}/api/listings/${selectedId}`, {
         method: 'DELETE',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },

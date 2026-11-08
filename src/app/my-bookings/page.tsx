@@ -1,81 +1,70 @@
 'use client';
+
 import { useState, useEffect, useCallback } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { API_BASE_URL } from '@/lib/api';
+import { useUser } from '@/hooks/use-user';
+import { useRouter } from 'next/navigation';
+import { Loader2 } from 'lucide-react';
 
-interface Booking {
+interface UserBooking {
   id: string;
+  studioId: string;
   studioName: string;
   date: string;
-  time: string;
-  status: 'Pending' | 'Confirmed' | 'Completed' | 'Cancelled';
+  timeSlot: string;
+  price: number;
+  status: 'Pending' | 'Confirmed' | 'Cancelled';
   createdAt: string;
 }
 
 export default function MyBookingsPage() {
-  const [bookings, setBookings] = useState<Booking[]>([]);
+  const { user, isLoading, logout } = useUser();
+  const router = useRouter();
+  const [bookings, setBookings] = useState<UserBooking[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const fetchBookings = useCallback(async () => {
+
+  // Fetch only the logged-in user's bookings
+  const fetchMyBookings = useCallback(async () => {
     try {
-      const res = await fetch('/api/bookings', {
+      const res = await fetch(`${API_BASE_URL}/api/bookings/my-bookings`, {
         method: 'GET',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
       });
       if (!res.ok) {
-        throw new Error('Failed to fetch bookings');
+        throw new Error('Failed to fetch your bookings');
       }
-      const data: Booking[] = await res.json();
-      setBookings(data);
+      const data = await res.json();
+      setBookings(data.bookings || data);
     } catch (err) {
       console.error('Fetch error:', err);
       setError((err as Error).message);
-      toast.error('Failed to load bookings');
+      toast.error('Failed to load your bookings');
     } finally {
       setLoading(false);
     }
   }, []);
 
   useEffect(() => {
-    let active = true;
-
-    const loadBookings = async () => {
-      try {
-        const res = await fetch('/api/bookings', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-        if (!res.ok) {
-          throw new Error('Failed to fetch bookings');
-        }
-        const data: Booking[] = await res.json();
-        if (active) setBookings(data);
-      } catch (err) {
-        console.error('Fetch error:', err);
-        if (active) {
-          setError((err as Error).message);
-          toast.error('Failed to load bookings');
-        }
-      } finally {
-        if (active) setLoading(false);
-      }
-    };
-
-    void loadBookings();
-    return () => {
-      active = false;
-    };
-  }, [fetchBookings]);
+    if (user) {
+      void fetchMyBookings();
+    } else {
+      setBookings([]);
+      setLoading(false);
+    }
+  }, [user, fetchMyBookings]);
 
   const handleCancel = async (bookingId: string) => {
     if (!window.confirm('Are you sure you want to cancel this booking?')) return;
     try {
-      const res = await fetch(`/api/bookings/${bookingId}`, {
+      const res = await fetch(`${API_BASE_URL}/api/bookings/${bookingId}`, {
         method: 'DELETE',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -84,19 +73,23 @@ export default function MyBookingsPage() {
         throw new Error('Failed to cancel booking');
       }
       toast.success('Booking cancelled successfully');
-      await fetchBookings();
+      void fetchMyBookings();
     } catch (err) {
       console.error('Cancel error:', err);
       toast.error('Failed to cancel booking');
     }
   };
 
-  if (loading) {
+  if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-gray-600">Loading your bookings...</p>
+      <div className="flex min-h-[70vh] items-center justify-center bg-[#0B1120]">
+        <Loader2 className="h-8 w-8 animate-spin text-[#38BDF8]" />
       </div>
     );
+  }
+
+  if (!user) {
+    return null; // ProtectedRoute will handle redirect
   }
 
   if (error) {
@@ -109,53 +102,64 @@ export default function MyBookingsPage() {
   }
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4 text-gray-800">My Bookings</h1>
-      <div className="space-y-6">
-        {bookings.length === 0 ? (
-          <p className="text-gray-500">No bookings found.</p>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {bookings.map((booking) => (
-              <div key={booking.id} className="bg-white rounded-lg shadow-md p-4">
-                <div className="flex justify-between items-start mb-4">
-                  <h2 className="text-lg font-semibold">{booking.studioName}</h2>
-                  <span
-                    className={`inline-block bg-gray-200 text-sm px-2 py-1 rounded ${
-                      booking.status === 'Pending'
-                        ? 'bg-blue-200 text-blue-800'
-                        : booking.status === 'Confirmed'
-                        ? 'bg-green-200 text-green-800'
-                        : booking.status === 'Completed'
-                        ? 'bg-yellow-200 text-yellow-800'
-                        : 'bg-red-200 text-red-800'
-                    }`}
-                  >
-                    {booking.status}
-                  </span>
+    <div className="p-6 bg-[#0B1120] min-h-screen">
+      <ToastContainer />
+      <h1 className="text-2xl font-bold text-[#F1F5F9] mb-6">My Bookings</h1>
+
+      {bookings.length === 0 ? (
+        <div className="py-12 text-center text-[#94A3B8]">
+          <p className="text-lg">No bookings found.</p>
+          <p className="mt-2">Book a studio to see your bookings here.</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {bookings.map((booking) => (
+            <div
+              key={booking.id}
+              className="bg-[#1E293B] border border-[#334155] rounded-xl p-6 hover:border-[#38BDF8]/50 transition-colors"
+            >
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0">
+                  <div className="aspect-square rounded-xl bg-[#0B1120] overflow-hidden">
+                    {/* Studio image placeholder - in real app, fetch studio image */}
+                    <div className="h-24 w-full bg-gradient-to-b from-[#1E293B] to-[#0B1120] flex items-center justify-center text-sm text-[#64748B]">
+                      {booking.studioName.substring(0, 3).toUpperCase()}
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-center space-x-4">
-                  <p className="text-gray-700">
-                    <strong>Date:</strong> {new Date(booking.date).toLocaleDateString()}
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-xl font-bold text-[#F1F5F9] truncate">{booking.studioName}</h3>
+                  <p className="text-sm text-[#94A3B8] mt-1">
+                    {new Date(booking.date).toLocaleDateString()} • {booking.timeSlot}
                   </p>
-                  <p className="text-gray-700">
-                    <strong>Time:</strong> {booking.time}
-                  </p>
-                  {booking.status === 'Pending' && (
-                    <button
-                      onClick={() => handleCancel(booking.id)}
-                      className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500"
-                    >
-                      Cancel Booking
-                    </button>
-                  )}
                 </div>
               </div>
-            ))}
-          </div>
-        )}
-      </div>
-      <ToastContainer />
+
+              <div className="mt-4 pt-4 border-t border-[#334155]">
+                <p className="text-sm text-[#94A3B8] mb-2">Price</p>
+                <p className="text-lg font-bold text-[#38BDF8]">
+                  {booking.price} ৳ / hr
+                </p>
+              </div>
+
+              {booking.status === 'Pending' ? (
+                <div className="mt-4 pt-4 border-t border-[#334155]">
+                  <button
+                    onClick={() => handleCancel(booking.id)}
+                    className="w-full rounded-xl bg-red-500/10 text-red-400 hover:bg-red-500/20 border border-red-500/20 py-3 font-medium text-center"
+                  >
+                    Cancel Booking
+                  </button>
+                </div>
+              ) : (
+                <div className="mt-4 pt-4 border-t border-[#334155] text-sm text-[#64748B]">
+                  <p>Status: <span className="font-medium text-[#38BDF8]">{booking.status}</span></p>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

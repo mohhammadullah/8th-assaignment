@@ -1,7 +1,10 @@
+"use client";
+
 import Link from "next/link";
-import { MapPin, ArrowLeft } from "lucide-react";
-import React from "react";
-import BookingButton from "./BookingButton"; // ক্লায়েন্ট কম্পোনেন্টটি ইমপোর্ট করা হলো
+import { MapPin, ArrowLeft, Calendar, Clock } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { API_BASE_URL } from "@/lib/api";
+import { useRouter } from "next/navigation";
 
 type Studio = {
   _id: string;
@@ -16,7 +19,7 @@ type Studio = {
 
 async function getStudioDetails(id: string): Promise<Studio | null> {
   try {
-    const res = await fetch(`http://localhost:5000/api/studios/${id}`, { cache: "no-store" });
+    const res = await fetch(`${API_BASE_URL}/api/studios/${id}`, { cache: "no-store", credentials: "include" });
     if (!res.ok) return null;
     return res.json();
   } catch (error) {
@@ -28,9 +31,76 @@ type PageProps = {
   params: Promise<{ id: string }>;
 };
 
-export default async function StudioDetailsPage({ params }: PageProps) {
-  const resolvedParams = await params;
-  const studio = await getStudioDetails(resolvedParams.id);
+export default function StudioDetailsPage({ params }: PageProps) {
+  const [studio, setStudio] = useState<Studio | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [isBooked, setIsBooked] = useState(false);
+  const [bookingError, bookingErrorState] = useState<string | null>(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    let cancelled = false;
+
+    params
+      .then(({ id }) => getStudioDetails(id))
+      .then((studioDetails) => {
+        if (!cancelled) setStudio(studioDetails);
+      })
+      .catch(() => {
+        if (!cancelled) setStudio(null);
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [params]);
+
+  const handleBook = async (e: React.SyntheticEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!studio) return;
+
+    setIsBooked(false);
+    bookingErrorState(null);
+    const formData = new FormData(e.currentTarget);
+
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/bookings`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          studioId: studio._id,
+          studioName: studio.title,
+          date: formData.get("date")?.toString() || "",
+          timeSlot: formData.get("timeSlot")?.toString() || "",
+          price: studio.hourlyRate,
+        }),
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || "Booking failed");
+      }
+
+      setIsBooked(true);
+      router.push("/my-bookings");
+    } catch (error: unknown) {
+      bookingErrorState(error instanceof Error ? error.message : "Booking failed");
+    }
+  };
+
+  if (loading) {
+    return (
+      <main className="flex min-h-screen items-center justify-center bg-[#0B1120] text-[#F1F5F9]">
+        <p>Loading studio...</p>
+      </main>
+    );
+  }
 
   if (!studio) {
     return (
@@ -88,9 +158,84 @@ export default async function StudioDetailsPage({ params }: PageProps) {
 
           <div className="mt-8 flex items-center justify-between border-t border-[#334155] pt-6">
             <span className="text-xs text-[#94A3B8]">Host Contact: {studio.ownerEmail || "N/A"}</span>
-            {/* ক্লায়েন্ট কম্পোনেন্ট এখানে রেন্ডার করা হলো */}
-            <BookingButton />
           </div>
+
+          {/* Booking Form */}
+          {isBooked ? (
+            <div className="mt-6 p-4 bg-[#1E293B]/50 rounded-xl text-center">
+              <p className="text-sm text-[#64748B]">
+                <span className="font-medium text-[#38BDF8]">Booking confirmed!</span>
+                Your booking is being processed. Check <Link href="/my-bookings" className="text-[#38BDF8] hover:underline">My Bookings</Link> for updates.
+              </p>
+            </div>
+          ) : (
+            <form
+              onSubmit={handleBook}
+              className="mt-8 p-6 bg-[#1E293B] rounded-2xl border border-[#334155]"
+            >
+              <h3 className="text-xl font-bold text-[#F1F5F9] mb-4">Book This Studio</h3>
+              {bookingError && (
+                <p role="alert" className="mb-4 text-sm text-red-400">
+                  {bookingError}
+                </p>
+              )}
+
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Select Date
+                </label>
+                <input
+                  type="date"
+                  name="date"
+                  required
+                  className="w-full rounded-xl border border-border bg-[#0B1120] py-3 pl-4 text-sm text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10"
+                />
+              </div>
+
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Select Time Slot
+                </label>
+                <select
+                  name="timeSlot"
+                  required
+                  className="w-full rounded-xl border border-border bg-[#0B1120] py-3 pl-4 text-sm text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10"
+                >
+                  <option value="" disabled>
+                    Select a time slot
+                  </option>
+                  <option value="09:00-11:00">09:00 - 11:00 AM</option>
+                  <option value="11:00-13:00">11:00 AM - 01:00 PM</option>
+                  <option value="13:00-15:00">01:00 - 03:00 PM</option>
+                  <option value="15:00-17:00">03:00 - 05:00 PM</option>
+                  <option value="17:00-19:00">05:00 - 07:00 PM</option>
+                </select>
+              </div>
+
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Price (per hour)
+                </label>
+                <p className="text-lg font-bold text-[#38BDF8]">
+                  {studio.hourlyRate} ৳ / hr
+                  <input
+                    type="hidden"
+                    name="price"
+                    value={studio.hourlyRate}
+                    className="hidden"
+                  />
+                </p>
+              </div>
+
+              <button
+                type="submit"
+                disabled={isBooked}
+                className="w-full rounded-xl bg-gradient-to-r from-primary to-[#818CF8] py-4 font-semibold text-primary-foreground transition hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isBooked ? "Booking..." : "Book Now"}
+              </button>
+            </form>
+          )}
         </div>
       </div>
     </main>

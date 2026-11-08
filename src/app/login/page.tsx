@@ -7,9 +7,12 @@ import { toast } from "react-toastify";
 import { LogIn, Mail, Lock, Loader2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { useUser } from "@/hooks/use-user";
+import { API_BASE_URL } from "@/lib/api";
 
 export default function LoginPage() {
   const router = useRouter();
+  const { refreshUser } = useUser();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
@@ -25,9 +28,10 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/api/auth/login", {
+      const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify(formData),
       });
 
@@ -37,6 +41,7 @@ export default function LoginPage() {
         throw new Error(data.message || "Invalid email or password");
       }
 
+      await refreshUser();
       toast.success("Successfully logged in!");
       router.push("/");
     } catch (error: unknown) {
