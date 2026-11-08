@@ -1,11 +1,23 @@
-import Link from "next/link"
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { StudioCard } from "@/components/home/studio-card";
+import type { Studio } from "@/lib/types";
 
-import { getFeaturedStudios } from "@/lib/studios"
-import { Button } from "@/components/ui/button"
-import { StudioCard } from "@/components/home/studio-card"
+async function getFeaturedStudios(): Promise<Studio[]> {
+  try {
+    const res = await fetch("http://localhost:5000/api/studios/featured", {
+      cache: "no-store",
+    });
+    if (!res.ok) return [];
+    return res.json();
+  } catch (error) {
+    console.error("Failed to fetch featured studios:", error);
+    return [];
+  }
+}
 
 export async function FeaturedStudios() {
-  const studios = await getFeaturedStudios()
+  const studios = await getFeaturedStudios();
 
   return (
     <section
@@ -17,10 +29,10 @@ export async function FeaturedStudios() {
       <div className="relative z-10">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div className="max-w-xl">
-            <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+            <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl text-foreground">
               Featured Studios
             </h2>
-            <p className="mt-2 text-muted-foreground-foreground">
+            <p className="mt-2 text-muted-foreground">
               Top-rated and newly listed spaces on StudioSpace — book them by the
               hour, straight from the host.
             </p>
@@ -36,11 +48,18 @@ export async function FeaturedStudios() {
         </div>
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {studios.map((studio) => (
-            <StudioCard key={studio.slug} studio={studio} />
-          ))}
+          {studios.length > 0 ? (
+            studios.map((studio) => (
+            
+              <StudioCard key={studio._id} studio={studio} />
+            ))
+          ) : (
+            <p className="text-muted-foreground col-span-full text-center">
+              No featured studios found.
+            </p>
+          )}
         </div>
       </div>
     </section>
-  )
+  );
 }

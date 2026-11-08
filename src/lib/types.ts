@@ -11,11 +11,17 @@ export type Category = (typeof CATEGORIES)[number]
 // Serialized studio as consumed by UI components — plain scalars only, no
 // mongoose documents or ObjectIds.
 export type Studio = {
-  slug: string
-  title: string
-  category: string
-  image: string
-  hourlyRate: number
-  rating: number
-  location: string
-}
+  _id?: string; 
+  id?: string;
+  slug?: string;
+  title: string;
+  category: string;
+  hourlyRate: number;
+  securityDeposit?: number;
+  maxCapacity?: number;
+  location: string;
+  image: string;
+  overview?: string;
+  rating?: number;
+  amenities?: string[];
+};

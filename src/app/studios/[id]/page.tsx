@@ -1,118 +1,98 @@
-'use client';
-import { useState, useEffect } from 'react';
+import Link from "next/link";
+import { MapPin, ArrowLeft } from "lucide-react";
+import React from "react";
+import BookingButton from "./BookingButton"; // ক্লায়েন্ট কম্পোনেন্টটি ইমপোর্ট করা হলো
 
-interface Studio {
-  id: string;
-  name: string;
-  description: string;
-  specifications: string;
-  gallery: string[];
-  amenities: string[];
-  host: {
-    name: string;
-    bio: string;
-    image: string;
-  };
+type Studio = {
+  _id: string;
+  image?: string;
+  title: string;
+  category: string;
+  location: string;
+  hourlyRate: number;
+  description?: string;
+  ownerEmail?: string;
+};
+
+async function getStudioDetails(id: string): Promise<Studio | null> {
+  try {
+    const res = await fetch(`http://localhost:5000/api/studios/${id}`, { cache: "no-store" });
+    if (!res.ok) return null;
+    return res.json();
+  } catch (error) {
+    return null;
+  }
 }
 
-export default function StudioPage({ params }: { params: { id: string } }) {
-  const [studio, setStudio] = useState<Studio | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [showModal, setShowModal] = useState(false);
+type PageProps = {
+  params: Promise<{ id: string }>;
+};
 
-  useEffect(() => {
-    const fetchStudio = async () => {
-      try {
-        const res = await fetch(`http://localhost:5000/api/studios/${params.id}`);
-        if (!res.ok) {
-          throw new Error('Failed to fetch studio data');
-        }
-        const data: Studio = await res.json();
-        setStudio(data);
-      } catch (err) {
-        setError((err as Error).message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchStudio();
-  }, [params.id]);
+export default async function StudioDetailsPage({ params }: PageProps) {
+  const resolvedParams = await params;
+  const studio = await getStudioDetails(resolvedParams.id);
 
-  if (loading) return <p className="text-center py-10">Loading studio details...</p>;
-  if (error) return <p className="text-center text-red-600">Error: {error}</p>;
-  if (!studio) return <p className="text-center text-gray-500">Studio not found.</p>;
+  if (!studio) {
+    return (
+      <main className="flex min-h-screen flex-col items-center justify-center bg-[#0B1120] text-[#F1F5F9]">
+        <h1 className="text-2xl font-bold">Studio not found</h1>
+        <Link href="/studios" className="mt-4 rounded-xl bg-[#38BDF8] px-4 py-2 text-white">
+          Back to Studios
+        </Link>
+      </main>
+    );
+  }
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-4 text-gray-800">{studio.name}</h1>
-      <p className="text-gray-600 mb-6">{studio.description}</p>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-        {studio.gallery.map((img) => (
-          <img
-            key={img}
-            src={img}
-            alt={`${studio.name} gallery`}
-            className="rounded shadow"
-          />
-        ))}
-      </div>
-
-      <div className="mb-6">
-        <h2 className="text-xl font-semibold mb-2 text-gray-800">Specifications</h2>
-        <p className="text-gray-700">{studio.specifications}</p>
-      </div>
-
-      <div className="mb-6">
-        <h2 className="text-xl font-semibold mb-2 text-gray-800">Amenities</h2>
-        <ul className="list-disc list-inside space-y-1">
-          {studio.amenities.map((amenity) => (
-            <li key={amenity} className="text-gray-600">{amenity}</li>
-          ))}
-        </ul>
-      </div>
-
-      <div className="flex items-center justify-between mb-6">
-        <img
-          src={studio.host.image}
-          alt={`${studio.host.name} profile`}
-          className="w-20 h-20 rounded-full object-cover"
-        />
-        <div className="text-right">
-          <h3 className="text-lg font-semibold text-gray-800">{studio.host.name}</h3>
-          <p className="text-sm text-gray-600">{studio.host.bio}</p>
-        </div>
-      </div>
-
-      <div className="flex justify-center">
-        <button
-          onClick={() => setShowModal(true)}
-          className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+    <main className="min-h-screen bg-[#0B1120] px-4 py-12 text-[#F1F5F9] sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-4xl">
+        <Link
+          href="/studios"
+          className="mb-6 inline-flex items-center gap-2 text-sm text-[#38BDF8] transition hover:underline"
         >
-          Book Workspace Now
-        </button>
-      </div>
+          <ArrowLeft size={16} /> Back to Studios
+        </Link>
 
-      {/* Booking Modal */}
-      {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg shadow-lg p-6 max-w-md w-full">
-            <h2 className="text-xl font-semibold mb-4 text-gray-800">Book Workspace</h2>
-            <p className="text-gray-600 mb-4">
-              Select your dates and confirm your reservation to secure the workspace.
-            </p>
-            <div className="flex justify-end space-x-3">
-              <button
-                onClick={() => setShowModal(false)}
-                className="bg-gray-200 text-gray-800 px-4 py-2 rounded"
-              >
-                Close
-              </button>
+        <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-[#334155] bg-[#1E293B]">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={studio.image || "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800"}
+            alt={studio.title}
+            className="h-full w-full object-cover"
+          />
+          <span className="absolute left-4 top-4 rounded-full bg-[#0B1120]/80 px-3 py-1 text-xs font-semibold text-[#38BDF8] backdrop-blur-md">
+            {studio.category}
+          </span>
+        </div>
+
+        <div className="mt-8 rounded-2xl border border-[#334155] bg-[#1E293B] p-6 sm:p-8">
+          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+            <div>
+              <h1 className="text-2xl font-bold text-[#F1F5F9] sm:text-3xl">{studio.title}</h1>
+              <p className="mt-2 flex items-center gap-1 text-sm text-[#94A3B8]">
+                <MapPin size={16} className="text-[#38BDF8]" /> {studio.location}
+              </p>
+            </div>
+            <div className="text-right">
+              <span className="text-xs text-[#94A3B8]">Hourly Rate</span>
+              <p className="text-2xl font-bold text-[#38BDF8]">${studio.hourlyRate} / hr</p>
             </div>
           </div>
+
+          <div className="mt-6 border-t border-[#334155] pt-6">
+            <h3 className="text-lg font-semibold text-[#F1F5F9]">About This Studio</h3>
+            <p className="mt-2 text-sm leading-relaxed text-[#94A3B8]">
+              {studio.description || "No description provided for this studio yet. Enjoy a professional creative space equipped with top-tier amenities for your next project."}
+            </p>
+          </div>
+
+          <div className="mt-8 flex items-center justify-between border-t border-[#334155] pt-6">
+            <span className="text-xs text-[#94A3B8]">Host Contact: {studio.ownerEmail || "N/A"}</span>
+            {/* ক্লায়েন্ট কম্পোনেন্ট এখানে রেন্ডার করা হলো */}
+            <BookingButton />
+          </div>
         </div>
-      )}
-    </div>
+      </div>
+    </main>
   );
 }

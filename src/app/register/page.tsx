@@ -1,8 +1,8 @@
-
 "use client";
 
 import { useState, type ChangeEvent, type FormEvent } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   User,
   Mail,
@@ -15,11 +15,11 @@ import {
   X,
   Sparkles,
   Loader2,
-  Image as ImageIcon,
 } from "lucide-react";
 import { toast } from "react-toastify";
 
 export default function RegisterPage() {
+  const router = useRouter();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [photoUrl, setPhotoUrl] = useState("");
@@ -96,13 +96,29 @@ export default function RegisterPage() {
     try {
       setLoading(true);
 
-      // Connect your actual authentication registration API here.
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      // ব্যাকএন্ড API-এ রেজিস্ট্রেশন রিকোয়েস্ট পাঠানো
+      const res = await fetch("http://localhost:5000/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          email,
+          photoUrl,
+          password,
+        }),
+      });
 
-      toast.success("Registration successful!");
+      const data = await res.json();
 
-    } catch {
-      toast.error("Something went wrong. Please try again.");
+      if (!res.ok) {
+        throw new Error(data.message || "Registration failed");
+      }
+
+      toast.success("Registration successful! Please login.");
+      router.push("/login"); 
+
+    } catch (error: unknown) {
+      toast.error(error instanceof Error ? error.message : "Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }

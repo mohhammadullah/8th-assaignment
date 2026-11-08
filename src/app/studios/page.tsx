@@ -10,9 +10,14 @@ type Studio = {
   hourlyRate: number;
 };
 
-async function getStudios(): Promise<Studio[]> {
+// searchParams প্রপস যোগ করা হলো ক্যাটাগরি ধরার জন্য
+async function getStudios(category?: string): Promise<Studio[]> {
   try {
-    const res = await fetch("http://localhost:5000/api/studios", { cache: "no-store" });
+    let url = "http://localhost:5000/api/studios";
+    if (category) {
+      url = `http://localhost:5000/api/studios?category=${encodeURIComponent(category)}`;
+    }
+    const res = await fetch(url, { cache: "no-store" });
     if (!res.ok) return [];
     return res.json();
   } catch (error) {
@@ -20,8 +25,16 @@ async function getStudios(): Promise<Studio[]> {
   }
 }
 
-export default async function StudiosPage() {
-  const studios = await getStudios();
+// Next.js পেজে searchParams প্রপস রিসিভ করা
+export default async function StudiosPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ category?: string }>;
+}) {
+  const resolvedParams = await searchParams;
+  const category = resolvedParams.category;
+  
+  const studios = await getStudios(category);
 
   return (
     <main className="min-h-screen bg-[#0B1120] px-4 py-12 text-[#F1F5F9] sm:px-6 lg:px-8">
@@ -31,7 +44,9 @@ export default async function StudiosPage() {
             Explore Creative <span className="text-[#38BDF8]">Studios</span>
           </h1>
           <p className="mt-3 text-sm text-[#94A3B8]">
-            Discover top-rated spaces for photography, film, podcast, and music.
+            {category 
+              ? `Showing studios for category: "${category}"`
+              : "Discover top-rated spaces for photography, film, podcast, and music."}
           </p>
         </div>
 
@@ -85,8 +100,8 @@ export default async function StudiosPage() {
             ))
           ) : (
             <div className="col-span-full py-20 text-center text-[#94A3B8]">
-              <p className="text-lg">No studios found.</p>
-              <p className="mt-1 text-sm">Try adding a new studio from the host page!</p>
+              <p className="text-lg">No studios found for this category.</p>
+              <p className="mt-1 text-sm">Try selecting another category or view all studios!</p>
             </div>
           )}
         </div>

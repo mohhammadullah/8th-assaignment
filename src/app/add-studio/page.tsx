@@ -1,4 +1,3 @@
-
 "use client";
 
 import { toast } from "react-toastify";
@@ -103,7 +102,8 @@ export default function HostingPage() {
     };
 
     try {
-      const res = await fetch("http://localhost:5000/host", {
+     
+     const res = await fetch("http://localhost:5000/api/studios", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

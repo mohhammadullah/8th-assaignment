@@ -29,11 +29,15 @@ export function StudioCard({
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           className="object-cover transition-transform duration-500 group-hover/card:scale-105"
         />
+        
+   
         <Badge className="absolute top-3 left-3 bg-[#38BDF8] text-[#F1F5F9] backdrop-blur-sm">
           {studio.category}
         </Badge>
-        <Badge className="absolute top-3 right-3 border-0 bg-[#0B1120]/80 text-[#38BDF8] backdrop-blur-md">
-          <Star className="fill-current" /> {studio.rating.toFixed(1)}
+
+   
+        <Badge className="absolute top-3 right-3 border-0 bg-[#0B1120]/80 text-[#38BDF8] backdrop-blur-md flex items-center gap-1">
+          <Star className="fill-current size-3.5" /> {studio.rating?.toFixed(1) ?? "5.0"}
         </Badge>
       </div>
 
@@ -53,7 +57,7 @@ export function StudioCard({
         <Button
           variant="outline"
           nativeButton={false}
-          render={<Link href={`/studios/${studio.slug}`} />}
+          render={<Link href={`/studios/${studio._id || studio.slug}`} />}
           className="border-[#334155] text-foreground hover:border-[#38BDF8] hover:bg-[#38BDF8]/10 hover:text-foreground transition-all duration-300"
         >
           View Details
