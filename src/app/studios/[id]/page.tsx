@@ -4,6 +4,7 @@ import Link from "next/link";
 import { MapPin, ArrowLeft } from "lucide-react";
 import React, { useEffect, useState, use } from "react";
 import { API_BASE_URL } from "@/lib/api";
+import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 type Studio = {
@@ -121,9 +122,7 @@ export default function StudioDetailsPage({ params }: PageProps) {
     };
   }, [id, date]);
 
-  // If the selected slot got booked (e.g. after a date change), show the
-  // select as unselected instead of holding a stale value — derived during
-  // render, no extra state sync needed.
+
   const displaySlot = bookedSlots.includes(timeSlot) ? "" : timeSlot;
 
   const allSlotsBooked =
@@ -136,8 +135,7 @@ export default function StudioDetailsPage({ params }: PageProps) {
     setIsBooked(false);
     setBookingError(null);
 
-    // Belt-and-braces: the option is already disabled, but never submit
-    // a slot the availability check flagged as booked.
+
     if (!date || !timeSlot || bookedSlots.includes(timeSlot)) {
       setBookingError("This time slot is no longer available. Pick another one.");
       return;
@@ -171,9 +169,20 @@ export default function StudioDetailsPage({ params }: PageProps) {
       }
 
       setIsBooked(true);
+      toast.success("Studio booked successfully!");
       router.push("/my-bookings");
     } catch (error: unknown) {
-      setBookingError(error instanceof Error ? error.message : "Booking failed");
+      const message =
+        error instanceof Error ? error.message : "Booking failed";
+      setBookingError(message);
+
+      toast.error(message);
+   
+      if (date) {
+        getBookedSlots(id, date)
+          .then((slots) => setBookedSlots(slots))
+          .catch(() => undefined);
+      }
     }
   };
 

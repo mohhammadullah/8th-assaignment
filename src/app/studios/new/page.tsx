@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'sonner';
+
 import { API_BASE_URL } from '@/lib/api';
 import { ArrowLeft, Loader2 } from 'lucide-react';
 import Link from 'next/link';
@@ -67,7 +67,7 @@ export default function AddStudioPage() {
           <ArrowLeft size={16} /> Back to Studios
         </Link>
 
-        <ToastContainer position="top-right" />
+        
 
         <div className="rounded-2xl border border-slate-200 dark:border-[#334155] bg-white dark:bg-[#1E293B] p-6 sm:p-8 shadow-xl">
           <h1 className="text-2xl font-bold mb-6 text-slate-900 dark:text-[#F1F5F9]">Add New Studio Listing</h1>

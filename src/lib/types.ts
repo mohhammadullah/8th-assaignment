@@ -8,8 +8,7 @@ export const CATEGORIES = [
 
 export type Category = (typeof CATEGORIES)[number]
 
-// Serialized studio as consumed by UI components — plain scalars only, no
-// mongoose documents or ObjectIds.
+
 export type Studio = {
   _id?: string; 
   id?: string;

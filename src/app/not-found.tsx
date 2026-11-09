@@ -38,7 +38,7 @@ export default function NotFound() {
           </Link>
           <Link
             href="/studios"
-            className="flex items-center gap-2 rounded-xl border border-slate-200 dark:border-[#334155] bg-white dark:bg-[#1E293B] px-7 py-3.5 font-semibold text-slate-900 dark:text-[#F1F5F9] transition hover:border-sky-500/50 dark:hover:border-[#38BDF8]/50 hover:bg-white dark:hover:bg-[#1E293B]"
+            className="flex items-center gap-2 rounded-xl border border-slate-200 dark:border-[#334155] bg-white dark:bg-[#1E293B] px-7 py-3.5 font-semibold text-slate-900 dark:text-[#F1F5F9] transition-all duration-300 hover:border-sky-500/50 dark:hover:border-[#38BDF8]/50 hover:bg-white dark:hover:bg-[#1E293B]"
           >
             <Compass size={18} />
             Explore Studios

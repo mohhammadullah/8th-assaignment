@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
 
-// Cache the connection across dev hot-reload module resets; otherwise the
-// MongoDB event loop keeps multiple connections open and exhausts itself.
+
+
 const globalWithMongoose = globalThis as typeof globalThis & {
   __studioSpaceMongoose?: {
     conn: typeof mongoose | null

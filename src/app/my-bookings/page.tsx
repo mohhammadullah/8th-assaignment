@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'sonner';
+
 import { API_BASE_URL } from '@/lib/api';
 import { downloadInvoice } from '@/lib/invoice';
 import { useUser } from '@/hooks/use-user';
@@ -62,15 +62,17 @@ export default function MyBookingsPage() {
     return () => window.clearTimeout(timeoutId);
   }, [user, fetchMyBookings]);
 
-  const handleCancel = async (booking: UserBooking) => {
-    const bookingId = booking._id || booking.id;
+  const [cancelTarget, setCancelTarget] = useState<UserBooking | null>(null);
+
+  const confirmCancel = async () => {
+    if (!cancelTarget) return;
+    const bookingId = cancelTarget._id || cancelTarget.id;
 
     if (!bookingId) {
       toast.error('Booking ID not found');
+      setCancelTarget(null);
       return;
     }
-
-    if (!window.confirm('Are you sure you want to cancel this booking?')) return;
 
     try {
       const res = await fetch(`${API_BASE_URL}/api/bookings/${bookingId}`, {
@@ -85,7 +87,7 @@ export default function MyBookingsPage() {
         throw new Error('Failed to cancel booking');
       }
 
-      // ✅ ইনস্ট্যান্ট UI আপডেট: ক্লিয়ার করার সাথে সাথে কার্ড সরিয়ে ফেলা
+   
       setBookings((prevBookings) =>
         prevBookings.filter((b) => (b._id || b.id) !== bookingId)
       );
@@ -94,6 +96,8 @@ export default function MyBookingsPage() {
     } catch (err) {
       console.error('Cancel error:', err);
       toast.error('Failed to cancel booking');
+    } finally {
+      setCancelTarget(null);
     }
   };
 
@@ -113,14 +117,14 @@ export default function MyBookingsPage() {
     return (
       <div className="p-6 bg-white dark:bg-[#0F172A] min-h-screen text-red-400">
         <p>{error}</p>
-        <ToastContainer />
+        
       </div>
     );
   }
 
   return (
     <div className="p-6 bg-white dark:bg-[#0F172A] min-h-screen">
-      <ToastContainer />
+      
       <h1 className="text-2xl font-bold text-slate-900 dark:text-[#F1F5F9] mb-6">My Bookings</h1>
 
       {bookings.length === 0 ? (
@@ -174,7 +178,7 @@ export default function MyBookingsPage() {
                   </button>
                   {booking.status === 'Pending' ? (
                     <button
-                      onClick={() => handleCancel(booking)}
+                      onClick={() => setCancelTarget(booking)}
                       className="w-full rounded-xl bg-red-500/10 text-red-400 hover:bg-red-500/20 border border-red-500/20 py-3 font-medium text-center transition-colors cursor-pointer"
                     >
                       Cancel Booking
@@ -188,6 +192,38 @@ export default function MyBookingsPage() {
               </div>
             );
           })}
+        </div>
+      )}
+
+     
+      {cancelTarget && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm">
+          <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-6 shadow-md transition-colors duration-300 dark:border-[#334155] dark:bg-[#1E293B]">
+            <h3 className="mb-2 text-lg font-semibold text-slate-900 dark:text-[#F1F5F9]">
+              Cancel booking?
+            </h3>
+            <p className="mb-6 text-sm text-slate-600 dark:text-[#94A3B8]">
+              Are you sure you want to cancel your booking of{' '}
+              <span className="font-medium text-slate-900 dark:text-[#F1F5F9]">
+                {cancelTarget.studioName}
+              </span>
+              ? This will free up the time slot for other guests.
+            </p>
+            <div className="flex justify-end gap-3">
+              <button
+                onClick={() => setCancelTarget(null)}
+                className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition-colors duration-300 hover:bg-slate-100 cursor-pointer dark:border-[#334155] dark:bg-[#0F172A] dark:text-[#F1F5F9] dark:hover:bg-[#334155]"
+              >
+                Keep booking
+              </button>
+              <button
+                onClick={() => void confirmCancel()}
+                className="rounded-xl bg-red-600 px-4 py-2 text-sm font-semibold text-white transition-colors duration-300 hover:bg-red-700 cursor-pointer"
+              >
+                Yes, cancel
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

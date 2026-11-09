@@ -2,8 +2,8 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'sonner';
+
 import { API_BASE_URL } from '@/lib/api';
 import { useUser } from '@/hooks/use-user';
 import { Loader2 } from 'lucide-react';
@@ -28,7 +28,6 @@ export default function MyListingsPage() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
-  // ✅ শুধু বর্তমান লগইন করা ইউজারের ইমেল দিয়ে তার নিজের লিস্টিংগুলো ফেচ করা
   const fetchListings = useCallback(async () => {
     if (!user?.email) return [];
     try {
@@ -110,7 +109,7 @@ export default function MyListingsPage() {
         throw new Error('Failed to delete listing');
       }
 
-      // ইনস্ট্যান্ট লোকাল স্টেট আপডেট (Optimistic UI)
+   
       setListings((prev) => prev.filter((item) => item._id !== selectedId));
       
       setShowDeleteModal(false);
@@ -150,7 +149,7 @@ export default function MyListingsPage() {
         </Link>
       </div>
 
-      <ToastContainer position="top-right" />
+      
 
       {listings.length === 0 ? (
         <div className="text-center py-16 bg-slate-50/50 dark:bg-white dark:bg-[#1E293B]/50 border border-slate-200 dark:border-[#334155] rounded-2xl">

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { Toaster } from "sonner";
+
 import { SiteHeader } from "@/components/layout/header";
 import { GoogleAuthProvider } from "@/components/GoogleAuthProvider";
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -37,11 +37,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ThemeProvider>
           <GoogleAuthProvider>
             <AuthProvider>
-              <ToastContainer
+              <Toaster
                 position="top-right"
-                autoClose={3000}
-                theme="dark"
-                newestOnTop
+                richColors
+                closeButton
+                theme="system"
+                toastOptions={{
+                  style: {
+                    background: "var(--card)",
+                    color: "var(--card-foreground)",
+                    border: "1px solid var(--border)",
+                  },
+                }}
               />
               <SiteHeader />
               <main className="flex-1">{children}</main>

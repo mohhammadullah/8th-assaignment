@@ -1,1 +1,0 @@
-Lib directory. Contains utility functions and utilities for the application.

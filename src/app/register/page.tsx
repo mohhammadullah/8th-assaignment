@@ -16,7 +16,7 @@ import {
   Sparkles,
   Loader2,
 } from "lucide-react";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import { GoogleLogin, type CredentialResponse } from "@react-oauth/google";
 import { API_BASE_URL } from "@/lib/api";
 import { sendGoogleCredential } from "@/lib/google-auth";
@@ -102,7 +102,7 @@ export default function RegisterPage() {
     try {
       setLoading(true);
 
-      // ব্যাকএন্ড API-এ রেজিস্ট্রেশন রিকোয়েস্ট পাঠানো
+      
       const res = await fetch(`${API_BASE_URL}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },

@@ -1,7 +1,12 @@
 
 export function FeaturedStudiosSkeleton() {
   return (
-    <section className="mx-auto w-full max-w-7xl px-4 py-20 sm:px-6">
+    <section
+      role="status"
+      aria-busy="true"
+      aria-label="Loading featured studios"
+      className="mx-auto w-full max-w-7xl px-4 py-20 sm:px-6"
+    >
       <div className="animate-pulse">
         {/* Heading Skeleton */}
         <div className="flex flex-wrap items-end justify-between gap-4">

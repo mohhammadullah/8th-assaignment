@@ -1,38 +1,37 @@
-import type { Studio } from "@/lib/types"
-import { StudioModel, type StudioDoc } from "@/models/studio"
-import sampleStudios from "@/data/sample-studios.json"
-import { connectToDB } from "@/lib/db"
+// import type { Studio } from "@/lib/types"
+// import { StudioModel, type StudioDoc } from "@/models/studio"
+// // import sampleStudios from "@/data/sample-studios.json"
+// import { connectToDB } from "@/lib/db"
 
-// Rendered when MongoDB is missing, unreachable, or has no studios yet — the
-// featured section should never look broken during local development.
-const FALLBACK_STUDIOS = sampleStudios as unknown as Studio[]
+// // Rendered when MongoDB is missing, unreachable, or has no studios yet — the
+// // featured section should never look broken during local development.
+// // const FALLBACK_STUDIOS = sampleStudios as unknown as Studio[]
 
-// Top-rated first, then the newest additions. The UI renders whatever list
-// exists, so on DB failure the sample data still demos the layout.
-export async function getFeaturedStudios(): Promise<Studio[]> {
-  try {
-    if (!process.env.MONGODB_URI) return FALLBACK_STUDIOS
 
-    await connectToDB()
+// // export async function getFeaturedStudios(): Promise<Studio[]> {
+//   try {
+//     // if (!process.env.MONGODB_URI) return FALLBACK_STUDIOS
 
-    const docs = (await StudioModel.find()
-      .sort({ rating: -1, createdAt: -1 })
-      .limit(6)
-      .lean()) as StudioDoc[]
+//     await connectToDB()
 
-    if (docs.length === 0) return FALLBACK_STUDIOS
+//     const docs = (await StudioModel.find()
+//       .sort({ rating: -1, createdAt: -1 })
+//       .limit(6)
+//       .lean()) as StudioDoc[]
 
-    return docs.map((doc) => ({
-      slug: doc.slug,
-      title: doc.title,
-      category: doc.category,
-      image: doc.image,
-      hourlyRate: doc.hourlyRate,
-      rating: doc.rating,
-      location: doc.location,
-    }))
-  } catch (error) {
-    console.error("[getFeaturedStudios] falling back to sample studios:", error)
-    return FALLBACK_STUDIOS
-  }
-}
+//     // if (docs.length === 0) return FALLBACK_STUDIOS
+
+//     return docs.map((doc) => ({
+//       slug: doc.slug,
+//       title: doc.title,
+//       category: doc.category,
+//       image: doc.image,
+//       hourlyRate: doc.hourlyRate,
+//       rating: doc.rating,
+//       location: doc.location,
+//     }))
+//   } catch (error) {
+//     console.error("[getFeaturedStudios] falling back to sample studios:", error)
+//     // return FALLBACK_STUDIOS
+//   }
+// // }

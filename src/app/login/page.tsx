@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { GoogleLogin, type CredentialResponse } from "@react-oauth/google";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import { LogIn, Mail, Lock, Loader2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";

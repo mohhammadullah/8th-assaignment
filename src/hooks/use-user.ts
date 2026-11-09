@@ -126,5 +126,5 @@ export function useUser(): AuthContextType {
   return ctx;
 }
 
-/** Alias kept so old `useAuth` imports keep working during the migration. */
+
 export const useAuth = useUser;

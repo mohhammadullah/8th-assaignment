@@ -1,1 +1,0 @@
-Data directory. Contains data files used by the application, such as sample-studios.json for mock data.

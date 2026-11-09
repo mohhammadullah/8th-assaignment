@@ -7,11 +7,7 @@ export type GoogleUser = {
   photoUrl?: string;
 };
 
-/**
- * Exchanges a Google `credential` (ID token) for our app session.
- * The backend verifies it with google-auth-library and sets the
- * HTTPOnly `token` cookie; `apiFetch` sends `credentials: "include"`.
- */
+
 export async function sendGoogleCredential(
   credential: string
 ): Promise<GoogleUser> {

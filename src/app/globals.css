@@ -2,7 +2,7 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-/* Class-based dark mode (next-themes toggles `.dark` on <html>) */
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme inline {
@@ -49,7 +49,7 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-/* Cinematic Color Palette — Charcoal dominant, Orange & Amber as lighting */
+
 :root {
   --charcoal: #0B1120;
   --orange: #38BDF8;
@@ -129,7 +129,7 @@
   --sidebar-ring: #38BDF8;
 }
 
-/* Light theme (next-themes toggles `.light` on <html>) */
+
 .light {
   --charcoal: #F8FAFC;
   --orange: #0284C7;
@@ -173,7 +173,7 @@
   * {
     @apply border-border outline-ring/50;
   }
-  /* Smooth theme switching for surfaces and text */
+ 
   body,
   header,
   footer,
@@ -209,7 +209,7 @@
 }
 
 @layer utilities {
-  /* Section background variations — each section gets subtle depth */
+
   .bg-section-hero {
     background:
       radial-gradient(circle at 50% 0%, rgba(255, 107, 53, 0.12), transparent 55%),

@@ -1,6 +1,6 @@
 "use client";
 
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import { useState } from "react";
 import type { ChangeEvent, FormEvent } from "react";
 import Link from "next/link";
@@ -13,6 +13,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { API_BASE_URL } from "@/lib/api";
+import ProtectedRoute from "@/components/ProtectedRoute";
 
 const categories = [
   "Photography Studio",
@@ -58,6 +59,14 @@ const initialFormData: FormData = {
 };
 
 export default function HostingPage() {
+  return (
+    <ProtectedRoute>
+      <HostingForm />
+    </ProtectedRoute>
+  );
+}
+
+function HostingForm() {
   const [amenities, setAmenities] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState<FormData>(initialFormData);
@@ -67,7 +76,7 @@ export default function HostingPage() {
 
   const labelClass = "text-sm font-medium text-slate-900 dark:text-[#F1F5F9]";
 
-  // Handle Input Change
+  
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
@@ -79,7 +88,7 @@ export default function HostingPage() {
     }));
   };
 
-  // Toggle Amenities
+
   const toggleAmenity = (item: string) => {
     setAmenities((prev) =>
       prev.includes(item)
@@ -88,7 +97,6 @@ export default function HostingPage() {
     );
   };
 
-  // Handle Form Submit
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 

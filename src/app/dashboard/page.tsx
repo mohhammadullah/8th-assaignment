@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import {
   ArrowRight,
   Building,

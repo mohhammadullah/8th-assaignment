@@ -20,11 +20,7 @@ function formatDate(value: string): string {
   });
 }
 
-/**
- * Generate a StudioSpace booking invoice PDF and trigger a browser download.
- * The invoice is computed entirely on the client from the booking already
- * in the browser — no server round-trip needed.
- */
+
 export function downloadInvoice(
   booking: InvoiceBooking,
   user: { name: string; email: string }

@@ -12,7 +12,6 @@ type Studio = {
   hourlyRate: number;
 };
 
-// searchParams প্রপস যোগ করা হলো ক্যাটাগরি ধরার জন্য
 async function getStudios(category?: string): Promise<Studio[]> {
   try {
     let url = `${API_BASE_URL}/api/studios`;
@@ -27,7 +26,7 @@ async function getStudios(category?: string): Promise<Studio[]> {
   }
 }
 
-// Next.js পেজে searchParams প্রপস রিসিভ করা
+
 export default async function StudiosPage({
   searchParams,
 }: {

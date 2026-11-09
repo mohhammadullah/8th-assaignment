@@ -1,1 +1,0 @@
-Components directory. Contains reusable UI components organized into categories: auth, home, layout, ui.

@@ -7,6 +7,7 @@ import {
   Building,
   CalendarCheck,
   CirclePlus,
+  Heart,
   LayoutDashboard,
   LogOut,
   Menu,
@@ -164,6 +165,10 @@ function UserMenu({
 
           <DropdownMenuItem onClick={() => router.push("/my-bookings")} className="flex items-center gap-2 cursor-pointer">
             <CalendarCheck size={16} className="text-sky-600 dark:text-[#38BDF8]" /> My Bookings
+          </DropdownMenuItem>
+
+          <DropdownMenuItem onClick={() => router.push("/wishlist")} className="flex items-center gap-2 cursor-pointer">
+            <Heart size={16} className="text-sky-600 dark:text-[#38BDF8]" /> Saved Studios
           </DropdownMenuItem>
         </DropdownMenuGroup>
 

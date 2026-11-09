@@ -15,7 +15,7 @@ import "swiper/css"
 import "swiper/css/navigation"
 import "swiper/css/pagination"
 
-// High-res visuals (1600px, WEBP via Unsplash) suitable for full-bleed hero.
+
 const SLIDES = [
   {
     id: "photo-studio",
@@ -59,7 +59,7 @@ function SlideVisual({ slide }: { slide: Slide }) {
         priority={slide.id === "photo-studio"}
         className="object-cover"
       />
-      {/* Readability scrim: dark overlay in both themes so white text pops */}
+     
       <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/40 to-slate-950/10" />
       <div className="absolute inset-x-0 bottom-[20%] h-[30%] bg-gradient-to-t from-sky-500/20 to-transparent pointer-events-none" />
 
@@ -102,9 +102,7 @@ export function SiteHero() {
   const hydrated = useHydrated()
   const swiperRef = React.useRef<SwiperClass | null>(null)
 
-  // Swiper's autoplay reads `new Date()` during initialization, which fails
-  // the static prerender under cacheComponents, so mount it after hydration.
-  // Until then a static first slide keeps the hero server-rendered.
+
   if (!hydrated) {
     return (
       <section data-slot="site-hero" aria-label="Featured studio spaces">

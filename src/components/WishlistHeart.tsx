@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Heart, Loader2 } from "lucide-react";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { apiFetch } from "@/lib/api";
 import { useUser } from "@/hooks/use-user";
