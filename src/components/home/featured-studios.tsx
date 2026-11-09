@@ -9,6 +9,7 @@ async function getFeaturedStudios(): Promise<Studio[]> {
     const res = await fetch(`${API_BASE_URL}/api/studios/featured`, {
       cache: "no-store",
       credentials: "include",
+      signal: AbortSignal.timeout(15000),
     });
     if (!res.ok) return [];
     return res.json();

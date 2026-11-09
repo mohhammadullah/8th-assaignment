@@ -22,7 +22,7 @@ export async function connectToDB() {
   if (cached.conn) return cached.conn
 
   cached.promise ??= mongoose.connect(uri, {
-    dbName: process.env.MONGODB_DB ?? "studiospace",
+    dbName: process.env.MONGODB_DB ?? "studio-space",
   })
   cached.conn = await cached.promise
 

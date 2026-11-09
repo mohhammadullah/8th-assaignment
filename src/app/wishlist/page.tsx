@@ -5,6 +5,7 @@ import Link from "next/link";
 import { toast } from "sonner";
 import { Heart, Loader2, MapPin, Star } from "lucide-react";
 import { apiFetch } from "@/lib/api";
+import { StudioImage } from "@/components/studio-image";
 import { useUser } from "@/hooks/use-user";
 import ProtectedRoute from "@/components/ProtectedRoute";
 
@@ -115,11 +116,11 @@ function WishlistContent() {
                 className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:border-sky-500/50 hover:shadow-md dark:border-[#334155] dark:bg-[#1E293B] dark:hover:border-[#38BDF8]/50"
               >
                 <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#F8FAFC] dark:bg-[#0B1120]">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={studio.image || "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800"}
+                  <StudioImage
+                    src={studio.image}
                     alt={studio.title}
-                    className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    className="transition-transform duration-500 hover:scale-105"
                   />
                   <span className="absolute left-3 top-3 rounded-full bg-white/80 px-3 py-1 text-xs font-semibold text-sky-600 backdrop-blur-md dark:bg-[#0B1120]/80 dark:text-[#38BDF8]">
                     {studio.category}

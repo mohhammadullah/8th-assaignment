@@ -7,9 +7,16 @@ const nextConfig: NextConfig = {
   serverExternalPackages: ["mongoose"],
   images: {
     remotePatterns: [
+      // Studio images are user-supplied URLs, so any http(s) host is allowed.
+      // The StudioImage component falls back to a designed placeholder when a
+      // host is dead, so this stays permissive without showing broken icons.
       {
         protocol: "https",
-        hostname: "**", 
+        hostname: "**",
+      },
+      {
+        protocol: "http",
+        hostname: "**",
       },
     ],
   },

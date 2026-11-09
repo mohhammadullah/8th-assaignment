@@ -4,6 +4,7 @@ import Link from "next/link";
 import { MapPin, ArrowLeft } from "lucide-react";
 import React, { useEffect, useState, use } from "react";
 import { API_BASE_URL } from "@/lib/api";
+import { StudioImage } from "@/components/studio-image";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
@@ -25,7 +26,7 @@ async function getStudioDetails(id: string): Promise<Studio | null> {
     const res = await fetch(`${API_BASE_URL}/api/studios/${id}`, { cache: "no-store", credentials: "include" });
     if (!res.ok) return null;
     return res.json();
-  } catch (error) {
+  } catch {
     return null;
   }
 }
@@ -224,12 +225,7 @@ export default function StudioDetailsPage({ params }: PageProps) {
         </Link>
 
         <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-slate-200 dark:border-[#334155] bg-white dark:bg-[#1E293B]">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={studio.image || "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800"}
-            alt={studio.title}
-            className="h-full w-full object-cover"
-          />
+          <StudioImage src={studio.image} alt={studio.title} priority sizes="100vw" />
           <span className="absolute left-4 top-4 rounded-full bg-white/80 dark:bg-[#0B1120]/80 px-3 py-1 text-xs font-semibold text-sky-600 dark:text-[#38BDF8] backdrop-blur-md">
             {studio.category}
           </span>

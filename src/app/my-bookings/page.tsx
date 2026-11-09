@@ -6,7 +6,6 @@ import { toast } from 'sonner';
 import { API_BASE_URL } from '@/lib/api';
 import { downloadInvoice } from '@/lib/invoice';
 import { useUser } from '@/hooks/use-user';
-import { useRouter } from 'next/navigation';
 import { FileDown, Loader2 } from 'lucide-react';
 
 interface UserBooking {
@@ -23,7 +22,6 @@ interface UserBooking {
 
 export default function MyBookingsPage() {
   const { user, isLoading } = useUser();
-  const router = useRouter();
   const [bookings, setBookings] = useState<UserBooking[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

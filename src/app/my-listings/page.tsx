@@ -31,7 +31,7 @@ export default function MyListingsPage() {
   const fetchListings = useCallback(async () => {
     if (!user?.email) return [];
     try {
-      const res = await fetch(`${API_BASE_URL}/api/studios/user/${user.email}`, {
+      const res = await fetch(`${API_BASE_URL}/api/studios/user/${encodeURIComponent(user.email)}`, {
         method: 'GET',
         credentials: 'include',
         headers: {
@@ -176,7 +176,7 @@ export default function MyListingsPage() {
               </div>
               <div className="flex justify-between items-center pt-4 border-t border-slate-200 dark:border-[#334155]">
                 <Link
-                  href={`/studios/${listing._id}/edit`}
+                  href={`/studios/edit/${listing._id}`}
                   className="text-sky-600 dark:text-[#38BDF8] hover:underline text-sm font-medium"
                 >
                   Update

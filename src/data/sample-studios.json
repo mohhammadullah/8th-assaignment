@@ -1,0 +1,67 @@
+[
+  {
+    "slug": "riverlight-photo-studio",
+    "title": "Riverlight Photo Studio",
+    "category": "Photography Studio",
+    "image": "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800",
+    "hourlyRate": 2500,
+    "rating": 4.9,
+    "location": "Banani, Dhaka",
+    "overview": "Sun-filled studio with white cyclorama wall, pro lighting grid and makeup area. Ideal for portraits and e-commerce shoots.",
+    "securityDeposit": 5000,
+    "maxCapacity": 20,
+    "amenities": ["Professional Lighting", "Camera Equipment", "Wi-Fi", "Air Conditioning"]
+  },
+  {
+    "slug": "echo-podcast-suite",
+    "title": "Echo Podcast Suite",
+    "category": "Podcast Studio",
+    "image": "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=800",
+    "hourlyRate": 1800,
+    "rating": 4.8,
+    "location": "Dhanmondi, Dhaka",
+    "overview": "Soundproof two-person podcast room with boom arms, condenser mics and on-air sign. Fast turnaround for weekly shows.",
+    "securityDeposit": 3000,
+    "maxCapacity": 6,
+    "amenities": ["Soundproof Room", "Microphone", "Air Conditioning", "Wi-Fi"]
+  },
+  {
+    "slug": "pulse-music-room",
+    "title": "Pulse Music Room",
+    "category": "Music Studio",
+    "image": "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=800",
+    "hourlyRate": 2000,
+    "rating": 4.7,
+    "location": "Uttara, Dhaka",
+    "overview": "Rehearsal room with drum kit, piano and PA. Book by the hour for jam sessions, lessons and band rehearsals.",
+    "securityDeposit": 4000,
+    "maxCapacity": 12,
+    "amenities": ["Soundproof Room", "Air Conditioning", "Parking", "Wi-Fi"]
+  },
+  {
+    "slug": "frame-film-stage",
+    "title": "Frame Film Stage",
+    "category": "Film & Video Studio",
+    "image": "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=800",
+    "hourlyRate": 3500,
+    "rating": 4.9,
+    "location": "Mirpur, Dhaka",
+    "overview": "Large video stage with green screen bay, rigging points and dedicated production office. Perfect for commercials and short films.",
+    "securityDeposit": 8000,
+    "maxCapacity": 40,
+    "amenities": ["Green Screen", "Professional Lighting", "Changing Room", "Parking"]
+  },
+  {
+    "slug": "canvas-art-loft",
+    "title": "Canvas Art Loft",
+    "category": "Creative Workspace",
+    "image": "https://images.unsplash.com/photo-1499892477393-f675706cbe6e?w=800",
+    "hourlyRate": 1200,
+    "rating": 4.6,
+    "location": "Old Dhaka, Dhaka",
+    "overview": "Brick-wall loft with north light, easel area and wash corner. A calm workspace for workshops and exhibitions.",
+    "securityDeposit": 2000,
+    "maxCapacity": 15,
+    "amenities": ["Air Conditioning", "Wi-Fi", "Background Setup"]
+  }
+]

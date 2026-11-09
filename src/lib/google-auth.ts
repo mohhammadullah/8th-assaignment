@@ -9,9 +9,15 @@ import { authClient } from "@/lib/auth-client";
  * sets the session cookie.
  */
 export async function signInWithGoogle(): Promise<void> {
+  // callbackURL must be ABSOLUTE and on the frontend origin. Better Auth
+  // resolves a relative "/" against the API baseURL (backend JSON page),
+  // leaving the user on the backend instead of the StudioSpace frontend.
+  const origin =
+    typeof window !== "undefined" ? window.location.origin : "";
   const { error } = await authClient.signIn.social({
     provider: "google",
-    callbackURL: "/",
+    callbackURL: origin ? `${origin}/` : "/",
+    newUserCallbackURL: origin ? `${origin}/` : "/",
   });
 
   if (error) {

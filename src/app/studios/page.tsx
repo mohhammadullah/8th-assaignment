@@ -2,6 +2,7 @@ import Link from "next/link";
 import { MapPin, Star } from "lucide-react";
 import { API_BASE_URL } from "@/lib/api";
 import { WishlistHeart } from "@/components/WishlistHeart";
+import { StudioImage } from "@/components/studio-image";
 
 type Studio = {
   _id: string;
@@ -18,10 +19,14 @@ async function getStudios(category?: string): Promise<Studio[]> {
     if (category) {
       url = `${API_BASE_URL}/api/studios?category=${encodeURIComponent(category)}`;
     }
-    const res = await fetch(url, { cache: "no-store", credentials: "include" });
+    const res = await fetch(url, {
+      cache: "no-store",
+      credentials: "include",
+      signal: AbortSignal.timeout(15000),
+    });
     if (!res.ok) return [];
     return res.json();
-  } catch (error) {
+  } catch {
     return [];
   }
 }
@@ -60,11 +65,11 @@ export default async function StudiosPage({
                 className="overflow-hidden rounded-2xl border border-slate-200 dark:border-[#334155] bg-white dark:bg-[#1E293B] shadow-sm transition-all duration-300 hover:border-sky-500/50 dark:hover:border-[#38BDF8]/50 hover:shadow-md"
               >
                 <div className="relative aspect-[4/3] w-full overflow-hidden bg-white dark:bg-[#0F172A]">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={studio.image || "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800"}
+                  <StudioImage
+                    src={studio.image}
                     alt={studio.title}
-                    className="h-full w-full object-cover transition duration-500 hover:scale-105"
+                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    className="transition duration-500 hover:scale-105"
                   />
                   <span className="absolute left-3 top-3 rounded-full bg-white/80 dark:bg-[#0B1120]/80 px-3 py-1 text-xs font-semibold text-sky-600 dark:text-[#38BDF8] backdrop-blur-md">
                     {studio.category}

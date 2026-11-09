@@ -1,32 +1,24 @@
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
 
-// NOTE: this is an optimistic redirect only. It checks for the presence of
-// the Better Auth session cookie so unauthenticated visitors get sent to
-// /login immediately, but it does NOT prove the session is valid.
+// Production architecture: Better Auth is hosted on the Express API
+// (https://studio-space-server-olive.vercel.app) while this Next.js app is
+// https://studio-space-pearl.vercel.app — DIFFERENT domains. The session
+// cookie (SameSite=None; Secure) is therefore set on the API domain and is
+// NEVER sent to this frontend origin on page navigations, so an edge cookie
+// check here cannot prove an authenticated user is logged in and would
+// wrongly bounce every logged-in user to /login (including on refresh).
 //
-// Authoritative authorization happens on the Express API (its session is
-// validated on every protected request via authMiddleware), and the
-// ProtectedRoute component re-checks the live session from the auth client.
+// Authorization therefore happens in two places:
+// 1. `ProtectedRoute` (client) — waits for `useSession()` to finish
+//    (`isPending === false`) and only redirects to /login when there is
+//    definitively no user. It never redirects while loading.
+// 2. The Express API (authoritative) — every protected endpoint re-validates
+//    the session server-side via `verifyAuth`.
 //
-// Local development: the session cookie is set on "localhost", so the
-// browser sends it to both the API (:5000) and this app (:3000).
-// If the frontend and API are deployed on different registrable domains,
-// the cookie will not reach this proxy — ProtectedRoute + the API checks
-// still protect the app in that case.
+// This proxy is intentionally pass-through so authenticated deep-links and
+// refreshes (e.g. /add-studio) render and let ProtectedRoute decide.
 
-const SESSION_COOKIE = "better-auth.session_token";
-const SECURE_SESSION_COOKIE = "__Secure-better-auth.session_token";
-
-export function proxy(request: NextRequest) {
-  const hasSession =
-    request.cookies.has(SESSION_COOKIE) ||
-    request.cookies.has(SECURE_SESSION_COOKIE);
-
-  if (!hasSession) {
-    return NextResponse.redirect(new URL("/login", request.url));
-  }
-
+export function proxy() {
   return NextResponse.next();
 }
 
@@ -38,6 +30,7 @@ export const config = {
     "/wishlist/:path*",
     "/add-studio/:path*",
     "/studios/new/:path*",
+    "/studios/edit/:path*",
     "/studios/:id/edit/:path*",
   ],
 };

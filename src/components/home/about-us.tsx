@@ -144,21 +144,26 @@ export default function AboutSection() {
           </div>
         </div>
 
-        {/* Statistics */}
-        <div className="mt-24 grid grid-cols-2 gap-4 lg:grid-cols-4">
+        {/* Statistics — dark glassmorphism, cinematic navy theme.
+            Cards sit on both light/white and dark navy section backgrounds,
+            so they keep their own fixed navy surface + light text in every
+            theme (no dark: overrides that collapse to white). */}
+        <div className="mt-24 grid grid-cols-2 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4">
           {stats.map((stat) => {
             const Icon = stat.icon;
 
             return (
               <div
                 key={stat.label}
-                className="rounded-2xl border border-slate-200 dark:border-[#334155] bg-white/80 dark:bg-white dark:bg-[#1E293B]/80 p-6 text-center transition-all duration-300 hover:-translate-y-2 hover:border-sky-500/50 dark:hover:border-[#38BDF8]/50"
+                className="group flex flex-col items-center justify-center rounded-[20px] border border-[#334155] bg-[#1E293B]/80 px-4 py-7 text-center shadow-lg shadow-slate-950/20 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-[#0EA5E9]/70 hover:shadow-xl hover:shadow-[#0EA5E9]/15 sm:px-6 sm:py-8"
               >
-                <Icon className="mx-auto mb-4 text-sky-600 dark:text-[#38BDF8]" size={26} />
-                <h4 className="text-3xl font-bold text-slate-900 dark:text-[#F1F5F9]">
+                <span className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-[#0EA5E9]/12 text-[#0EA5E9] transition-colors duration-300 group-hover:bg-[#0EA5E9]/20">
+                  <Icon size={24} />
+                </span>
+                <h4 className="text-3xl font-bold tracking-tight text-[#F8FAFC] sm:text-4xl">
                   {stat.value}
                 </h4>
-                <p className="mt-2 text-sm text-slate-600 dark:text-[#94A3B8]">
+                <p className="mt-2 text-sm font-medium text-[#94A3B8] sm:text-base">
                   {stat.label}
                 </p>
               </div>

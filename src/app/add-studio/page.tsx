@@ -13,6 +13,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { API_BASE_URL } from "@/lib/api";
+import { StudioImage, validateImageUrl } from "@/components/studio-image";
 import ProtectedRoute from "@/components/ProtectedRoute";
 
 const categories = [
@@ -99,6 +100,12 @@ function HostingForm() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const imageError = validateImageUrl(formData.image);
+    if (imageError) {
+      toast.error(imageError);
+      return;
+    }
 
     setIsSubmitting(true);
 
@@ -363,12 +370,11 @@ function HostingForm() {
             />
 
             {formData.image && (
-              <div className="mt-4 overflow-hidden rounded-xl border border-slate-200 dark:border-[#334155]">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+              <div className="relative mt-4 aspect-[4/3] w-full overflow-hidden rounded-xl border border-slate-200 dark:border-[#334155]">
+                <StudioImage
                   src={formData.image}
                   alt="Studio preview"
-                  className="h-56 w-full object-cover"
+                  sizes="(min-width: 1024px) 50vw, 100vw"
                 />
               </div>
             )}

@@ -45,7 +45,7 @@ const studioSchema = new mongoose.Schema(
 const Studio = mongoose.models.Studio ?? mongoose.model("Studio", studioSchema)
 
 await mongoose.connect(process.env.MONGODB_URI, {
-  dbName: process.env.MONGODB_DB ?? "studiospace",
+  dbName: process.env.MONGODB_DB ?? "studio-space",
 })
 
 for (const studio of studios) {
