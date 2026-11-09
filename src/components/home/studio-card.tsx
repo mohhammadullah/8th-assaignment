@@ -18,7 +18,7 @@ export function StudioCard({
   return (
     <Card
       className={cn(
-        "group/card pt-0 border-slate-200 dark:border-[#334155] border-2 hover:border-[#38BDF8]/50 hover:shadow-xl hover:shadow-[#38BDF8]/20 transition-all duration-300",
+        "group/card pt-0 border-slate-200 dark:border-[#334155] border-2 shadow-sm hover:border-sky-500/50 dark:hover:border-[#38BDF8]/50 hover:shadow-md hover:shadow-sky-500/20 transition-all duration-300",
         className
       )}
     >
@@ -32,7 +32,7 @@ export function StudioCard({
         />
         
    
-        <Badge className="absolute top-3 left-3 bg-[#38BDF8] text-slate-900 dark:text-[#F1F5F9] backdrop-blur-sm">
+        <Badge className="absolute top-3 left-3 bg-sky-500 text-slate-900 dark:text-[#F1F5F9] backdrop-blur-sm">
           {studio.category}
         </Badge>
 
@@ -43,7 +43,7 @@ export function StudioCard({
         )}
 
    
-        <Badge className="absolute top-3 right-3 border-0 bg-white/80 dark:bg-white dark:bg-[#0B1120]/80 text-[#38BDF8] backdrop-blur-md flex items-center gap-1">
+        <Badge className="absolute top-3 right-3 border-0 bg-white/80 dark:bg-[#0B1120]/80 text-sky-600 dark:text-[#38BDF8] backdrop-blur-md flex items-center gap-1">
           <Star className="fill-current size-3.5" /> {studio.rating?.toFixed(1) ?? "5.0"}
         </Badge>
       </div>
@@ -65,7 +65,7 @@ export function StudioCard({
           variant="outline"
           nativeButton={false}
           render={<Link href={`/studios/${studio._id || studio.slug}`} />}
-          className="border-slate-200 dark:border-[#334155] text-foreground hover:border-[#38BDF8] hover:bg-[#38BDF8]/10 hover:text-foreground transition-all duration-300"
+          className="border-slate-200 dark:border-[#334155] text-foreground hover:border-sky-500 dark:hover:border-[#38BDF8] hover:bg-sky-500/10 hover:text-foreground transition-all duration-300 active:scale-[0.98]"
         >
           View Details
         </Button>

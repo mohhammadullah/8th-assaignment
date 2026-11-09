@@ -99,8 +99,8 @@ export default function MyBookingsPage() {
 
   if (isLoading || loading) {
     return (
-      <div className="flex min-h-[70vh] items-center justify-center bg-white dark:bg-[#0B1120]">
-        <Loader2 className="h-8 w-8 animate-spin text-[#38BDF8]" />
+      <div className="flex min-h-[70vh] items-center justify-center bg-[#F8FAFC] dark:bg-[#0B1120]">
+        <Loader2 className="h-8 w-8 animate-spin text-sky-600 dark:text-[#38BDF8]" />
       </div>
     );
   }
@@ -111,7 +111,7 @@ export default function MyBookingsPage() {
 
   if (error) {
     return (
-      <div className="p-6 bg-white dark:bg-[#0B1120] min-h-screen text-red-400">
+      <div className="p-6 bg-[#F8FAFC] dark:bg-[#0B1120] min-h-screen text-red-400">
         <p>{error}</p>
         <ToastContainer />
       </div>
@@ -119,12 +119,12 @@ export default function MyBookingsPage() {
   }
 
   return (
-    <div className="p-6 bg-white dark:bg-[#0B1120] min-h-screen">
+    <div className="p-6 bg-[#F8FAFC] dark:bg-[#0B1120] min-h-screen">
       <ToastContainer />
       <h1 className="text-2xl font-bold text-slate-900 dark:text-[#F1F5F9] mb-6">My Bookings</h1>
 
       {bookings.length === 0 ? (
-        <div className="py-12 text-center text-slate-500 dark:text-[#94A3B8]">
+        <div className="py-12 text-center text-slate-600 dark:text-[#94A3B8]">
           <p className="text-lg">No bookings found.</p>
           <p className="mt-2">Book a studio to see your bookings here.</p>
         </div>
@@ -138,11 +138,11 @@ export default function MyBookingsPage() {
             return (
               <div
                 key={uniqueKey}
-                className="bg-white dark:bg-[#1E293B] border border-slate-200 dark:border-[#334155] rounded-xl p-6 hover:border-[#38BDF8]/50 transition-colors"
+                className="bg-white dark:bg-[#1E293B] border border-slate-200 dark:border-[#334155] rounded-xl p-6 shadow-sm hover:shadow-md hover:border-sky-500/50 dark:hover:border-[#38BDF8]/50 transition-colors duration-300"
               >
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0">
-                    <div className="aspect-square rounded-xl bg-white dark:bg-[#0B1120] overflow-hidden">
+                    <div className="aspect-square rounded-xl bg-[#F8FAFC] dark:bg-[#0B1120] overflow-hidden">
                       <div className="h-24 w-full bg-gradient-to-b from-slate-50 dark:from-[#1E293B] to-slate-50 dark:to-[#0B1120] flex items-center justify-center text-sm text-slate-500 dark:text-[#64748B]">
                         {booking.studioName ? booking.studioName.substring(0, 3).toUpperCase() : 'STD'}
                       </div>
@@ -150,15 +150,15 @@ export default function MyBookingsPage() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <h3 className="text-xl font-bold text-slate-900 dark:text-[#F1F5F9] truncate">{booking.studioName}</h3>
-                    <p className="text-sm text-slate-500 dark:text-[#94A3B8] mt-1">
+                    <p className="text-sm text-slate-600 dark:text-[#94A3B8] mt-1">
                       {booking.date ? new Date(booking.date).toLocaleDateString() : ''} | {booking.timeSlot}
                     </p>
                   </div>
                 </div>
 
                 <div className="mt-4 pt-4 border-t border-slate-200 dark:border-[#334155]">
-                  <p className="text-sm text-slate-500 dark:text-[#94A3B8] mb-2">Price</p>
-                  <p className="text-lg font-bold text-[#38BDF8]">
+                  <p className="text-sm text-slate-600 dark:text-[#94A3B8] mb-2">Price</p>
+                  <p className="text-lg font-bold text-sky-600 dark:text-[#38BDF8]">
                     {booking.price} ৳ / hr
                   </p>
                 </div>
@@ -168,7 +168,7 @@ export default function MyBookingsPage() {
                     onClick={() =>
                       downloadInvoice(booking, { name: user.name, email: user.email })
                     }
-                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#38BDF8]/10 text-[#38BDF8] hover:bg-[#38BDF8]/20 border border-[#38BDF8]/30 py-3 font-medium text-center transition-colors cursor-pointer"
+                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-sky-500/10 text-sky-600 dark:text-[#38BDF8] hover:bg-sky-500/20 border border-sky-500/30 dark:hover:border-[#38BDF8]/30 py-3 font-medium text-center transition-colors cursor-pointer"
                   >
                     <FileDown size={16} /> Download Invoice
                   </button>
@@ -181,7 +181,7 @@ export default function MyBookingsPage() {
                     </button>
                   ) : (
                     <p className="text-sm text-slate-500 dark:text-[#64748B]">
-                      Status: <span className="font-medium text-[#38BDF8]">{booking.status}</span>
+                      Status: <span className="font-medium text-sky-600 dark:text-[#38BDF8]">{booking.status}</span>
                     </p>
                   )}
                 </div>

@@ -72,14 +72,14 @@ function StatCard({
 }) {
   return (
     <Link href={href} className="group block">
-      <Card className="border-slate-200 dark:border-[#334155] bg-white dark:bg-[#1E293B] transition hover:border-[#38BDF8]/60">
+      <Card className="border-slate-200 dark:border-[#334155] bg-white dark:bg-[#1E293B] shadow-sm hover:shadow-md transition-colors duration-300 hover:border-sky-500/60 dark:hover:border-[#38BDF8]/60">
         <CardContent className="flex items-start justify-between gap-3 pt-6">
           <div>
-            <p className="text-xs font-medium text-slate-500 dark:text-[#94A3B8]">{label}</p>
+            <p className="text-xs font-medium text-slate-600 dark:text-[#94A3B8]">{label}</p>
             <p className="mt-2 text-2xl font-bold text-slate-900 dark:text-[#F1F5F9]">{value}</p>
             <p className="mt-1 text-xs text-slate-500 dark:text-[#64748B]">{sub}</p>
           </div>
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#38BDF8]/10 text-[#38BDF8] transition group-hover:bg-[#38BDF8]/20">
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sky-500/10 text-sky-600 dark:text-[#38BDF8] transition group-hover:bg-sky-500/20">
             {icon}
           </span>
         </CardContent>
@@ -142,7 +142,7 @@ function DashboardContent({ user }: { user: AuthUser }) {
   ).length;
 
   return (
-    <main className="min-h-screen bg-white dark:bg-[#0B1120] text-slate-900 dark:text-[#F1F5F9]">
+    <main className="min-h-screen bg-[#F8FAFC] dark:bg-[#0B1120] text-slate-900 dark:text-[#F1F5F9]">
       <div className="mx-auto max-w-7xl space-y-8 px-4 py-8 sm:px-6 lg:px-8">
         {/* Welcome banner */}
         <section className="overflow-hidden rounded-2xl border border-slate-200 dark:border-[#334155] bg-gradient-to-br from-slate-50 dark:from-[#1E293B] via-slate-100 dark:via-[#162033] to-slate-50 dark:to-[#0B1120] p-6 sm:p-8">
@@ -154,7 +154,7 @@ function DashboardContent({ user }: { user: AuthUser }) {
                   alt={user.name}
                 />
               )}
-              <AvatarFallback className="bg-[#38BDF8]/15 text-xl font-bold text-[#38BDF8]">
+              <AvatarFallback className="bg-sky-500/15 text-xl font-bold text-sky-600 dark:text-[#38BDF8]">
                 {initials(user.name)}
               </AvatarFallback>
             </Avatar>
@@ -162,7 +162,7 @@ function DashboardContent({ user }: { user: AuthUser }) {
               <h1 className="truncate text-2xl font-bold sm:text-3xl">
                 Welcome back, {user.name}
               </h1>
-              <p className="mt-1 truncate text-sm text-slate-500 dark:text-[#94A3B8]">
+              <p className="mt-1 truncate text-sm text-slate-600 dark:text-[#94A3B8]">
                 {user.email}
               </p>
               <p className="mt-2 text-sm text-slate-500 dark:text-[#64748B]">
@@ -200,12 +200,12 @@ function DashboardContent({ user }: { user: AuthUser }) {
             icon={<ShieldCheck size={20} />}
           />
           <Link href="/add-studio" className="group block">
-            <Card className="flex h-full flex-col justify-between border-[#38BDF8]/40 bg-gradient-to-br from-[#38BDF8]/15 to-[#818CF8]/10 transition hover:border-[#38BDF8]">
+            <Card className="flex h-full flex-col justify-between border-sky-500 dark:border-[#38BDF8]/40 bg-gradient-to-br from-sky-500/15 to-indigo-400/10 transition hover:border-sky-500 dark:border-[#38BDF8]">
               <CardContent className="flex h-full flex-col justify-between pt-6">
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#38BDF8] text-[#0B1120] transition group-hover:brightness-110">
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500 text-[#0B1120] transition group-hover:brightness-110">
                   <CirclePlus size={20} />
                 </span>
-                <p className="mt-4 flex items-center gap-1 text-sm font-semibold text-[#38BDF8]">
+                <p className="mt-4 flex items-center gap-1 text-sm font-semibold text-sky-600 dark:text-[#38BDF8]">
                   Add New Studio
                   <ArrowRight
                     size={15}
@@ -234,13 +234,13 @@ function DashboardContent({ user }: { user: AuthUser }) {
 
         {/* Recent activity */}
         <section className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-          <Card className="border-slate-200 dark:border-[#334155] bg-white dark:bg-[#1E293B]">
+          <Card className="border-slate-200 dark:border-[#334155] bg-white dark:bg-[#1E293B] shadow-sm transition-colors duration-300">
             <CardContent className="pt-6">
               <div className="mb-4 flex items-center justify-between">
                 <h2 className="text-lg font-semibold">Recent Listings</h2>
                 <Link
                   href="/my-listings"
-                  className="flex items-center gap-1 text-sm font-medium text-[#38BDF8] hover:underline"
+                  className="flex items-center gap-1 text-sm font-medium text-sky-600 dark:text-[#38BDF8] hover:underline"
                 >
                   View all <ArrowRight size={14} />
                 </Link>
@@ -267,7 +267,7 @@ function DashboardContent({ user }: { user: AuthUser }) {
                             : "Recently listed"}
                         </p>
                       </div>
-                      <span className="shrink-0 font-semibold text-[#38BDF8]">
+                      <span className="shrink-0 font-semibold text-sky-600 dark:text-[#38BDF8]">
                         ${studio.hourlyRate ?? 0}/hr
                       </span>
                     </li>
@@ -277,13 +277,13 @@ function DashboardContent({ user }: { user: AuthUser }) {
             </CardContent>
           </Card>
 
-          <Card className="border-slate-200 dark:border-[#334155] bg-white dark:bg-[#1E293B]">
+          <Card className="border-slate-200 dark:border-[#334155] bg-white dark:bg-[#1E293B] shadow-sm transition-colors duration-300">
             <CardContent className="pt-6">
               <div className="mb-4 flex items-center justify-between">
                 <h2 className="text-lg font-semibold">Recent Bookings</h2>
                 <Link
                   href="/my-bookings"
-                  className="flex items-center gap-1 text-sm font-medium text-[#38BDF8] hover:underline"
+                  className="flex items-center gap-1 text-sm font-medium text-sky-600 dark:text-[#38BDF8] hover:underline"
                 >
                   View all <ArrowRight size={14} />
                 </Link>
@@ -313,7 +313,7 @@ function DashboardContent({ user }: { user: AuthUser }) {
                           {booking.timeSlot ? ` · ${booking.timeSlot}` : ""}
                         </p>
                       </div>
-                      <span className="shrink-0 rounded-full border border-[#38BDF8]/30 bg-[#38BDF8]/10 px-3 py-1 text-xs font-medium text-[#38BDF8]">
+                      <span className="shrink-0 rounded-full border border-sky-500/30 dark:hover:border-[#38BDF8]/30 bg-sky-500/10 px-3 py-1 text-xs font-medium text-sky-600 dark:text-[#38BDF8]">
                         {booking.status}
                       </span>
                     </li>
@@ -335,7 +335,7 @@ function DashboardContent({ user }: { user: AuthUser }) {
             <Link
               key={href}
               href={href}
-              className="flex items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-[#334155] bg-white dark:bg-[#1E293B] px-4 py-3.5 text-sm font-medium text-slate-700 dark:text-[#CBD5E1] transition hover:border-[#38BDF8]/60 hover:text-[#38BDF8]"
+              className="flex items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-[#334155] bg-white dark:bg-[#1E293B] px-4 py-3.5 text-sm font-medium text-slate-700 dark:text-[#CBD5E1] transition hover:border-sky-500/60 dark:hover:border-[#38BDF8]/60 hover:text-sky-600 dark:text-[#38BDF8]"
             >
               <Icon size={17} /> {label}
             </Link>
@@ -348,8 +348,8 @@ function DashboardContent({ user }: { user: AuthUser }) {
 
 function LoadingRow() {
   return (
-    <div className="flex items-center gap-3 py-6 text-slate-500 dark:text-[#94A3B8]">
-      <Loader2 className="h-5 w-5 animate-spin text-[#38BDF8]" />
+    <div className="flex items-center gap-3 py-6 text-slate-600 dark:text-[#94A3B8]">
+      <Loader2 className="h-5 w-5 animate-spin text-sky-600 dark:text-[#38BDF8]" />
       <span className="text-sm">Loading…</span>
     </div>
   );
@@ -364,10 +364,10 @@ function EmptyState({
 }) {
   return (
     <div className="py-6 text-center">
-      <p className="text-sm text-slate-500 dark:text-[#94A3B8]">{text}</p>
+      <p className="text-sm text-slate-600 dark:text-[#94A3B8]">{text}</p>
       <Link
         href={cta.href}
-        className="mt-2 inline-block text-sm font-medium text-[#38BDF8] hover:underline"
+        className="mt-2 inline-block text-sm font-medium text-sky-600 dark:text-[#38BDF8] hover:underline"
       >
         {cta.label}
       </Link>
@@ -380,8 +380,8 @@ export default function DashboardPage() {
 
   if (isLoading) {
     return (
-      <div className="flex min-h-[70vh] items-center justify-center bg-white dark:bg-[#0B1120]">
-        <Loader2 className="h-8 w-8 animate-spin text-[#38BDF8]" />
+      <div className="flex min-h-[70vh] items-center justify-center bg-[#F8FAFC] dark:bg-[#0B1120]">
+        <Loader2 className="h-8 w-8 animate-spin text-sky-600 dark:text-[#38BDF8]" />
       </div>
     );
   }
@@ -391,8 +391,8 @@ export default function DashboardPage() {
       {user ? (
         <DashboardContent user={user} />
       ) : (
-        <div className="flex min-h-[70vh] items-center justify-center bg-white dark:bg-[#0B1120]">
-          <Loader2 className="h-8 w-8 animate-spin text-[#38BDF8]" />
+        <div className="flex min-h-[70vh] items-center justify-center bg-[#F8FAFC] dark:bg-[#0B1120]">
+          <Loader2 className="h-8 w-8 animate-spin text-sky-600 dark:text-[#38BDF8]" />
         </div>
       )}
     </ProtectedRoute>

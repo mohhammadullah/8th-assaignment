@@ -24,28 +24,28 @@ export default function AboutSection() {
   return (
 <section
   id="about-us"
-  className="relative scroll-mt-20 overflow-hidden bg-white dark:bg-[#0B1120] px-5 py-24 text-slate-900 dark:text-[#F1F5F9] sm:px-8 lg:px-12"
+  className="relative scroll-mt-20 overflow-hidden bg-[#F8FAFC] dark:bg-[#0B1120] px-5 py-24 text-slate-900 dark:text-[#F1F5F9] sm:px-8 lg:px-12"
 >
       {/* Background Glow */}
-      <div className="pointer-events-none absolute -left-40 top-20 h-96 w-96 rounded-full bg-[#38BDF8]/10 blur-[120px]" />
+      <div className="pointer-events-none absolute -left-40 top-20 h-96 w-96 rounded-full bg-sky-500/10 blur-[120px]" />
       <div className="pointer-events-none absolute -right-40 bottom-0 h-96 w-96 rounded-full bg-[#818CF8]/10 blur-[120px]" />
 
       <div className="relative mx-auto max-w-7xl">
         {/* Section Heading */}
         <div className="mx-auto mb-16 max-w-3xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[#38BDF8]/30 bg-[#38BDF8]/10 px-4 py-2 text-xs font-semibold tracking-[0.2em] text-sky-600 dark:text-[#7DD3FC]">
+          <span className="inline-flex items-center gap-2 rounded-full border border-sky-500/30 dark:hover:border-[#38BDF8]/30 bg-sky-500/10 px-4 py-2 text-xs font-semibold tracking-[0.2em] text-sky-600 dark:text-[#7DD3FC]">
             <Aperture size={15} />
             ABOUT STUDIO SPACE
           </span>
 
           <h2 className="mt-6 text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">
             Where Creativity
-            <span className="block bg-gradient-to-r from-[#38BDF8] to-[#818CF8] bg-clip-text text-transparent">
+            <span className="block bg-gradient-to-r from-sky-500 to-indigo-400 bg-clip-text text-transparent">
               Finds Its Space.
             </span>
           </h2>
 
-          <p className="mt-6 text-base leading-8 text-slate-500 dark:text-[#94A3B8] sm:text-lg">
+          <p className="mt-6 text-base leading-8 text-slate-600 dark:text-[#94A3B8] sm:text-lg">
             Every great idea deserves the perfect environment. We connect
             creative minds with inspiring spaces to bring extraordinary
             ideas to life.
@@ -56,7 +56,7 @@ export default function AboutSection() {
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           {/* Image */}
           <div className="group relative">
-            <div className="absolute -inset-2 rounded-3xl bg-gradient-to-br from-[#38BDF8]/30 to-[#818CF8]/10 opacity-70 blur-xl transition duration-500 group-hover:opacity-100" />
+            <div className="absolute -inset-2 rounded-3xl bg-gradient-to-br from-sky-500/30 to-indigo-400/10 opacity-70 blur-xl transition duration-500 group-hover:opacity-100" />
 
             <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-slate-200 dark:border-[#334155]">
               <Image
@@ -73,7 +73,7 @@ export default function AboutSection() {
 
               <div className="absolute bottom-6 left-6 right-6">
                 <div className="flex items-center gap-3">
-                  <div className="rounded-xl bg-[#38BDF8] p-3 text-white">
+                  <div className="rounded-xl bg-sky-500 p-3 text-white">
                     <Camera size={24} />
                   </div>
                   <div>
@@ -97,17 +97,17 @@ export default function AboutSection() {
 
             <h3 className="text-3xl font-bold leading-snug sm:text-4xl">
               More Than Just a Space,
-              <span className="text-[#38BDF8]"> A Place to Create.</span>
+              <span className="text-sky-600 dark:text-[#38BDF8]"> A Place to Create.</span>
             </h3>
 
-            <p className="mt-6 leading-8 text-slate-500 dark:text-[#94A3B8]">
+            <p className="mt-6 leading-8 text-slate-600 dark:text-[#94A3B8]">
               StudioSpace is a creative studio rental marketplace built for
               photographers, filmmakers, podcasters, musicians, and
               creators. We make it easier to discover and book inspiring
               spaces that match your creative vision.
             </p>
 
-            <p className="mt-4 leading-8 text-slate-500 dark:text-[#94A3B8]">
+            <p className="mt-4 leading-8 text-slate-600 dark:text-[#94A3B8]">
               Whether you are working on your next photoshoot, recording a
               podcast, or producing a film, we help you find the right
               environment to make it happen.
@@ -115,10 +115,10 @@ export default function AboutSection() {
 
             {/* Mission & Vision */}
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
-              <div className="rounded-2xl border border-slate-200 dark:border-[#334155] bg-white dark:bg-[#1E293B] p-5 transition hover:border-[#38BDF8]/50">
-                <Target className="mb-4 text-[#38BDF8]" size={28} />
+              <div className="rounded-2xl border border-slate-200 dark:border-[#334155] bg-white dark:bg-[#1E293B] p-5 transition hover:border-sky-500/50 dark:hover:border-[#38BDF8]/50">
+                <Target className="mb-4 text-sky-600 dark:text-[#38BDF8]" size={28} />
                 <h4 className="mb-2 font-semibold">Our Mission</h4>
-                <p className="text-sm leading-7 text-slate-500 dark:text-[#94A3B8]">
+                <p className="text-sm leading-7 text-slate-600 dark:text-[#94A3B8]">
                   To make creative spaces accessible, affordable, and
                   inspiring for everyone.
                 </p>
@@ -127,7 +127,7 @@ export default function AboutSection() {
               <div className="rounded-2xl border border-slate-200 dark:border-[#334155] bg-white dark:bg-[#1E293B] p-5 transition hover:border-[#818CF8]/50">
                 <Lightbulb className="mb-4 text-[#818CF8]" size={28} />
                 <h4 className="mb-2 font-semibold">Our Vision</h4>
-                <p className="text-sm leading-7 text-slate-500 dark:text-[#94A3B8]">
+                <p className="text-sm leading-7 text-slate-600 dark:text-[#94A3B8]">
                   To become the trusted destination for creative spaces
                   around the world.
                 </p>
@@ -136,7 +136,7 @@ export default function AboutSection() {
 
             <Link
               href="/studios"
-              className="mt-8 inline-flex items-center gap-3 rounded-xl bg-gradient-to-r from-[#38BDF8] to-[#818CF8] px-7 py-4 font-semibold text-[#0B1120] transition duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-[#38BDF8]/20"
+              className="mt-8 inline-flex items-center gap-3 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-400 px-7 py-4 font-semibold text-[#0B1120] transition duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-sky-500/20"
             >
               Explore Studios
               <ArrowRight size={19} />
@@ -152,13 +152,13 @@ export default function AboutSection() {
             return (
               <div
                 key={stat.label}
-                className="rounded-2xl border border-slate-200 dark:border-[#334155] bg-white/80 dark:bg-white dark:bg-[#1E293B]/80 p-6 text-center transition duration-300 hover:-translate-y-2 hover:border-[#38BDF8]/50"
+                className="rounded-2xl border border-slate-200 dark:border-[#334155] bg-white/80 dark:bg-white dark:bg-[#1E293B]/80 p-6 text-center transition duration-300 hover:-translate-y-2 hover:border-sky-500/50 dark:hover:border-[#38BDF8]/50"
               >
-                <Icon className="mx-auto mb-4 text-[#38BDF8]" size={26} />
+                <Icon className="mx-auto mb-4 text-sky-600 dark:text-[#38BDF8]" size={26} />
                 <h4 className="text-3xl font-bold text-slate-900 dark:text-[#F1F5F9]">
                   {stat.value}
                 </h4>
-                <p className="mt-2 text-sm text-slate-500 dark:text-[#94A3B8]">
+                <p className="mt-2 text-sm text-slate-600 dark:text-[#94A3B8]">
                   {stat.label}
                 </p>
               </div>
@@ -167,11 +167,11 @@ export default function AboutSection() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="relative mt-20 overflow-hidden rounded-3xl border border-[#38BDF8]/20 bg-gradient-to-r from-slate-50 dark:from-[#1E293B] via-white dark:via-[#1E293B] to-slate-50 dark:to-[#1E293B] px-6 py-12 text-center sm:px-12">
-          <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-[#38BDF8]/15 blur-[80px]" />
+        <div className="relative mt-20 overflow-hidden rounded-3xl border border-sky-500/20 dark:hover:border-[#38BDF8]/20 bg-gradient-to-r from-slate-50 dark:from-[#1E293B] via-white dark:via-[#1E293B] to-slate-50 dark:to-[#1E293B] px-6 py-12 text-center sm:px-12">
+          <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-sky-500/15 blur-[80px]" />
 
           <div className="relative">
-            <Heart className="mx-auto mb-5 text-[#38BDF8]" size={32} />
+            <Heart className="mx-auto mb-5 text-sky-600 dark:text-[#38BDF8]" size={32} />
 
             <h3 className="text-3xl font-bold sm:text-4xl">
               Your Next Great Creation
@@ -180,7 +180,7 @@ export default function AboutSection() {
               </span>
             </h3>
 
-            <p className="mx-auto mt-5 max-w-2xl leading-7 text-slate-500 dark:text-[#94A3B8]">
+            <p className="mx-auto mt-5 max-w-2xl leading-7 text-slate-600 dark:text-[#94A3B8]">
               Find the perfect space, bring your vision to life, and
               create something extraordinary with StudioSpace.
             </p>
@@ -188,7 +188,7 @@ export default function AboutSection() {
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <Link
                 href="/studios"
-                className="inline-flex items-center gap-2 rounded-xl bg-[#38BDF8] px-7 py-3.5 font-semibold text-white transition hover:bg-[#0EA5E9]"
+                className="inline-flex items-center gap-2 rounded-xl bg-sky-500 px-7 py-3.5 font-semibold text-white transition hover:bg-sky-600"
               >
                 Find a Studio
                 <ArrowRight size={18} />

@@ -92,7 +92,7 @@ export function WishlistHeart({
       className={cn(
         "flex h-9 w-9 items-center justify-center rounded-full backdrop-blur-md transition disabled:opacity-60",
         saved
-          ? "bg-[#38BDF8] text-white"
+          ? "bg-sky-500 text-white"
           : "bg-white/60 dark:bg-[#0B1120]/60 text-white hover:bg-white/80 dark:hover:bg-[#0B1120]/80",
         className
       )}

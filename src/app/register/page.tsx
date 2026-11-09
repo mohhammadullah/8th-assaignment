@@ -158,7 +158,7 @@ export default function RegisterPage() {
   };
 
   const inputClass =
-    "w-full bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-[#334155] rounded-xl py-3.5 pl-11 pr-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-[#64748B] outline-none transition-all duration-300 focus:border-[#38BDF8] focus:ring-2 focus:ring-[#38BDF8]/20";
+    "w-full bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-[#334155] rounded-xl py-3.5 pl-11 pr-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-[#64748B] outline-none transition-all duration-300 focus:border-sky-500 dark:border-[#38BDF8] focus:ring-2 focus:ring-sky-500/30";
 
   return (
     <main className="min-h-screen bg-slate-50 dark:bg-[#080F1D] flex items-center justify-center px-4 py-12 relative overflow-hidden">
@@ -176,12 +176,12 @@ export default function RegisterPage() {
 
           <div className="relative z-10">
             <Link href="/" className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <span className="text-[#38BDF8]">✦</span>
+              <span className="text-sky-600 dark:text-[#38BDF8]">✦</span>
               StudioSpace
             </Link>
 
             <div className="mt-24">
-              <span className="inline-flex items-center gap-2 text-sm text-[#38BDF8] bg-[#38BDF8]/10 border border-[#38BDF8]/20 px-4 py-2 rounded-full">
+              <span className="inline-flex items-center gap-2 text-sm text-sky-600 dark:text-[#38BDF8] bg-sky-500/10 border border-sky-500/20 dark:hover:border-[#38BDF8]/20 px-4 py-2 rounded-full">
                 <Sparkles size={16} />
                 Creative Spaces, Endless Possibilities
               </span>
@@ -191,10 +191,10 @@ export default function RegisterPage() {
                 <br />
                 Journey Starts
                 <br />
-                <span className="text-[#38BDF8]">Right Here.</span>
+                <span className="text-sky-600 dark:text-[#38BDF8]">Right Here.</span>
               </h1>
 
-              <p className="text-slate-500 dark:text-[#94A3B8] mt-6 leading-8 max-w-md">
+              <p className="text-slate-600 dark:text-[#94A3B8] mt-6 leading-8 max-w-md">
                 Join StudioSpace and discover amazing creative spaces.
                 Connect with hosts, explore studios, and bring your ideas to life.
               </p>
@@ -202,7 +202,7 @@ export default function RegisterPage() {
           </div>
 
           <div className="relative z-10 border-t border-slate-200 dark:border-[#334155] pt-6">
-            <p className="text-slate-500 dark:text-[#94A3B8] text-sm">
+            <p className="text-slate-600 dark:text-[#94A3B8] text-sm">
               © 2026 StudioSpace. Built for creators.
             </p>
           </div>
@@ -213,7 +213,7 @@ export default function RegisterPage() {
 
           <div className="mb-8">
             <Link href="/" className="lg:hidden text-xl font-bold text-slate-900 dark:text-white">
-              <span className="text-[#38BDF8]">✦</span> StudioSpace
+              <span className="text-sky-600 dark:text-[#38BDF8]">✦</span> StudioSpace
             </Link>
 
             <div className="mt-8 lg:mt-0">
@@ -221,7 +221,7 @@ export default function RegisterPage() {
                 Create Account
               </h2>
 
-              <p className="text-slate-500 dark:text-[#94A3B8] mt-2">
+              <p className="text-slate-600 dark:text-[#94A3B8] mt-2">
                 Get started with your creative journey today.
               </p>
             </div>
@@ -296,12 +296,12 @@ export default function RegisterPage() {
                   <img
                     src={photoUrl}
                     alt="Profile preview"
-                    className="w-12 h-12 rounded-full object-cover border border-[#38BDF8]"
+                    className="w-12 h-12 rounded-full object-cover border border-sky-500 dark:border-[#38BDF8]"
                     onError={(e) => {
                       e.currentTarget.style.display = "none";
                     }}
                   />
-                  <span className="text-xs text-slate-500 dark:text-[#94A3B8]">
+                  <span className="text-xs text-slate-600 dark:text-[#94A3B8]">
                     Profile preview
                   </span>
                 </div>
@@ -420,7 +420,7 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center gap-2 bg-[#38BDF8] hover:bg-[#0EA5E9] disabled:opacity-60 disabled:cursor-not-allowed text-[#082F49] font-bold py-3.5 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-sky-500/20"
+              className="w-full flex items-center justify-center gap-2 bg-sky-500 hover:bg-sky-600 disabled:opacity-60 disabled:cursor-not-allowed text-[#082F49] font-bold py-3.5 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-sky-500/20"
             >
               {loading ? (
                 <>
@@ -453,7 +453,7 @@ export default function RegisterPage() {
                 />
               </div>
               {googleLoading && (
-                <p className="flex items-center justify-center gap-2 text-xs text-slate-500 dark:text-[#94A3B8]">
+                <p className="flex items-center justify-center gap-2 text-xs text-slate-600 dark:text-[#94A3B8]">
                   <Loader2 className="animate-spin" size={14} />
                   Creating your account with Google…
                 </p>
@@ -461,11 +461,11 @@ export default function RegisterPage() {
             </div>
 
             {/* Login Link */}
-            <p className="text-center text-sm text-slate-500 dark:text-[#94A3B8] pt-2">
+            <p className="text-center text-sm text-slate-600 dark:text-[#94A3B8] pt-2">
               Already have an account?{" "}
               <Link
                 href="/login"
-                className="text-[#38BDF8] font-semibold hover:underline"
+                className="text-sky-600 dark:text-[#38BDF8] font-semibold hover:underline"
               >
                 Sign In
               </Link>

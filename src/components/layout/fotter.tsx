@@ -50,32 +50,32 @@ const socials = [
 
 export default function Footer() {
   return (
-    <footer className="relative isolate overflow-hidden border-t border-slate-200 dark:border-[#334155]/10 bg-white dark:bg-[#0B1120] text-slate-900 dark:text-[#F1F5F9]">
+    <footer className="relative isolate overflow-hidden border-t border-slate-200 dark:border-[#334155]/10 bg-[#F8FAFC] dark:bg-[#0B1120] text-slate-900 dark:text-[#F1F5F9]">
       {/* Background Effects */}
-      <div className="pointer-events-none absolute -left-40 top-0 -z-10 size-[400px] rounded-full bg-[#38BDF8]/10 blur-[120px]" />
+      <div className="pointer-events-none absolute -left-40 top-0 -z-10 size-[400px] rounded-full bg-sky-500/10 blur-[120px]" />
       <div className="pointer-events-none absolute -right-40 bottom-0 -z-10 size-[400px] rounded-full bg-[#818CF8]/10 blur-[120px]" />
 
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
         {/* Newsletter Banner */}
         <div className="py-14 md:py-16">
-          <div className="relative overflow-hidden rounded-3xl border border-[#38BDF8]/20 bg-gradient-to-br from-white dark:from-[#0B1120] via-white dark:via-[#1E293B] to-[#38BDF8] p-7 sm:p-10 lg:p-12">
-            <div className="pointer-events-none absolute -right-16 -top-24 size-72 rounded-full bg-[#38BDF8]/15 blur-[90px]" />
+          <div className="relative overflow-hidden rounded-3xl border border-sky-500/20 dark:hover:border-[#38BDF8]/20 bg-gradient-to-br from-white dark:from-[#0B1120] via-white dark:via-[#1E293B] to-[#38BDF8] p-7 sm:p-10 lg:p-12">
+            <div className="pointer-events-none absolute -right-16 -top-24 size-72 rounded-full bg-sky-500/15 blur-[90px]" />
 
             <div className="relative flex flex-col justify-between gap-8 lg:flex-row lg:items-center">
               <div className="max-w-xl">
-                <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#38BDF8]/30 bg-[#38BDF8]/10 px-3 py-1.5 text-xs font-semibold tracking-wider text-[#38BDF8]">
+                <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-sky-500/30 dark:hover:border-[#38BDF8]/30 bg-sky-500/10 px-3 py-1.5 text-xs font-semibold tracking-wider text-sky-600 dark:text-[#38BDF8]">
                   <Sparkles className="size-3.5" />
                   STAY INSPIRED
                 </div>
 
                 <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
                   Creativity starts with
-                  <span className="bg-gradient-to-r from-[#38BDF8] to-[#818CF8] bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-sky-500 to-indigo-400 bg-clip-text text-transparent">
                     inspiration.
                   </span>
                 </h2>
 
-                <p className="mt-4 text-sm leading-7 text-slate-500 dark:text-[#94A3B8] sm:text-base">
+                <p className="mt-4 text-sm leading-7 text-slate-600 dark:text-[#94A3B8] sm:text-base">
                   Get creative ideas, studio updates, and exclusive offers
                   delivered straight to your inbox.
                 </p>
@@ -87,19 +87,19 @@ export default function Footer() {
                     type="email"
                     placeholder="Enter your email address"
                     aria-label="Email address"
-                    className="h-12 border-slate-200 dark:border-[#334155]/10 bg-white/80 dark:bg-[#0B1120]/80 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-[#94A3B8] focus-visible:border-[#38BDF8] focus-visible:ring-[#38BDF8]/30"
+                    className="h-12 border-slate-200 dark:border-[#334155]/10 bg-white/80 dark:bg-[#0B1120]/80 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-[#94A3B8] focus-visible:border-sky-500 dark:border-[#38BDF8] focus-visible:ring-sky-500/30"
                   />
 
                   <Button
                     type="button"
-                    className="h-12 shrink-0 gap-2 bg-[#38BDF8] px-6 font-semibold text-white hover:bg-[#2A95D0]"
+                    className="h-12 shrink-0 gap-2 bg-sky-500 px-6 font-semibold text-white hover:bg-sky-600"
                   >
                     Subscribe
                     <ArrowRight className="size-4" />
                   </Button>
                 </div>
 
-                <p className="mt-3 text-xs text-slate-500 dark:text-[#94A3B8]">
+                <p className="mt-3 text-xs text-slate-600 dark:text-[#94A3B8]">
                   Join our creative community. No spam, ever.
                 </p>
               </div>
@@ -112,14 +112,14 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <Link href="/" className="group inline-flex items-center gap-3">
-              <div className="flex size-11 items-center justify-center rounded-xl bg-gradient-to-br from-[#38BDF8] to-[#818CF8] text-[#0B1120] shadow-lg shadow-[#38BDF8]/10 transition group-hover:rotate-12">
+              <div className="flex size-11 items-center justify-center rounded-xl bg-gradient-to-br from-sky-500 to-indigo-400 text-[#0B1120] shadow-lg shadow-sky-500/10 transition group-hover:rotate-12">
                 <Aperture className="size-6" />
               </div>
               <span className="text-2xl font-bold tracking-tight">
-                Studio<span className="text-[#38BDF8]">Space</span>
+                Studio<span className="text-sky-600 dark:text-[#38BDF8]">Space</span>
               </span>
             </Link>
-            <p className="mt-6 max-w-xs text-sm leading-7 text-slate-500 dark:text-[#94A3B8]">
+            <p className="mt-6 max-w-xs text-sm leading-7 text-slate-600 dark:text-[#94A3B8]">
               We believe every great idea deserves the perfect environment. Our mission is to connect creative minds with inspiring spaces and make every creative journey easier.
             </p>
             <div className="mt-7 flex items-center gap-2">
@@ -130,7 +130,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.name}
-                  className="inline-flex size-10 items-center justify-center rounded-md border border-slate-200 dark:border-[#334155]/10 bg-white dark:bg-[#0B1120] text-slate-500 dark:text-[#94A3B8] transition-colors hover:border-[#38BDF8]/50 hover:bg-[#38BDF8] hover:text-white"
+                  className="inline-flex size-10 items-center justify-center rounded-md border border-slate-200 dark:border-[#334155]/10 bg-[#F8FAFC] dark:bg-[#0B1120] text-slate-600 dark:text-[#94A3B8] transition-colors hover:border-sky-500/50 dark:hover:border-[#38BDF8]/50 hover:bg-sky-500 hover:text-white"
                 >
                   <SocialIcon name={social.name} />
                 </a>
@@ -142,7 +142,7 @@ export default function Footer() {
           <div>
             <h3 className="mb-6 flex items-center gap-2 font-semibold">
               Quick Navigation
-              <span className="size-1.5 rounded-full bg-[#38BDF8]" />
+              <span className="size-1.5 rounded-full bg-sky-500" />
             </h3>
 
             <ul className="space-y-4">
@@ -150,9 +150,9 @@ export default function Footer() {
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="group inline-flex items-center gap-2 text-sm text-slate-500 dark:text-[#94A3B8] transition-colors hover:text-[#818CF8]"
+                    className="group inline-flex items-center gap-2 text-sm text-slate-600 dark:text-[#94A3B8] transition-colors hover:text-indigo-500"
                   >
-                    <ArrowUpRight className="size-3.5 text-[#38BDF8] opacity-0 transition group-hover:opacity-100" />
+                    <ArrowUpRight className="size-3.5 text-sky-600 dark:text-[#38BDF8] opacity-0 transition group-hover:opacity-100" />
                     {item.name}
                   </Link>
                 </li>
@@ -164,7 +164,7 @@ export default function Footer() {
           <div>
             <h3 className="mb-6 flex items-center gap-2 font-semibold">
               Popular Categories
-              <span className="size-1.5 rounded-full bg-[#38BDF8]" />
+              <span className="size-1.5 rounded-full bg-sky-500" />
             </h3>
 
             <ul className="space-y-4">
@@ -172,7 +172,7 @@ export default function Footer() {
                 <li key={category.name}>
                   <Link
                     href={category.href}
-                    className="group inline-flex items-center gap-2 text-sm text-slate-500 dark:text-[#94A3B8] transition-colors hover:text-[#818CF8]"
+                    className="group inline-flex items-center gap-2 text-sm text-slate-600 dark:text-[#94A3B8] transition-colors hover:text-indigo-500"
                   >
                     <Camera className="size-3.5 text-[#818CF8] opacity-0 transition group-hover:opacity-100" />
                     {category.name}
@@ -186,26 +186,26 @@ export default function Footer() {
           <div>
             <h3 className="mb-6 flex items-center gap-2 font-semibold">
               Get In Touch
-              <span className="size-1.5 rounded-full bg-[#38BDF8]" />
+              <span className="size-1.5 rounded-full bg-sky-500" />
             </h3>
 
-            <p className="mb-6 text-sm leading-7 text-slate-500 dark:text-[#94A3B8]">
+            <p className="mb-6 text-sm leading-7 text-slate-600 dark:text-[#94A3B8]">
               Have questions or need help? We would love to hear from you.
               Get in touch with our team.
             </p>
 
             <a
               href="mailto:support@studiospace.com"
-              className="flex items-center gap-3 text-sm text-slate-500 dark:text-[#94A3B8] transition hover:text-[#818CF8]"
+              className="flex items-center gap-3 text-sm text-slate-600 dark:text-[#94A3B8] transition hover:text-indigo-500"
             >
-              <span className="flex size-9 items-center justify-center rounded-lg border border-slate-200 dark:border-[#334155]/10 bg-white dark:bg-[#0B1120] text-[#38BDF8]">
+              <span className="flex size-9 items-center justify-center rounded-lg border border-slate-200 dark:border-[#334155]/10 bg-[#F8FAFC] dark:bg-[#0B1120] text-sky-600 dark:text-[#38BDF8]">
                 <Mail className="size-4" />
               </span>
               support@studiospace.com
             </a>
 
-            <div className="mt-4 flex items-center gap-3 text-sm text-slate-500 dark:text-[#94A3B8]">
-              <span className="flex size-9 items-center justify-center rounded-lg border border-slate-200 dark:border-[#334155]/10 bg-white dark:bg-[#0B1120] text-[#38BDF8]">
+            <div className="mt-4 flex items-center gap-3 text-sm text-slate-600 dark:text-[#94A3B8]">
+              <span className="flex size-9 items-center justify-center rounded-lg border border-slate-200 dark:border-[#334155]/10 bg-[#F8FAFC] dark:bg-[#0B1120] text-sky-600 dark:text-[#38BDF8]">
                 <MapPin className="size-4" />
               </span>
               Creative spaces, everywhere.
@@ -217,27 +217,27 @@ export default function Footer() {
 
         {/* Bottom Footer */}
         <div className="flex flex-col items-center justify-between gap-5 py-7 text-center sm:flex-row sm:text-left">
-          <p className="text-xs leading-6 text-slate-500 dark:text-[#94A3B8] sm:text-sm">
+          <p className="text-xs leading-6 text-slate-600 dark:text-[#94A3B8] sm:text-sm">
             © {new Date().getFullYear()} StudioSpace. All rights reserved.
           </p>
 
-          <div className="flex items-center gap-5 text-xs text-slate-500 dark:text-[#94A3B8] sm:text-sm">
+          <div className="flex items-center gap-5 text-xs text-slate-600 dark:text-[#94A3B8] sm:text-sm">
             <Link
               href="/privacy"
-              className="transition hover:text-[#818CF8]"
+              className="transition hover:text-indigo-500"
             >
               Privacy Policy
             </Link>
             <Link
               href="/terms"
-              className="transition hover:text-[#818CF8]"
+              className="transition hover:text-indigo-500"
             >
               Terms & Conditions
             </Link>
           </div>
 
-          <p className="text-xs text-slate-500 dark:text-[#94A3B8] sm:text-sm">
-            Made with <span className="text-[#38BDF8]">♥</span> for creators
+          <p className="text-xs text-slate-600 dark:text-[#94A3B8] sm:text-sm">
+            Made with <span className="text-sky-600 dark:text-[#38BDF8]">♥</span> for creators
           </p>
         </div>
       </div>

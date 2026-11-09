@@ -179,7 +179,7 @@ export default function StudioDetailsPage({ params }: PageProps) {
 
   if (id === 'new') {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-white dark:bg-[#0B1120] text-slate-900 dark:text-[#F1F5F9]">
+      <main className="flex min-h-screen items-center justify-center bg-[#F8FAFC] dark:bg-[#0B1120] text-slate-900 dark:text-[#F1F5F9]">
         <p>Loading Add Studio Form...</p>
       </main>
     );
@@ -187,7 +187,7 @@ export default function StudioDetailsPage({ params }: PageProps) {
 
   if (loading) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-white dark:bg-[#0B1120] text-slate-900 dark:text-[#F1F5F9]">
+      <main className="flex min-h-screen items-center justify-center bg-[#F8FAFC] dark:bg-[#0B1120] text-slate-900 dark:text-[#F1F5F9]">
         <p>Loading studio...</p>
       </main>
     );
@@ -195,9 +195,9 @@ export default function StudioDetailsPage({ params }: PageProps) {
 
   if (!studio) {
     return (
-      <main className="flex min-h-screen flex-col items-center justify-center bg-white dark:bg-[#0B1120] text-slate-900 dark:text-[#F1F5F9]">
+      <main className="flex min-h-screen flex-col items-center justify-center bg-[#F8FAFC] dark:bg-[#0B1120] text-slate-900 dark:text-[#F1F5F9]">
         <h1 className="text-2xl font-bold">Studio not found</h1>
-        <Link href="/studios" className="mt-4 rounded-xl bg-[#38BDF8] px-4 py-2 text-white">
+        <Link href="/studios" className="mt-4 rounded-xl bg-sky-500 px-4 py-2 text-white">
           Back to Studios
         </Link>
       </main>
@@ -205,11 +205,11 @@ export default function StudioDetailsPage({ params }: PageProps) {
   }
 
   return (
-    <main className="min-h-screen bg-white dark:bg-[#0B1120] px-4 py-12 text-slate-900 dark:text-[#F1F5F9] sm:px-6 lg:px-8">
+    <main className="min-h-screen bg-[#F8FAFC] dark:bg-[#0B1120] px-4 py-12 text-slate-900 dark:text-[#F1F5F9] sm:px-6 lg:px-8">
       <div className="mx-auto max-w-4xl">
         <Link
           href="/studios"
-          className="mb-6 inline-flex items-center gap-2 text-sm text-[#38BDF8] transition hover:underline"
+          className="mb-6 inline-flex items-center gap-2 text-sm text-sky-600 dark:text-[#38BDF8] transition hover:underline"
         >
           <ArrowLeft size={16} /> Back to Studios
         </Link>
@@ -221,7 +221,7 @@ export default function StudioDetailsPage({ params }: PageProps) {
             alt={studio.title}
             className="h-full w-full object-cover"
           />
-          <span className="absolute left-4 top-4 rounded-full bg-white/80 dark:bg-white dark:bg-[#0B1120]/80 px-3 py-1 text-xs font-semibold text-[#38BDF8] backdrop-blur-md">
+          <span className="absolute left-4 top-4 rounded-full bg-white/80 dark:bg-[#0B1120]/80 px-3 py-1 text-xs font-semibold text-sky-600 dark:text-[#38BDF8] backdrop-blur-md">
             {studio.category}
           </span>
         </div>
@@ -230,33 +230,33 @@ export default function StudioDetailsPage({ params }: PageProps) {
           <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
             <div>
               <h1 className="text-2xl font-bold text-slate-900 dark:text-[#F1F5F9] sm:text-3xl">{studio.title}</h1>
-              <p className="mt-2 flex items-center gap-1 text-sm text-slate-500 dark:text-[#94A3B8]">
-                <MapPin size={16} className="text-[#38BDF8]" /> {studio.location}
+              <p className="mt-2 flex items-center gap-1 text-sm text-slate-600 dark:text-[#94A3B8]">
+                <MapPin size={16} className="text-sky-600 dark:text-[#38BDF8]" /> {studio.location}
               </p>
             </div>
             <div className="text-right">
-              <span className="text-xs text-slate-500 dark:text-[#94A3B8]">Hourly Rate</span>
-              <p className="text-2xl font-bold text-[#38BDF8]">${studio.hourlyRate} / hr</p>
+              <span className="text-xs text-slate-600 dark:text-[#94A3B8]">Hourly Rate</span>
+              <p className="text-2xl font-bold text-sky-600 dark:text-[#38BDF8]">${studio.hourlyRate} / hr</p>
             </div>
           </div>
 
           <div className="mt-6 border-t border-slate-200 dark:border-[#334155] pt-6">
             <h3 className="text-lg font-semibold text-slate-900 dark:text-[#F1F5F9]">About This Studio</h3>
-            <p className="mt-2 text-sm leading-relaxed text-slate-500 dark:text-[#94A3B8]">
+            <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-[#94A3B8]">
               {studio.overview || studio.description || studio.detailedOverview || "No description provided for this studio yet. Enjoy a professional creative space equipped with top-tier amenities for your next project."}
             </p>
           </div>
 
           <div className="mt-8 flex items-center justify-between border-t border-slate-200 dark:border-[#334155] pt-6">
-            <span className="text-xs text-slate-500 dark:text-[#94A3B8]">Host Contact: {studio.ownerEmail || "N/A"}</span>
+            <span className="text-xs text-slate-600 dark:text-[#94A3B8]">Host Contact: {studio.ownerEmail || "N/A"}</span>
           </div>
 
           {/* Booking Form */}
           {isBooked ? (
             <div className="mt-6 p-4 bg-slate-50/50 dark:bg-white dark:bg-[#1E293B]/50 rounded-xl text-center">
               <p className="text-sm text-slate-500 dark:text-[#64748B]">
-                <span className="font-medium text-[#38BDF8]">Booking confirmed!</span>
-                Your booking is being processed. Check <Link href="/my-bookings" className="text-[#38BDF8] hover:underline">My Bookings</Link> for updates.
+                <span className="font-medium text-sky-600 dark:text-[#38BDF8]">Booking confirmed!</span>
+                Your booking is being processed. Check <Link href="/my-bookings" className="text-sky-600 dark:text-[#38BDF8] hover:underline">My Bookings</Link> for updates.
               </p>
             </div>
           ) : (
@@ -282,7 +282,7 @@ export default function StudioDetailsPage({ params }: PageProps) {
                   value={date}
                   min={new Date().toISOString().split("T")[0]}
                   onChange={(e) => setDate(e.target.value)}
-                  className="w-full rounded-xl border border-border bg-white dark:bg-[#0B1120] py-3 pl-4 text-sm text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10"
+                  className="w-full rounded-xl border border-border bg-[#F8FAFC] dark:bg-[#0B1120] py-3 pl-4 text-sm text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10"
                 />
               </div>
 
@@ -290,10 +290,10 @@ export default function StudioDetailsPage({ params }: PageProps) {
                 <label className="block text-sm font-medium text-foreground mb-2">
                   Select Time Slot
                   {loadingSlots && (
-                    <span className="ml-2 text-xs text-slate-500 dark:text-[#94A3B8]">Checking availability…</span>
+                    <span className="ml-2 text-xs text-slate-600 dark:text-[#94A3B8]">Checking availability…</span>
                   )}
                   {!loadingSlots && date && bookedSlots.length > 0 && (
-                    <span className="ml-2 text-xs text-slate-500 dark:text-[#94A3B8]">
+                    <span className="ml-2 text-xs text-slate-600 dark:text-[#94A3B8]">
                       ({bookedSlots.length} slot{bookedSlots.length === 1 ? "" : "s"} already booked)
                     </span>
                   )}
@@ -304,7 +304,7 @@ export default function StudioDetailsPage({ params }: PageProps) {
                   value={displaySlot}
                   onChange={(e) => setTimeSlot(e.target.value)}
                   disabled={!date || loadingSlots || allSlotsBooked}
-                  className="w-full rounded-xl border border-border bg-white dark:bg-[#0B1120] py-3 pl-4 text-sm text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10 disabled:opacity-50"
+                  className="w-full rounded-xl border border-border bg-[#F8FAFC] dark:bg-[#0B1120] py-3 pl-4 text-sm text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10 disabled:opacity-50"
                 >
                   <option value="" disabled>
                     {allSlotsBooked
@@ -334,7 +334,7 @@ export default function StudioDetailsPage({ params }: PageProps) {
                 <label className="block text-sm font-medium text-foreground mb-2">
                   Price (per hour)
                 </label>
-                <p className="text-lg font-bold text-[#38BDF8]">
+                <p className="text-lg font-bold text-sky-600 dark:text-[#38BDF8]">
                   {studio.hourlyRate} ৳ / hr
                   <input
                     type="hidden"
@@ -348,7 +348,7 @@ export default function StudioDetailsPage({ params }: PageProps) {
               <button
                 type="submit"
                 disabled={isBooked}
-                className="w-full rounded-xl bg-gradient-to-r from-primary to-[#818CF8] py-4 font-semibold text-primary-foreground transition hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                className="w-full rounded-xl bg-gradient-to-r from-primary to-indigo-400 py-4 font-semibold text-primary-foreground transition hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
               >
                 {isBooked ? "Booking..." : "Book Now"}
               </button>

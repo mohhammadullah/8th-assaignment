@@ -151,19 +151,19 @@ function UserMenu({
         {/* Menu Items Group */}
         <DropdownMenuGroup>
           <DropdownMenuItem onClick={() => router.push("/dashboard")} className="flex items-center gap-2 cursor-pointer">
-            <LayoutDashboard size={16} className="text-[#38BDF8]" /> Dashboard
+            <LayoutDashboard size={16} className="text-sky-600 dark:text-[#38BDF8]" /> Dashboard
           </DropdownMenuItem>
 
           <DropdownMenuItem onClick={() => router.push("/add-studio")} className="flex items-center gap-2 cursor-pointer">
-            <CirclePlus size={16} className="text-[#38BDF8]" /> Add New Studio
+            <CirclePlus size={16} className="text-sky-600 dark:text-[#38BDF8]" /> Add New Studio
           </DropdownMenuItem>
 
           <DropdownMenuItem onClick={() => router.push("/my-listings")} className="flex items-center gap-2 cursor-pointer">
-            <Building size={16} className="text-[#38BDF8]" /> My Studio Listings
+            <Building size={16} className="text-sky-600 dark:text-[#38BDF8]" /> My Studio Listings
           </DropdownMenuItem>
 
           <DropdownMenuItem onClick={() => router.push("/my-bookings")} className="flex items-center gap-2 cursor-pointer">
-            <CalendarCheck size={16} className="text-[#38BDF8]" /> My Bookings
+            <CalendarCheck size={16} className="text-sky-600 dark:text-[#38BDF8]" /> My Bookings
           </DropdownMenuItem>
         </DropdownMenuGroup>
 
@@ -191,7 +191,7 @@ export function SiteHeader() {
   return (
     <header
       data-slot="site-header"
-      className="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-[#334155] bg-white/90 dark:bg-white dark:bg-[#0B1120]/90 backdrop-blur-md supports-[backdrop-filter]:bg-white/70 dark:bg-white dark:bg-[#0B1120]/70"
+      className="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-[#334155] bg-[#F8FAFC]/80 dark:bg-[#0B1120]/80 backdrop-blur-md shadow-sm transition-colors duration-300"
     >
       <div className="mx-auto flex h-16 w-full max-w-7xl items-center gap-4 px-4 sm:px-6">
         <Logo />
@@ -222,7 +222,7 @@ export function SiteHeader() {
 
               <Link
                 href="/register"
-                className="inline-flex h-9 items-center justify-center whitespace-nowrap rounded-md px-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-[#38BDF8] text-[#082F49] hover:bg-[#0EA5E9] font-semibold"
+                className="inline-flex h-9 items-center justify-center whitespace-nowrap rounded-md px-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-sky-500 text-[#082F49] hover:bg-sky-600 font-semibold"
               >
                 Register
               </Link>
@@ -253,7 +253,7 @@ export function SiteHeader() {
       {mobileOpen && (
         <div
           id="mobile-nav"
-          className="border-t border-slate-200 dark:border-[#334155] bg-white/95 dark:bg-white dark:bg-[#0B1120]/95 md:hidden backdrop-blur-xl"
+          className="border-t border-slate-200 dark:border-[#334155] bg-[#F8FAFC]/95 dark:bg-[#0B1120]/95 md:hidden backdrop-blur-xl transition-colors duration-300"
         >
           <nav
             aria-label="Mobile"
@@ -295,28 +295,28 @@ export function SiteHeader() {
                       onClick={() => setMobileOpen(false)}
                       className="flex items-center gap-2 rounded-xl bg-slate-100 dark:bg-slate-800/60 p-2.5 text-xs font-medium text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700/50"
                     >
-                      <LayoutDashboard size={15} className="text-[#38BDF8]" /> Dashboard
+                      <LayoutDashboard size={15} className="text-sky-600 dark:text-[#38BDF8]" /> Dashboard
                     </Link>
                     <Link
                       href="/add-studio"
                       onClick={() => setMobileOpen(false)}
                       className="flex items-center gap-2 rounded-xl bg-slate-100 dark:bg-slate-800/60 p-2.5 text-xs font-medium text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700/50"
                     >
-                      <CirclePlus size={15} className="text-[#38BDF8]" /> Add Studio
+                      <CirclePlus size={15} className="text-sky-600 dark:text-[#38BDF8]" /> Add Studio
                     </Link>
                     <Link
                       href="/my-listings"
                       onClick={() => setMobileOpen(false)}
                       className="flex items-center gap-2 rounded-xl bg-slate-100 dark:bg-slate-800/60 p-2.5 text-xs font-medium text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700/50"
                     >
-                      <Building size={15} className="text-[#38BDF8]" /> My Listings
+                      <Building size={15} className="text-sky-600 dark:text-[#38BDF8]" /> My Listings
                     </Link>
                     <Link
                       href="/my-bookings"
                       onClick={() => setMobileOpen(false)}
                       className="flex items-center gap-2 rounded-xl bg-slate-100 dark:bg-slate-800/60 p-2.5 text-xs font-medium text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700/50"
                     >
-                      <CalendarCheck size={15} className="text-[#38BDF8]" /> My Bookings
+                      <CalendarCheck size={15} className="text-sky-600 dark:text-[#38BDF8]" /> My Bookings
                     </Link>
                   </div>
 
@@ -345,7 +345,7 @@ export function SiteHeader() {
                   <Link
                     href="/register"
                     onClick={() => setMobileOpen(false)}
-                    className="inline-flex h-10 items-center justify-center whitespace-nowrap rounded-md px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-[#38BDF8] text-[#082F49] hover:bg-[#0EA5E9] font-semibold"
+                    className="inline-flex h-10 items-center justify-center whitespace-nowrap rounded-md px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-sky-500 text-[#082F49] hover:bg-sky-600 font-semibold"
                   >
                     Register
                   </Link>
