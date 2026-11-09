@@ -3,17 +3,20 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { GoogleLogin, type CredentialResponse } from "@react-oauth/google";
 import { toast } from "react-toastify";
 import { LogIn, Mail, Lock, Loader2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { useUser } from "@/hooks/use-user";
 import { API_BASE_URL } from "@/lib/api";
+import { sendGoogleCredential } from "@/lib/google-auth";
 
 export default function LoginPage() {
   const router = useRouter();
   const { refreshUser } = useUser();
   const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -51,8 +54,26 @@ export default function LoginPage() {
     }
   };
 
-  const handleGoogleLogin = () => {
-    toast.info("Google login redirecting...");
+  const handleGoogleSuccess = async (credentialResponse: CredentialResponse) => {
+    const credential = credentialResponse.credential;
+    if (!credential) {
+      toast.error("Google sign-in failed. Please try again.");
+      return;
+    }
+
+    try {
+      setGoogleLoading(true);
+      await sendGoogleCredential(credential);
+      await refreshUser();
+      toast.success("Successfully signed in with Google!");
+      router.push("/");
+    } catch (error: unknown) {
+      toast.error(
+        error instanceof Error ? error.message : "Google sign-in failed. Please try again."
+      );
+    } finally {
+      setGoogleLoading(false);
+    }
   };
 
   return (
@@ -121,15 +142,28 @@ export default function LoginPage() {
               </Button>
             </form>
 
-            <div className="mt-6">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={handleGoogleLogin}
-                className="w-full rounded-xl border-border bg-[#0B1120] py-6 text-sm font-medium text-foreground transition hover:border-primary/50"
-              >
-                Continue with Google
-              </Button>
+            <div className="mt-6 space-y-4">
+              <div className="flex items-center gap-3 text-xs text-[#64748B]">
+                <span className="h-px flex-1 bg-[#334155]" />
+                or continue with
+                <span className="h-px flex-1 bg-[#334155]" />
+              </div>
+              <div className="flex justify-center">
+                <GoogleLogin
+                  onSuccess={handleGoogleSuccess}
+                  onError={() => {
+                    toast.error("Google sign-in failed. Please try again.");
+                  }}
+                  text="continue_with"
+                  size="large"
+                />
+              </div>
+              {googleLoading && (
+                <p className="flex items-center justify-center gap-2 text-xs text-[#94A3B8]">
+                  <Loader2 className="animate-spin" size={14} />
+                  Signing you in with Google…
+                </p>
+              )}
             </div>
 
             <p className="mt-6 text-center text-xs text-muted-foreground-foreground">

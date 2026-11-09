@@ -17,10 +17,14 @@ import {
   Loader2,
 } from "lucide-react";
 import { toast } from "react-toastify";
+import { GoogleLogin, type CredentialResponse } from "@react-oauth/google";
 import { API_BASE_URL } from "@/lib/api";
+import { sendGoogleCredential } from "@/lib/google-auth";
+import { useUser } from "@/hooks/use-user";
 
 export default function RegisterPage() {
   const router = useRouter();
+  const { refreshUser } = useUser();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [photoUrl, setPhotoUrl] = useState("");
@@ -30,6 +34,7 @@ export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -123,6 +128,32 @@ export default function RegisterPage() {
       toast.error(error instanceof Error ? error.message : "Something went wrong. Please try again.");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleGoogleSuccess = async (
+    credentialResponse: CredentialResponse
+  ) => {
+    const credential = credentialResponse.credential;
+    if (!credential) {
+      toast.error("Google sign-in failed. Please try again.");
+      return;
+    }
+
+    try {
+      setGoogleLoading(true);
+      await sendGoogleCredential(credential);
+      await refreshUser();
+      toast.success("Welcome to StudioSpace!");
+      router.push("/");
+    } catch (error: unknown) {
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Google sign-in failed. Please try again."
+      );
+    } finally {
+      setGoogleLoading(false);
     }
   };
 
@@ -403,6 +434,31 @@ export default function RegisterPage() {
                 </>
               )}
             </button>
+
+            {/* Google Sign-Up */}
+            <div className="space-y-4 pt-2">
+              <div className="flex items-center gap-3 text-xs text-[#64748B]">
+                <span className="h-px flex-1 bg-[#334155]" />
+                or sign up with
+                <span className="h-px flex-1 bg-[#334155]" />
+              </div>
+              <div className="flex justify-center">
+                <GoogleLogin
+                  onSuccess={handleGoogleSuccess}
+                  onError={() => {
+                    toast.error("Google sign-in failed. Please try again.");
+                  }}
+                  text="signup_with"
+                  size="large"
+                />
+              </div>
+              {googleLoading && (
+                <p className="flex items-center justify-center gap-2 text-xs text-[#94A3B8]">
+                  <Loader2 className="animate-spin" size={14} />
+                  Creating your account with Google…
+                </p>
+              )}
+            </div>
 
             {/* Login Link */}
             <p className="text-center text-sm text-[#94A3B8] pt-2">

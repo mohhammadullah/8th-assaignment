@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { SiteHeader } from "@/components/layout/header";
+import { GoogleAuthProvider } from "@/components/GoogleAuthProvider";
 import { AuthProvider } from "@/hooks/use-user";
 
 import "./globals.css";
@@ -31,16 +32,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <body className="flex min-h-full flex-col bg-[#0B1120] text-[#F1F5F9]">
 
-        <AuthProvider>
-          <ToastContainer
-            position="top-right"
-            autoClose={3000}
-            theme="dark"
-            newestOnTop
-          />
-          <SiteHeader />
-          <main className="flex-1">{children}</main>
-        </AuthProvider>
+        <GoogleAuthProvider>
+          <AuthProvider>
+            <ToastContainer
+              position="top-right"
+              autoClose={3000}
+              theme="dark"
+              newestOnTop
+            />
+            <SiteHeader />
+            <main className="flex-1">{children}</main>
+          </AuthProvider>
+        </GoogleAuthProvider>
       </body>
     </html>
   );
