@@ -17,9 +17,8 @@ import {
   Loader2,
 } from "lucide-react";
 import { toast } from "sonner";
-import { GoogleLogin, type CredentialResponse } from "@react-oauth/google";
-import { API_BASE_URL } from "@/lib/api";
-import { sendGoogleCredential } from "@/lib/google-auth";
+import { authClient } from "@/lib/auth-client";
+import { signInWithGoogle } from "@/lib/google-auth";
 import { useUser } from "@/hooks/use-user";
 
 export default function RegisterPage() {
@@ -102,28 +101,20 @@ export default function RegisterPage() {
     try {
       setLoading(true);
 
-      
-      const res = await fetch(`${API_BASE_URL}/api/auth/register`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({
-          name,
-          email,
-          photoUrl,
-          password,
-        }),
+      const { error } = await authClient.signUp.email({
+        name,
+        email,
+        password,
+        image: photoUrl || undefined,
       });
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.message || "Registration failed");
+      if (error) {
+        throw new Error(error.message || "Registration failed");
       }
 
-      toast.success("Registration successful! Please login.");
-      router.push("/login"); 
-
+      await refreshUser();
+      toast.success("Registration successful! Welcome to StudioSpace.");
+      router.push("/");
     } catch (error: unknown) {
       toast.error(error instanceof Error ? error.message : "Something went wrong. Please try again.");
     } finally {
@@ -131,28 +122,16 @@ export default function RegisterPage() {
     }
   };
 
-  const handleGoogleSuccess = async (
-    credentialResponse: CredentialResponse
-  ) => {
-    const credential = credentialResponse.credential;
-    if (!credential) {
-      toast.error("Google sign-in failed. Please try again.");
-      return;
-    }
-
+  const handleGoogleClick = async () => {
     try {
       setGoogleLoading(true);
-      await sendGoogleCredential(credential);
-      await refreshUser();
-      toast.success("Welcome to StudioSpace!");
-      router.push("/");
+      await signInWithGoogle();
     } catch (error: unknown) {
       toast.error(
         error instanceof Error
           ? error.message
           : "Google sign-in failed. Please try again."
       );
-    } finally {
       setGoogleLoading(false);
     }
   };
@@ -443,14 +422,17 @@ export default function RegisterPage() {
                 <span className="h-px flex-1 bg-slate-200 dark:bg-[#334155]" />
               </div>
               <div className="flex justify-center">
-                <GoogleLogin
-                  onSuccess={handleGoogleSuccess}
-                  onError={() => {
-                    toast.error("Google sign-in failed. Please try again.");
-                  }}
-                  text="signup_with"
-                  size="large"
-                />
+                <button
+                  type="button"
+                  disabled={googleLoading}
+                  onClick={() => void handleGoogleClick()}
+                  className="flex w-full items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-[#334155] bg-white dark:bg-[#0F172A] px-4 py-3 text-sm font-semibold text-slate-900 dark:text-white transition hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-60"
+                >
+                  {googleLoading ? (
+                    <Loader2 size={18} className="animate-spin" />
+                  ) : null}
+                  Sign up with Google
+                </button>
               </div>
               {googleLoading && (
                 <p className="flex items-center justify-center gap-2 text-xs text-slate-600 dark:text-[#94A3B8]">

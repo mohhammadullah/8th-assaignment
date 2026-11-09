@@ -1,14 +1,10 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { GoogleOAuthProvider } from "@react-oauth/google";
 
+// Google sign-in is now handled by the Better Auth server (social provider,
+// redirect flow) instead of the Google Identity Services SDK. This wrapper is
+// kept so the existing layout composition stays unchanged.
 export function GoogleAuthProvider({ children }: { children: ReactNode }) {
-  const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
-
-  if (!clientId) {
-    return <>{children}</>;
-  }
-
-  return <GoogleOAuthProvider clientId={clientId}>{children}</GoogleOAuthProvider>;
+  return <>{children}</>;
 }

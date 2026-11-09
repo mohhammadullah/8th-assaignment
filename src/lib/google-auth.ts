@@ -1,30 +1,20 @@
-import { apiFetch } from "@/lib/api";
+import { authClient } from "@/lib/auth-client";
 
-export type GoogleUser = {
-  id: string;
-  name: string;
-  email: string;
-  photoUrl?: string;
-};
-
-
-export async function sendGoogleCredential(
-  credential: string
-): Promise<GoogleUser> {
-  const res = await apiFetch("/api/auth/google", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ credential }),
+/**
+ * Start the Better Auth Google OAuth flow (redirect-based).
+ *
+ * Google is configured as a social provider in the Express server's
+ * Better Auth instance (studio-space-server/lib/auth.js). The browser is
+ * redirected to Google and back, which creates or retrieves the user and
+ * sets the session cookie.
+ */
+export async function signInWithGoogle(): Promise<void> {
+  const { error } = await authClient.signIn.social({
+    provider: "google",
+    callbackURL: "/",
   });
 
-  const data = (await res.json().catch(() => null)) as {
-    message?: string;
-    user?: GoogleUser;
-  } | null;
-
-  if (!res.ok || !data?.user) {
-    throw new Error(data?.message || "Google sign-in failed");
+  if (error) {
+    throw new Error(error.message || "Google sign-in failed");
   }
-
-  return data.user;
 }

@@ -3,14 +3,13 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { GoogleLogin, type CredentialResponse } from "@react-oauth/google";
 import { toast } from "sonner";
 import { LogIn, Mail, Lock, Loader2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { useUser } from "@/hooks/use-user";
-import { API_BASE_URL } from "@/lib/api";
-import { sendGoogleCredential } from "@/lib/google-auth";
+import { authClient } from "@/lib/auth-client";
+import { signInWithGoogle } from "@/lib/google-auth";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -31,17 +30,13 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify(formData),
+      const { error } = await authClient.signIn.email({
+        email: formData.email,
+        password: formData.password,
       });
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.message || "Invalid email or password");
+      if (error) {
+        throw new Error(error.message || "Invalid email or password");
       }
 
       await refreshUser();
@@ -54,24 +49,14 @@ export default function LoginPage() {
     }
   };
 
-  const handleGoogleSuccess = async (credentialResponse: CredentialResponse) => {
-    const credential = credentialResponse.credential;
-    if (!credential) {
-      toast.error("Google sign-in failed. Please try again.");
-      return;
-    }
-
+  const handleGoogleClick = async () => {
     try {
       setGoogleLoading(true);
-      await sendGoogleCredential(credential);
-      await refreshUser();
-      toast.success("Successfully signed in with Google!");
-      router.push("/");
+      await signInWithGoogle();
     } catch (error: unknown) {
       toast.error(
         error instanceof Error ? error.message : "Google sign-in failed. Please try again."
       );
-    } finally {
       setGoogleLoading(false);
     }
   };
@@ -149,14 +134,20 @@ export default function LoginPage() {
                 <span className="h-px flex-1 bg-slate-200 dark:bg-[#334155]" />
               </div>
               <div className="flex justify-center">
-                <GoogleLogin
-                  onSuccess={handleGoogleSuccess}
-                  onError={() => {
-                    toast.error("Google sign-in failed. Please try again.");
-                  }}
-                  text="continue_with"
-                  size="large"
-                />
+                <Button
+                  type="button"
+                  variant="outline"
+                  disabled={googleLoading}
+                  onClick={handleGoogleClick}
+                  className="w-full rounded-xl border-slate-200 dark:border-[#334155] bg-white dark:bg-[#0F172A] text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 py-6 font-semibold"
+                >
+                  {googleLoading ? (
+                    <Loader2 className="animate-spin" size={18} />
+                  ) : (
+                    <LogIn size={18} />
+                  )}
+                  Continue with Google
+                </Button>
               </div>
               {googleLoading && (
                 <p className="flex items-center justify-center gap-2 text-xs text-slate-600 dark:text-[#94A3B8]">
