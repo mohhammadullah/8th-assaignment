@@ -179,7 +179,7 @@ export default function StudioDetailsPage({ params }: PageProps) {
 
   if (id === 'new') {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-[#F8FAFC] dark:bg-[#0B1120] text-slate-900 dark:text-[#F1F5F9]">
+      <main className="flex min-h-screen items-center justify-center bg-white dark:bg-[#0F172A] text-slate-900 dark:text-[#F1F5F9]">
         <p>Loading Add Studio Form...</p>
       </main>
     );
@@ -187,7 +187,7 @@ export default function StudioDetailsPage({ params }: PageProps) {
 
   if (loading) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-[#F8FAFC] dark:bg-[#0B1120] text-slate-900 dark:text-[#F1F5F9]">
+      <main className="flex min-h-screen items-center justify-center bg-white dark:bg-[#0F172A] text-slate-900 dark:text-[#F1F5F9]">
         <p>Loading studio...</p>
       </main>
     );
@@ -195,7 +195,7 @@ export default function StudioDetailsPage({ params }: PageProps) {
 
   if (!studio) {
     return (
-      <main className="flex min-h-screen flex-col items-center justify-center bg-[#F8FAFC] dark:bg-[#0B1120] text-slate-900 dark:text-[#F1F5F9]">
+      <main className="flex min-h-screen flex-col items-center justify-center bg-white dark:bg-[#0F172A] text-slate-900 dark:text-[#F1F5F9]">
         <h1 className="text-2xl font-bold">Studio not found</h1>
         <Link href="/studios" className="mt-4 rounded-xl bg-sky-500 px-4 py-2 text-white">
           Back to Studios
@@ -205,7 +205,7 @@ export default function StudioDetailsPage({ params }: PageProps) {
   }
 
   return (
-    <main className="min-h-screen bg-[#F8FAFC] dark:bg-[#0B1120] px-4 py-12 text-slate-900 dark:text-[#F1F5F9] sm:px-6 lg:px-8">
+    <main className="min-h-screen bg-white dark:bg-[#0F172A] px-4 py-12 text-slate-900 dark:text-[#F1F5F9] sm:px-6 lg:px-8">
       <div className="mx-auto max-w-4xl">
         <Link
           href="/studios"
@@ -282,7 +282,7 @@ export default function StudioDetailsPage({ params }: PageProps) {
                   value={date}
                   min={new Date().toISOString().split("T")[0]}
                   onChange={(e) => setDate(e.target.value)}
-                  className="w-full rounded-xl border border-border bg-[#F8FAFC] dark:bg-[#0B1120] py-3 pl-4 text-sm text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10"
+                  className="w-full rounded-xl border border-border bg-white dark:bg-[#0F172A] py-3 pl-4 text-sm text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10"
                 />
               </div>
 
@@ -304,7 +304,7 @@ export default function StudioDetailsPage({ params }: PageProps) {
                   value={displaySlot}
                   onChange={(e) => setTimeSlot(e.target.value)}
                   disabled={!date || loadingSlots || allSlotsBooked}
-                  className="w-full rounded-xl border border-border bg-[#F8FAFC] dark:bg-[#0B1120] py-3 pl-4 text-sm text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10 disabled:opacity-50"
+                  className="w-full rounded-xl border border-border bg-white dark:bg-[#0F172A] py-3 pl-4 text-sm text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10 disabled:opacity-50"
                 >
                   <option value="" disabled>
                     {allSlotsBooked
@@ -348,7 +348,7 @@ export default function StudioDetailsPage({ params }: PageProps) {
               <button
                 type="submit"
                 disabled={isBooked}
-                className="w-full rounded-xl bg-gradient-to-r from-primary to-indigo-400 py-4 font-semibold text-primary-foreground transition hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                className="w-full rounded-xl bg-sky-500 hover:bg-sky-400 py-4 font-semibold text-slate-950 transition-all duration-300 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
               >
                 {isBooked ? "Booking..." : "Book Now"}
               </button>

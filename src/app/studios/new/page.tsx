@@ -58,7 +58,7 @@ export default function AddStudioPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#F8FAFC] dark:bg-[#0B1120] px-4 py-12 text-slate-900 dark:text-[#F1F5F9] sm:px-6 lg:px-8">
+    <main className="min-h-screen bg-white dark:bg-[#0F172A] px-4 py-12 text-slate-900 dark:text-[#F1F5F9] sm:px-6 lg:px-8">
       <div className="mx-auto max-w-2xl">
         <Link
           href="/studios"
@@ -80,7 +80,7 @@ export default function AddStudioPage() {
                 name="title"
                 required
                 placeholder="e.g. Apex Sound Studio"
-                className="w-full rounded-xl border border-slate-200 dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120] py-3 px-4 text-sm text-slate-900 dark:text-[#F1F5F9] outline-none transition focus:border-sky-500 dark:border-[#38BDF8] focus:ring-2 focus:ring-sky-500/30"
+                className="w-full rounded-xl border border-slate-200 dark:border-[#334155] bg-white dark:bg-[#0F172A] py-3 px-4 text-sm text-slate-900 dark:text-[#F1F5F9] outline-none transition focus:border-sky-500 dark:border-[#38BDF8] focus:ring-2 focus:ring-sky-500"
               />
             </div>
 
@@ -92,7 +92,7 @@ export default function AddStudioPage() {
                   name="category"
                   required
                   placeholder="e.g. Audio Recording"
-                  className="w-full rounded-xl border border-slate-200 dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120] py-3 px-4 text-sm text-slate-900 dark:text-[#F1F5F9] outline-none transition focus:border-sky-500 dark:border-[#38BDF8] focus:ring-2 focus:ring-sky-500/30"
+                  className="w-full rounded-xl border border-slate-200 dark:border-[#334155] bg-white dark:bg-[#0F172A] py-3 px-4 text-sm text-slate-900 dark:text-[#F1F5F9] outline-none transition focus:border-sky-500 dark:border-[#38BDF8] focus:ring-2 focus:ring-sky-500"
                 />
               </div>
 
@@ -103,7 +103,7 @@ export default function AddStudioPage() {
                   name="hourlyRate"
                   required
                   placeholder="50"
-                  className="w-full rounded-xl border border-slate-200 dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120] py-3 px-4 text-sm text-slate-900 dark:text-[#F1F5F9] outline-none transition focus:border-sky-500 dark:border-[#38BDF8] focus:ring-2 focus:ring-sky-500/30"
+                  className="w-full rounded-xl border border-slate-200 dark:border-[#334155] bg-white dark:bg-[#0F172A] py-3 px-4 text-sm text-slate-900 dark:text-[#F1F5F9] outline-none transition focus:border-sky-500 dark:border-[#38BDF8] focus:ring-2 focus:ring-sky-500"
                 />
               </div>
             </div>
@@ -115,7 +115,7 @@ export default function AddStudioPage() {
                 name="location"
                 required
                 placeholder="e.g. Banani, Dhaka"
-                className="w-full rounded-xl border border-slate-200 dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120] py-3 px-4 text-sm text-slate-900 dark:text-[#F1F5F9] outline-none transition focus:border-sky-500 dark:border-[#38BDF8] focus:ring-2 focus:ring-sky-500/30"
+                className="w-full rounded-xl border border-slate-200 dark:border-[#334155] bg-white dark:bg-[#0F172A] py-3 px-4 text-sm text-slate-900 dark:text-[#F1F5F9] outline-none transition focus:border-sky-500 dark:border-[#38BDF8] focus:ring-2 focus:ring-sky-500"
               />
             </div>
 
@@ -125,7 +125,7 @@ export default function AddStudioPage() {
                 type="url"
                 name="image"
                 placeholder="https://images.unsplash.com/..."
-                className="w-full rounded-xl border border-slate-200 dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120] py-3 px-4 text-sm text-slate-900 dark:text-[#F1F5F9] outline-none transition focus:border-sky-500 dark:border-[#38BDF8] focus:ring-2 focus:ring-sky-500/30"
+                className="w-full rounded-xl border border-slate-200 dark:border-[#334155] bg-white dark:bg-[#0F172A] py-3 px-4 text-sm text-slate-900 dark:text-[#F1F5F9] outline-none transition focus:border-sky-500 dark:border-[#38BDF8] focus:ring-2 focus:ring-sky-500"
               />
             </div>
 
@@ -136,14 +136,14 @@ export default function AddStudioPage() {
                 rows={4}
                 required
                 placeholder="Describe your studio space, equipment, and amenities..."
-                className="w-full rounded-xl border border-slate-200 dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120] py-3 px-4 text-sm text-slate-900 dark:text-[#F1F5F9] outline-none transition focus:border-sky-500 dark:border-[#38BDF8] focus:ring-2 focus:ring-sky-500/30 resize-none"
+                className="w-full rounded-xl border border-slate-200 dark:border-[#334155] bg-white dark:bg-[#0F172A] py-3 px-4 text-sm text-slate-900 dark:text-[#F1F5F9] outline-none transition focus:border-sky-500 dark:border-[#38BDF8] focus:ring-2 focus:ring-sky-500 resize-none"
               ></textarea>
             </div>
 
             <button
               type="submit"
               disabled={submitting}
-              className="w-full mt-4 flex items-center justify-center rounded-xl bg-sky-500 py-4 font-semibold text-[#0B1120] transition hover:brightness-110 disabled:opacity-50 disabled:cursor-pointer cursor-pointer"
+              className="w-full mt-4 flex items-center justify-center rounded-xl bg-sky-500 py-4 font-semibold text-slate-950 transition hover:brightness-110 disabled:opacity-50 disabled:cursor-pointer cursor-pointer"
             >
               {submitting ? (
                 <>

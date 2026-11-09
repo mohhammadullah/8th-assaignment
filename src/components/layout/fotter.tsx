@@ -50,7 +50,7 @@ const socials = [
 
 export default function Footer() {
   return (
-    <footer className="relative isolate overflow-hidden border-t border-slate-200 dark:border-[#334155]/10 bg-[#F8FAFC] dark:bg-[#0B1120] text-slate-900 dark:text-[#F1F5F9]">
+    <footer className="relative isolate overflow-hidden border-t border-slate-200 dark:border-[#334155]/10 bg-white dark:bg-[#0F172A] text-slate-900 dark:text-[#F1F5F9]">
       {/* Background Effects */}
       <div className="pointer-events-none absolute -left-40 top-0 -z-10 size-[400px] rounded-full bg-sky-500/10 blur-[120px]" />
       <div className="pointer-events-none absolute -right-40 bottom-0 -z-10 size-[400px] rounded-full bg-[#818CF8]/10 blur-[120px]" />
@@ -92,7 +92,7 @@ export default function Footer() {
 
                   <Button
                     type="button"
-                    className="h-12 shrink-0 gap-2 bg-sky-500 px-6 font-semibold text-white hover:bg-sky-600"
+                    className="h-12 shrink-0 gap-2 bg-sky-500 px-6 font-semibold text-white hover:bg-sky-400"
                   >
                     Subscribe
                     <ArrowRight className="size-4" />
@@ -112,7 +112,7 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <Link href="/" className="group inline-flex items-center gap-3">
-              <div className="flex size-11 items-center justify-center rounded-xl bg-gradient-to-br from-sky-500 to-indigo-400 text-[#0B1120] shadow-lg shadow-sky-500/10 transition group-hover:rotate-12">
+              <div className="flex size-11 items-center justify-center rounded-xl bg-gradient-to-br from-sky-500 to-indigo-400 text-slate-950 shadow-lg shadow-sky-500/10 transition group-hover:rotate-12">
                 <Aperture className="size-6" />
               </div>
               <span className="text-2xl font-bold tracking-tight">
@@ -130,7 +130,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.name}
-                  className="inline-flex size-10 items-center justify-center rounded-md border border-slate-200 dark:border-[#334155]/10 bg-[#F8FAFC] dark:bg-[#0B1120] text-slate-600 dark:text-[#94A3B8] transition-colors hover:border-sky-500/50 dark:hover:border-[#38BDF8]/50 hover:bg-sky-500 hover:text-white"
+                  className="inline-flex size-10 items-center justify-center rounded-md border border-slate-200 dark:border-[#334155]/10 bg-white dark:bg-[#0F172A] text-slate-600 dark:text-[#94A3B8] transition-colors hover:border-sky-500/50 dark:hover:border-[#38BDF8]/50 hover:bg-sky-500 hover:text-white"
                 >
                   <SocialIcon name={social.name} />
                 </a>
@@ -198,14 +198,14 @@ export default function Footer() {
               href="mailto:support@studiospace.com"
               className="flex items-center gap-3 text-sm text-slate-600 dark:text-[#94A3B8] transition hover:text-indigo-500"
             >
-              <span className="flex size-9 items-center justify-center rounded-lg border border-slate-200 dark:border-[#334155]/10 bg-[#F8FAFC] dark:bg-[#0B1120] text-sky-600 dark:text-[#38BDF8]">
+              <span className="flex size-9 items-center justify-center rounded-lg border border-slate-200 dark:border-[#334155]/10 bg-white dark:bg-[#0F172A] text-sky-600 dark:text-[#38BDF8]">
                 <Mail className="size-4" />
               </span>
               support@studiospace.com
             </a>
 
             <div className="mt-4 flex items-center gap-3 text-sm text-slate-600 dark:text-[#94A3B8]">
-              <span className="flex size-9 items-center justify-center rounded-lg border border-slate-200 dark:border-[#334155]/10 bg-[#F8FAFC] dark:bg-[#0B1120] text-sky-600 dark:text-[#38BDF8]">
+              <span className="flex size-9 items-center justify-center rounded-lg border border-slate-200 dark:border-[#334155]/10 bg-white dark:bg-[#0F172A] text-sky-600 dark:text-[#38BDF8]">
                 <MapPin className="size-4" />
               </span>
               Creative spaces, everywhere.

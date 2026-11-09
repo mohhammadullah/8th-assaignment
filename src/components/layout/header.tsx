@@ -132,7 +132,7 @@ function UserMenu({
         </Avatar>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent align="end" className="w-56 bg-white dark:bg-[#1E293B] border-slate-200 dark:border-[#334155] text-slate-900 dark:text-white">
+      <DropdownMenuContent align="end" className="w-56 bg-white dark:bg-[#1E293B] border-slate-200 dark:border-[#334155] text-slate-900 dark:text-white shadow-md transition-colors duration-300">
         
         {/* User Info Group */}
         <DropdownMenuGroup>
@@ -191,7 +191,7 @@ export function SiteHeader() {
   return (
     <header
       data-slot="site-header"
-      className="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-[#334155] bg-[#F8FAFC]/80 dark:bg-[#0B1120]/80 backdrop-blur-md shadow-sm transition-colors duration-300"
+      className="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-[#334155] bg-[#F8FAFC]/80 dark:bg-[#0B1120]/80 backdrop-blur-md shadow-sm transition-all duration-300"
     >
       <div className="mx-auto flex h-16 w-full max-w-7xl items-center gap-4 px-4 sm:px-6">
         <Logo />
@@ -222,7 +222,7 @@ export function SiteHeader() {
 
               <Link
                 href="/register"
-                className="inline-flex h-9 items-center justify-center whitespace-nowrap rounded-md px-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-sky-500 text-[#082F49] hover:bg-sky-600 font-semibold"
+                className="inline-flex h-9 items-center justify-center whitespace-nowrap rounded-md px-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-sky-500 text-slate-950 hover:bg-sky-400 font-semibold"
               >
                 Register
               </Link>
@@ -253,7 +253,7 @@ export function SiteHeader() {
       {mobileOpen && (
         <div
           id="mobile-nav"
-          className="border-t border-slate-200 dark:border-[#334155] bg-[#F8FAFC]/95 dark:bg-[#0B1120]/95 md:hidden backdrop-blur-xl transition-colors duration-300"
+          className="border-t border-slate-200 dark:border-[#334155] bg-[#F8FAFC]/95 dark:bg-[#0B1120]/95 md:hidden backdrop-blur-xl transition-all duration-300"
         >
           <nav
             aria-label="Mobile"
@@ -345,7 +345,7 @@ export function SiteHeader() {
                   <Link
                     href="/register"
                     onClick={() => setMobileOpen(false)}
-                    className="inline-flex h-10 items-center justify-center whitespace-nowrap rounded-md px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-sky-500 text-[#082F49] hover:bg-sky-600 font-semibold"
+                    className="inline-flex h-10 items-center justify-center whitespace-nowrap rounded-md px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-sky-500 text-slate-950 hover:bg-sky-400 font-semibold"
                   >
                     Register
                   </Link>

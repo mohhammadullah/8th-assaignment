@@ -24,7 +24,7 @@ export default function AboutSection() {
   return (
 <section
   id="about-us"
-  className="relative scroll-mt-20 overflow-hidden bg-[#F8FAFC] dark:bg-[#0B1120] px-5 py-24 text-slate-900 dark:text-[#F1F5F9] sm:px-8 lg:px-12"
+  className="relative scroll-mt-20 overflow-hidden bg-white dark:bg-[#0F172A] px-5 py-24 text-slate-900 dark:text-[#F1F5F9] sm:px-8 lg:px-12"
 >
       {/* Background Glow */}
       <div className="pointer-events-none absolute -left-40 top-20 h-96 w-96 rounded-full bg-sky-500/10 blur-[120px]" />
@@ -136,7 +136,7 @@ export default function AboutSection() {
 
             <Link
               href="/studios"
-              className="mt-8 inline-flex items-center gap-3 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-400 px-7 py-4 font-semibold text-[#0B1120] transition duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-sky-500/20"
+              className="mt-8 inline-flex items-center gap-3 rounded-xl bg-sky-500 hover:bg-sky-400 px-7 py-4 font-semibold text-slate-950 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-sky-500/20 active:scale-[0.99]"
             >
               Explore Studios
               <ArrowRight size={19} />
@@ -152,7 +152,7 @@ export default function AboutSection() {
             return (
               <div
                 key={stat.label}
-                className="rounded-2xl border border-slate-200 dark:border-[#334155] bg-white/80 dark:bg-white dark:bg-[#1E293B]/80 p-6 text-center transition duration-300 hover:-translate-y-2 hover:border-sky-500/50 dark:hover:border-[#38BDF8]/50"
+                className="rounded-2xl border border-slate-200 dark:border-[#334155] bg-white/80 dark:bg-white dark:bg-[#1E293B]/80 p-6 text-center transition-all duration-300 hover:-translate-y-2 hover:border-sky-500/50 dark:hover:border-[#38BDF8]/50"
               >
                 <Icon className="mx-auto mb-4 text-sky-600 dark:text-[#38BDF8]" size={26} />
                 <h4 className="text-3xl font-bold text-slate-900 dark:text-[#F1F5F9]">
@@ -188,7 +188,7 @@ export default function AboutSection() {
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <Link
                 href="/studios"
-                className="inline-flex items-center gap-2 rounded-xl bg-sky-500 px-7 py-3.5 font-semibold text-white transition hover:bg-sky-600"
+                className="inline-flex items-center gap-2 rounded-xl bg-sky-500 px-7 py-3.5 font-semibold text-white transition hover:bg-sky-400"
               >
                 Find a Studio
                 <ArrowRight size={18} />
@@ -196,7 +196,7 @@ export default function AboutSection() {
 
               <Link
                 href="/add-studio"
-                className="rounded-xl border border-[#818CF8]/50 px-7 py-3.5 font-semibold text-[#818CF8] transition hover:bg-[#818CF8] hover:text-[#0B1120]"
+                className="rounded-xl border border-[#818CF8]/50 px-7 py-3.5 font-semibold text-[#818CF8] transition hover:bg-[#818CF8] hover:text-slate-950"
               >
                 Become a Host
               </Link>

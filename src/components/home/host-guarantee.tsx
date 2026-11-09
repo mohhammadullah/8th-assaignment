@@ -15,7 +15,7 @@ const GUARANTEES = [
   {
     title: "Verified Profiles",
     color: "bg-[#818CF8]",
-    textColor: "text-[#0B1120]",
+    textColor: "text-slate-950",
     Icon: UserCheck,
     description:
       "Hosts are identity- and space-verified before listing, so you know exactly who and what you're booking.",

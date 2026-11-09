@@ -129,14 +129,14 @@ export default function MyListingsPage() {
 
   if (userLoading || loading) {
     return (
-      <div className="flex justify-center items-center h-screen bg-[#F8FAFC] dark:bg-[#0B1120]">
+      <div className="flex justify-center items-center h-screen bg-white dark:bg-[#0F172A]">
         <Loader2 className="h-8 w-8 animate-spin text-sky-600 dark:text-[#38BDF8]" />
       </div>
     );
   }
 
   return (
-    <div className="p-6 bg-[#F8FAFC] dark:bg-[#0B1120] min-h-screen text-slate-900 dark:text-[#F1F5F9]">
+    <div className="p-6 bg-white dark:bg-[#0F172A] min-h-screen text-slate-900 dark:text-[#F1F5F9]">
       <div className="mb-6 flex justify-between items-center">
         <div>
           <h1 className="text-2xl font-bold">My Studio Listings</h1>
@@ -144,7 +144,7 @@ export default function MyListingsPage() {
         </div>
         <Link
           href="/studios/new"
-          className="bg-sky-500 text-[#0B1120] font-semibold px-4 py-2 rounded-xl hover:brightness-110 transition"
+          className="bg-sky-500 text-slate-950 font-semibold px-4 py-2 rounded-xl hover:brightness-110 transition"
         >
           + Add New Listing
         </Link>
@@ -197,7 +197,7 @@ export default function MyListingsPage() {
       {/* Delete Confirmation Modal */}
       {showDeleteModal && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white dark:bg-[#1E293B] border border-slate-200 dark:border-[#334155] rounded-2xl shadow-xl p-6 max-w-md w-full text-slate-900 dark:text-[#F1F5F9]">
+          <div className="bg-white dark:bg-[#1E293B] border border-slate-200 dark:border-[#334155] rounded-2xl shadow-md p-6 max-w-md w-full text-slate-900 dark:text-[#F1F5F9] transition-colors duration-300">
             <h3 className="text-lg font-semibold mb-4">Delete Listing</h3>
             <p className="text-slate-600 dark:text-[#94A3B8] mb-6">
               Are you sure you want to delete this listing? This action cannot be undone.

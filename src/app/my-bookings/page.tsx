@@ -99,7 +99,7 @@ export default function MyBookingsPage() {
 
   if (isLoading || loading) {
     return (
-      <div className="flex min-h-[70vh] items-center justify-center bg-[#F8FAFC] dark:bg-[#0B1120]">
+      <div className="flex min-h-[70vh] items-center justify-center bg-white dark:bg-[#0F172A]">
         <Loader2 className="h-8 w-8 animate-spin text-sky-600 dark:text-[#38BDF8]" />
       </div>
     );
@@ -111,7 +111,7 @@ export default function MyBookingsPage() {
 
   if (error) {
     return (
-      <div className="p-6 bg-[#F8FAFC] dark:bg-[#0B1120] min-h-screen text-red-400">
+      <div className="p-6 bg-white dark:bg-[#0F172A] min-h-screen text-red-400">
         <p>{error}</p>
         <ToastContainer />
       </div>
@@ -119,7 +119,7 @@ export default function MyBookingsPage() {
   }
 
   return (
-    <div className="p-6 bg-[#F8FAFC] dark:bg-[#0B1120] min-h-screen">
+    <div className="p-6 bg-white dark:bg-[#0F172A] min-h-screen">
       <ToastContainer />
       <h1 className="text-2xl font-bold text-slate-900 dark:text-[#F1F5F9] mb-6">My Bookings</h1>
 
@@ -138,11 +138,11 @@ export default function MyBookingsPage() {
             return (
               <div
                 key={uniqueKey}
-                className="bg-white dark:bg-[#1E293B] border border-slate-200 dark:border-[#334155] rounded-xl p-6 shadow-sm hover:shadow-md hover:border-sky-500/50 dark:hover:border-[#38BDF8]/50 transition-colors duration-300"
+                className="bg-white dark:bg-[#1E293B] border border-slate-200 dark:border-[#334155] rounded-xl p-6 shadow-sm hover:shadow-md hover:border-sky-500/50 dark:hover:border-[#38BDF8]/50 transition-all duration-300"
               >
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0">
-                    <div className="aspect-square rounded-xl bg-[#F8FAFC] dark:bg-[#0B1120] overflow-hidden">
+                    <div className="aspect-square rounded-xl bg-white dark:bg-[#0F172A] overflow-hidden">
                       <div className="h-24 w-full bg-gradient-to-b from-slate-50 dark:from-[#1E293B] to-slate-50 dark:to-[#0B1120] flex items-center justify-center text-sm text-slate-500 dark:text-[#64748B]">
                         {booking.studioName ? booking.studioName.substring(0, 3).toUpperCase() : 'STD'}
                       </div>

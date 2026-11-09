@@ -63,7 +63,7 @@ export default function HostingPage() {
   const [formData, setFormData] = useState<FormData>(initialFormData);
 
   const inputClass =
-    "mt-2 w-full rounded-xl border border-slate-200 dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120] px-4 py-3.5 text-sm text-slate-900 dark:text-[#F1F5F9] outline-none transition placeholder:text-slate-400 dark:placeholder:text-[#94A3B8] focus:border-sky-500 dark:border-[#38BDF8] focus:ring-2 focus:ring-sky-500/30";
+    "mt-2 w-full rounded-xl border border-slate-200 dark:border-[#334155] bg-white dark:bg-[#0F172A] px-4 py-3.5 text-sm text-slate-900 dark:text-[#F1F5F9] outline-none transition placeholder:text-slate-400 dark:placeholder:text-[#94A3B8] focus:border-sky-500 dark:border-[#38BDF8] focus:ring-2 focus:ring-sky-500";
 
   const labelClass = "text-sm font-medium text-slate-900 dark:text-[#F1F5F9]";
 
@@ -142,7 +142,7 @@ export default function HostingPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#F8FAFC] dark:bg-[#0B1120] px-4 py-12 text-slate-900 dark:text-[#F1F5F9] sm:px-6 lg:px-8">
+    <main className="min-h-screen bg-white dark:bg-[#0F172A] px-4 py-12 text-slate-900 dark:text-[#F1F5F9] sm:px-6 lg:px-8">
       <div className="mx-auto max-w-4xl">
 
         {/* Header */}
@@ -382,7 +382,7 @@ export default function HostingPage() {
                   className={`flex cursor-pointer items-center gap-3 rounded-xl border p-3.5 text-sm transition ${
                     amenities.includes(item)
                       ? "border-sky-500 dark:border-[#38BDF8] bg-sky-500/10 text-sky-600 dark:text-[#7DD3FC]"
-                      : "border-slate-200 dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120] text-slate-600 dark:text-[#94A3B8] hover:border-sky-500/50 dark:hover:border-[#38BDF8]/50"
+                      : "border-slate-200 dark:border-[#334155] bg-white dark:bg-[#0F172A] text-slate-600 dark:text-[#94A3B8] hover:border-sky-500/50 dark:hover:border-[#38BDF8]/50"
                   }`}
                 >
                   <input
@@ -408,7 +408,7 @@ export default function HostingPage() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-400 px-6 py-4 font-semibold text-[#0B1120] transition hover:brightness-110 disabled:opacity-50 sm:w-auto"
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-sky-500 hover:bg-sky-400 px-6 py-4 font-semibold text-slate-950 transition-all duration-300 active:scale-[0.99] disabled:opacity-50 sm:w-auto"
             >
               {isSubmitting ? (
                 <>

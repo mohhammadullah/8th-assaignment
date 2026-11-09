@@ -72,7 +72,7 @@ function StatCard({
 }) {
   return (
     <Link href={href} className="group block">
-      <Card className="border-slate-200 dark:border-[#334155] bg-white dark:bg-[#1E293B] shadow-sm hover:shadow-md transition-colors duration-300 hover:border-sky-500/60 dark:hover:border-[#38BDF8]/60">
+      <Card className="border-slate-200 dark:border-[#334155] bg-white dark:bg-[#1E293B] shadow-sm hover:shadow-md transition-all duration-300 hover:border-sky-500/60 dark:hover:border-[#38BDF8]/60">
         <CardContent className="flex items-start justify-between gap-3 pt-6">
           <div>
             <p className="text-xs font-medium text-slate-600 dark:text-[#94A3B8]">{label}</p>
@@ -142,7 +142,7 @@ function DashboardContent({ user }: { user: AuthUser }) {
   ).length;
 
   return (
-    <main className="min-h-screen bg-[#F8FAFC] dark:bg-[#0B1120] text-slate-900 dark:text-[#F1F5F9]">
+    <main className="min-h-screen bg-white dark:bg-[#0F172A] text-slate-900 dark:text-[#F1F5F9]">
       <div className="mx-auto max-w-7xl space-y-8 px-4 py-8 sm:px-6 lg:px-8">
         {/* Welcome banner */}
         <section className="overflow-hidden rounded-2xl border border-slate-200 dark:border-[#334155] bg-gradient-to-br from-slate-50 dark:from-[#1E293B] via-slate-100 dark:via-[#162033] to-slate-50 dark:to-[#0B1120] p-6 sm:p-8">
@@ -202,7 +202,7 @@ function DashboardContent({ user }: { user: AuthUser }) {
           <Link href="/add-studio" className="group block">
             <Card className="flex h-full flex-col justify-between border-sky-500 dark:border-[#38BDF8]/40 bg-gradient-to-br from-sky-500/15 to-indigo-400/10 transition hover:border-sky-500 dark:border-[#38BDF8]">
               <CardContent className="flex h-full flex-col justify-between pt-6">
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500 text-[#0B1120] transition group-hover:brightness-110">
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500 text-slate-950 transition group-hover:brightness-110">
                   <CirclePlus size={20} />
                 </span>
                 <p className="mt-4 flex items-center gap-1 text-sm font-semibold text-sky-600 dark:text-[#38BDF8]">
@@ -234,7 +234,7 @@ function DashboardContent({ user }: { user: AuthUser }) {
 
         {/* Recent activity */}
         <section className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-          <Card className="border-slate-200 dark:border-[#334155] bg-white dark:bg-[#1E293B] shadow-sm transition-colors duration-300">
+          <Card className="border-slate-200 dark:border-[#334155] bg-white dark:bg-[#1E293B] shadow-sm transition-all duration-300">
             <CardContent className="pt-6">
               <div className="mb-4 flex items-center justify-between">
                 <h2 className="text-lg font-semibold">Recent Listings</h2>
@@ -277,7 +277,7 @@ function DashboardContent({ user }: { user: AuthUser }) {
             </CardContent>
           </Card>
 
-          <Card className="border-slate-200 dark:border-[#334155] bg-white dark:bg-[#1E293B] shadow-sm transition-colors duration-300">
+          <Card className="border-slate-200 dark:border-[#334155] bg-white dark:bg-[#1E293B] shadow-sm transition-all duration-300">
             <CardContent className="pt-6">
               <div className="mb-4 flex items-center justify-between">
                 <h2 className="text-lg font-semibold">Recent Bookings</h2>
@@ -380,7 +380,7 @@ export default function DashboardPage() {
 
   if (isLoading) {
     return (
-      <div className="flex min-h-[70vh] items-center justify-center bg-[#F8FAFC] dark:bg-[#0B1120]">
+      <div className="flex min-h-[70vh] items-center justify-center bg-white dark:bg-[#0F172A]">
         <Loader2 className="h-8 w-8 animate-spin text-sky-600 dark:text-[#38BDF8]" />
       </div>
     );
@@ -391,7 +391,7 @@ export default function DashboardPage() {
       {user ? (
         <DashboardContent user={user} />
       ) : (
-        <div className="flex min-h-[70vh] items-center justify-center bg-[#F8FAFC] dark:bg-[#0B1120]">
+        <div className="flex min-h-[70vh] items-center justify-center bg-white dark:bg-[#0F172A]">
           <Loader2 className="h-8 w-8 animate-spin text-sky-600 dark:text-[#38BDF8]" />
         </div>
       )}

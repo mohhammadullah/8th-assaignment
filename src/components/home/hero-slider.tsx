@@ -59,17 +59,17 @@ function SlideVisual({ slide }: { slide: Slide }) {
         priority={slide.id === "photo-studio"}
         className="object-cover"
       />
-      {/* Cinematic scrim: deep dark base with warm amber glow at bottom edge */}
-      <div className="absolute inset-0 bg-gradient-to-t from-white/90 dark:from-[#0B1120]/95 via-white/50 dark:via-[#0B1120]/60 to-transparent" />
+      {/* Readability scrim: dark overlay in both themes so white text pops */}
+      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/40 to-slate-950/10" />
       <div className="absolute inset-x-0 bottom-[20%] h-[30%] bg-gradient-to-t from-sky-500/20 to-transparent pointer-events-none" />
 
       <div className="absolute inset-0 flex items-end">
-        <div className="mx-auto w-full max-w-7xl px-4 pb-32 text-foreground sm:px-6 sm:pb-40">
+        <div className="mx-auto w-full max-w-7xl px-4 pb-32 text-white sm:px-6 sm:pb-40">
           <div className="max-w-2xl">
-            <h1 className="text-4xl leading-tight font-semibold tracking-tight sm:text-5xl lg:text-6xl bg-clip-text text-transparent bg-gradient-to-r from-foreground via-accent to-indigo-400">
+            <h1 className="text-4xl leading-tight font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl">
               {slide.headline}
             </h1>
-            <p className="mt-6 max-w-xl text-base text-muted-foreground-foreground sm:text-lg">
+            <p className="mt-6 max-w-xl text-base text-white/80 sm:text-lg">
               {slide.subtext}
             </p>
             <div className="mt-12 flex flex-wrap items-center gap-4">
@@ -86,7 +86,7 @@ function SlideVisual({ slide }: { slide: Slide }) {
                 variant="outline"
                 nativeButton={false}
                 render={<Link href="/add-studio" />}
-                className="border-border bg-transparent text-foreground hover:border-primary hover:bg-primary/10 hover:text-primary-foreground transition-all duration-300"
+                className="border-white/40 bg-white/10 text-white backdrop-blur-md hover:border-white/70 hover:bg-white/20 hover:text-white transition-all duration-300 active:scale-[0.98]"
               >
                 Host Your Space
               </Button>

@@ -3,7 +3,7 @@ import { Home, Compass, Film } from "lucide-react";
 
 export default function NotFound() {
   return (
-    <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-[#F8FAFC] dark:bg-[#0B1120] px-4 py-16 text-center text-slate-900 dark:text-[#F1F5F9]">
+    <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-white dark:bg-[#0F172A] px-4 py-16 text-center text-slate-900 dark:text-[#F1F5F9]">
       {/* Background Ambient Glow */}
       <div className="pointer-events-none absolute -top-40 h-96 w-96 rounded-full bg-sky-500/15 blur-[120px]" />
       <div className="pointer-events-none absolute -bottom-40 h-96 w-96 rounded-full bg-[#818CF8]/10 blur-[120px]" />
@@ -31,7 +31,7 @@ export default function NotFound() {
         <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
           <Link
             href="/"
-            className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-400 px-7 py-3.5 font-semibold text-[#0B1120] transition hover:brightness-110"
+            className="flex items-center gap-2 rounded-xl bg-sky-500 hover:bg-sky-400 px-7 py-3.5 font-semibold text-slate-950 transition-all duration-300 active:scale-[0.99]"
           >
             <Home size={18} />
             Return to Home

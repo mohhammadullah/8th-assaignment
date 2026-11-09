@@ -39,7 +39,7 @@ export default async function StudiosPage({
   const studios = await getStudios(category);
 
   return (
-    <main className="min-h-screen bg-[#F8FAFC] dark:bg-[#0B1120] px-4 py-12 text-slate-900 dark:text-[#F1F5F9] sm:px-6 lg:px-8">
+    <main className="min-h-screen bg-white dark:bg-[#0F172A] px-4 py-12 text-slate-900 dark:text-[#F1F5F9] sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="mb-10 text-center">
           <h1 className="text-3xl font-bold sm:text-4xl">
@@ -58,9 +58,9 @@ export default async function StudiosPage({
             studios.map((studio) => (
               <div
                 key={studio._id}
-                className="overflow-hidden rounded-2xl border border-slate-200 dark:border-[#334155] bg-white dark:bg-[#1E293B] shadow-sm transition-colors duration-300 hover:border-sky-500/50 dark:hover:border-[#38BDF8]/50 hover:shadow-md"
+                className="overflow-hidden rounded-2xl border border-slate-200 dark:border-[#334155] bg-white dark:bg-[#1E293B] shadow-sm transition-all duration-300 hover:border-sky-500/50 dark:hover:border-[#38BDF8]/50 hover:shadow-md"
               >
-                <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#F8FAFC] dark:bg-[#0B1120]">
+                <div className="relative aspect-[4/3] w-full overflow-hidden bg-white dark:bg-[#0F172A]">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={studio.image || "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800"}
@@ -95,7 +95,7 @@ export default async function StudiosPage({
                     </div>
                     <Link
                       href={`/studios/${studio._id}`}
-                      className="rounded-xl bg-sky-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-sky-600"
+                      className="rounded-xl bg-sky-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-sky-400"
                     >
                       View Details
                     </Link>

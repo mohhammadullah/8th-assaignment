@@ -18,7 +18,7 @@ const WORKFLOW_STEPS = [
     title: "Select Shoot Hours",
     Icon: Clock,
     color: "bg-[#818CF8]",
-    textColor: "text-[#0B1120]",
+    textColor: "text-slate-950",
     description:
       "Pick the date and hours you need. Transparent hourly pricing means no surprises at checkout.",
   },
@@ -80,7 +80,7 @@ function WorkflowStep({
         </div>
         <IconComponent
           className={cn(
-            "mx-auto mb-3 size-5 text-muted-foreground-foreground transition-colors duration-300",
+            "mx-auto mb-3 size-5 text-muted-foreground-foreground transition-all duration-300",
             "group-hover:text-primary"
           )}
         />

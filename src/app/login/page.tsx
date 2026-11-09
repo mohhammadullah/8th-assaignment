@@ -77,7 +77,7 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-[#F8FAFC] dark:bg-[#0B1120] px-4 py-12 text-slate-900 dark:text-[#F1F5F9] sm:px-6 lg:px-8">
+    <main className="flex min-h-screen items-center justify-center bg-white dark:bg-[#0F172A] px-4 py-12 text-slate-900 dark:text-[#F1F5F9] sm:px-6 lg:px-8">
       <div className="w-full max-w-md">
         <Card className="border border-slate-200 dark:border-[#334155] bg-white dark:bg-[#1E293B] text-foreground shadow-2xl">
           <CardHeader className="space-y-2 text-center">
@@ -105,7 +105,7 @@ export default function LoginPage() {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="name@example.com"
-                    className="w-full rounded-xl border border-border bg-[#F8FAFC] dark:bg-[#0B1120] py-3 pl-10 pr-4 text-sm text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10"
+                    className="w-full rounded-xl border border-border bg-white dark:bg-[#0F172A] py-3 pl-10 pr-4 text-sm text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10"
                   />
                 </div>
               </div>
@@ -121,7 +121,7 @@ export default function LoginPage() {
                     value={formData.password}
                     onChange={handleChange}
                     placeholder="••••••••"
-                    className="w-full rounded-xl border border-border bg-[#F8FAFC] dark:bg-[#0B1120] py-3 pl-10 pr-4 text-sm text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10"
+                    className="w-full rounded-xl border border-border bg-white dark:bg-[#0F172A] py-3 pl-10 pr-4 text-sm text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10"
                   />
                 </div>
               </div>
@@ -135,7 +135,7 @@ export default function LoginPage() {
               <Button
                 type="submit"
                 disabled={loading}
-                className="w-full rounded-xl bg-gradient-to-r from-primary to-indigo-400 py-6 font-semibold text-primary-foreground transition hover:brightness-110"
+                className="w-full rounded-xl bg-sky-500 hover:bg-sky-400 py-6 font-semibold text-slate-950 transition-all duration-300 active:scale-[0.99]"
               >
                 {loading ? <Loader2 className="animate-spin" size={18} /> : <LogIn size={18} />}
                 Sign In

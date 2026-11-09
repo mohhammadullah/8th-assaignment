@@ -158,7 +158,7 @@ export default function RegisterPage() {
   };
 
   const inputClass =
-    "w-full bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-[#334155] rounded-xl py-3.5 pl-11 pr-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-[#64748B] outline-none transition-all duration-300 focus:border-sky-500 dark:border-[#38BDF8] focus:ring-2 focus:ring-sky-500/30";
+    "w-full bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-[#334155] rounded-xl py-3.5 pl-11 pr-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-[#64748B] outline-none transition-all duration-300 focus:border-sky-500 dark:border-[#38BDF8] focus:ring-2 focus:ring-sky-500";
 
   return (
     <main className="min-h-screen bg-slate-50 dark:bg-[#080F1D] flex items-center justify-center px-4 py-12 relative overflow-hidden">
@@ -420,7 +420,7 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center gap-2 bg-sky-500 hover:bg-sky-600 disabled:opacity-60 disabled:cursor-not-allowed text-[#082F49] font-bold py-3.5 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-sky-500/20"
+              className="w-full flex items-center justify-center gap-2 bg-sky-500 hover:bg-sky-400 disabled:opacity-60 disabled:cursor-not-allowed text-slate-950 font-bold py-3.5 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-sky-500/20"
             >
               {loading ? (
                 <>
