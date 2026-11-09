@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { MapPin, Star } from "lucide-react";
 import { API_BASE_URL } from "@/lib/api";
+import { WishlistHeart } from "@/components/WishlistHeart";
 
 type Studio = {
   _id: string;
@@ -68,6 +69,9 @@ export default async function StudiosPage({
                   />
                   <span className="absolute left-3 top-3 rounded-full bg-[#0B1120]/80 px-3 py-1 text-xs font-semibold text-[#38BDF8] backdrop-blur-md">
                     {studio.category}
+                  </span>
+                  <span className="absolute right-3 top-3">
+                    <WishlistHeart studioId={studio._id} />
                   </span>
                 </div>
 

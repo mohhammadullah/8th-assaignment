@@ -15,6 +15,7 @@ import {
 
 import { cn } from "@/lib/utils"
 import { useUser } from "@/hooks/use-user"
+import { ThemeToggle } from "@/components/ThemeToggle"
 import { Logo } from "@/components/layout/logo"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
@@ -207,6 +208,7 @@ export function SiteHeader() {
 
         {/* Desktop Authentication */}
         <div className="ml-auto hidden items-center gap-3 md:flex">
+          <ThemeToggle />
           {user ? (
             <UserMenu user={user} onLogout={logout} />
           ) : (
@@ -228,11 +230,16 @@ export function SiteHeader() {
           )}
         </div>
 
+        {/* Mobile: theme + menu toggles */}
+        <div className="ml-auto flex items-center gap-1 md:hidden">
+          <ThemeToggle />
+        </div>
+
         {/* Mobile Menu Toggle */}
         <Button
           variant="ghost"
           size="icon"
-          className="ml-auto md:hidden text-white"
+          className="md:hidden text-white"
           aria-expanded={mobileOpen}
           aria-controls="mobile-nav"
           onClick={() => setMobileOpen((open) => !open)}

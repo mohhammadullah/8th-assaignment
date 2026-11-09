@@ -5,6 +5,7 @@ import { cn } from "cn"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import { WishlistHeart } from "@/components/WishlistHeart"
 import type { Studio } from "@/lib/types"
 
 export function StudioCard({
@@ -34,6 +35,12 @@ export function StudioCard({
         <Badge className="absolute top-3 left-3 bg-[#38BDF8] text-[#F1F5F9] backdrop-blur-sm">
           {studio.category}
         </Badge>
+
+        {studio._id && (
+          <span className="absolute right-3 bottom-3">
+            <WishlistHeart studioId={studio._id} />
+          </span>
+        )}
 
    
         <Badge className="absolute top-3 right-3 border-0 bg-[#0B1120]/80 text-[#38BDF8] backdrop-blur-md flex items-center gap-1">

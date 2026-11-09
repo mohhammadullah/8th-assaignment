@@ -4,9 +4,10 @@ import { useState, useEffect, useCallback } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { API_BASE_URL } from '@/lib/api';
+import { downloadInvoice } from '@/lib/invoice';
 import { useUser } from '@/hooks/use-user';
 import { useRouter } from 'next/navigation';
-import { Loader2 } from 'lucide-react';
+import { FileDown, Loader2 } from 'lucide-react';
 
 interface UserBooking {
   _id?: string;
@@ -162,20 +163,28 @@ export default function MyBookingsPage() {
                   </p>
                 </div>
 
-                {booking.status === 'Pending' ? (
-                  <div className="mt-4 pt-4 border-t border-[#334155]">
+                <div className="mt-4 space-y-2 border-t border-[#334155] pt-4">
+                  <button
+                    onClick={() =>
+                      downloadInvoice(booking, { name: user.name, email: user.email })
+                    }
+                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#38BDF8]/10 text-[#38BDF8] hover:bg-[#38BDF8]/20 border border-[#38BDF8]/30 py-3 font-medium text-center transition-colors cursor-pointer"
+                  >
+                    <FileDown size={16} /> Download Invoice
+                  </button>
+                  {booking.status === 'Pending' ? (
                     <button
                       onClick={() => handleCancel(booking)}
                       className="w-full rounded-xl bg-red-500/10 text-red-400 hover:bg-red-500/20 border border-red-500/20 py-3 font-medium text-center transition-colors cursor-pointer"
                     >
                       Cancel Booking
                     </button>
-                  </div>
-                ) : (
-                  <div className="mt-4 pt-4 border-t border-[#334155] text-sm text-[#64748B]">
-                    <p>Status: <span className="font-medium text-[#38BDF8]">{booking.status}</span></p>
-                  </div>
-                )}
+                  ) : (
+                    <p className="text-sm text-[#64748B]">
+                      Status: <span className="font-medium text-[#38BDF8]">{booking.status}</span>
+                    </p>
+                  )}
+                </div>
               </div>
             );
           })}
