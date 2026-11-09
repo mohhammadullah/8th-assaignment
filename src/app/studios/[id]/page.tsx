@@ -29,6 +29,28 @@ async function getStudioDetails(id: string): Promise<Studio | null> {
   }
 }
 
+const TIME_SLOTS = [
+  { value: "09:00-11:00", label: "09:00 - 11:00 AM" },
+  { value: "11:00-13:00", label: "11:00 AM - 01:00 PM" },
+  { value: "13:00-15:00", label: "01:00 - 03:00 PM" },
+  { value: "15:00-17:00", label: "03:00 - 05:00 PM" },
+  { value: "17:00-19:00", label: "05:00 - 07:00 PM" },
+] as const;
+
+async function getBookedSlots(studioId: string, date: string): Promise<string[]> {
+  try {
+    const params = new URLSearchParams({ studioId, date });
+    const res = await fetch(`${API_BASE_URL}/api/bookings/slots?${params.toString()}`, {
+      credentials: "include",
+    });
+    if (!res.ok) return [];
+    const data = (await res.json()) as { bookedSlots?: string[] };
+    return Array.isArray(data.bookedSlots) ? data.bookedSlots : [];
+  } catch {
+    return [];
+  }
+}
+
 type PageProps = {
   params: Promise<{ id: string }>;
 };
@@ -41,6 +63,10 @@ export default function StudioDetailsPage({ params }: PageProps) {
   const [loading, setLoading] = useState(() => Boolean(id && id !== "new"));
   const [isBooked, setIsBooked] = useState(false);
   const [bookingError, setBookingError] = useState<string | null>(null);
+  const [date, setDate] = useState("");
+  const [timeSlot, setTimeSlot] = useState("");
+  const [bookedSlots, setBookedSlots] = useState<string[]>([]);
+  const [loadingSlots, setLoadingSlots] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -67,13 +93,55 @@ export default function StudioDetailsPage({ params }: PageProps) {
     };
   }, [id]);
 
+  // Fetch already-booked slots whenever the user picks a date, and
+  // disable those options so booked slots cannot be selected.
+  useEffect(() => {
+    if (!id || id === "new" || !date) {
+      return;
+    }
+
+    let cancelled = false;
+    const timeoutId = window.setTimeout(() => {
+      setLoadingSlots(true);
+      getBookedSlots(id, date)
+        .then((slots) => {
+          if (!cancelled) setBookedSlots(slots);
+        })
+        .catch(() => {
+          if (!cancelled) setBookedSlots([]);
+        })
+        .finally(() => {
+          if (!cancelled) setLoadingSlots(false);
+        });
+    }, 0);
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timeoutId);
+    };
+  }, [id, date]);
+
+  // If the selected slot got booked (e.g. after a date change), show the
+  // select as unselected instead of holding a stale value — derived during
+  // render, no extra state sync needed.
+  const displaySlot = bookedSlots.includes(timeSlot) ? "" : timeSlot;
+
+  const allSlotsBooked =
+    date !== "" && bookedSlots.length >= TIME_SLOTS.length;
+
   const handleBook = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!studio) return;
 
     setIsBooked(false);
     setBookingError(null);
-    const formData = new FormData(e.currentTarget);
+
+    // Belt-and-braces: the option is already disabled, but never submit
+    // a slot the availability check flagged as booked.
+    if (!date || !timeSlot || bookedSlots.includes(timeSlot)) {
+      setBookingError("This time slot is no longer available. Pick another one.");
+      return;
+    }
 
     try {
       const res = await fetch(`${API_BASE_URL}/api/bookings`, {
@@ -85,8 +153,8 @@ export default function StudioDetailsPage({ params }: PageProps) {
         body: JSON.stringify({
           studioId: studio._id,
           studioName: studio.title,
-          date: formData.get("date")?.toString() || "",
-          timeSlot: formData.get("timeSlot")?.toString() || "",
+          date,
+          timeSlot,
           price: studio.hourlyRate,
         }),
       });
@@ -211,6 +279,9 @@ export default function StudioDetailsPage({ params }: PageProps) {
                   type="date"
                   name="date"
                   required
+                  value={date}
+                  min={new Date().toISOString().split("T")[0]}
+                  onChange={(e) => setDate(e.target.value)}
                   className="w-full rounded-xl border border-border bg-[#0B1120] py-3 pl-4 text-sm text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10"
                 />
               </div>
@@ -218,21 +289,45 @@ export default function StudioDetailsPage({ params }: PageProps) {
               <div className="mb-4">
                 <label className="block text-sm font-medium text-foreground mb-2">
                   Select Time Slot
+                  {loadingSlots && (
+                    <span className="ml-2 text-xs text-[#94A3B8]">Checking availability…</span>
+                  )}
+                  {!loadingSlots && date && bookedSlots.length > 0 && (
+                    <span className="ml-2 text-xs text-[#94A3B8]">
+                      ({bookedSlots.length} slot{bookedSlots.length === 1 ? "" : "s"} already booked)
+                    </span>
+                  )}
                 </label>
                 <select
                   name="timeSlot"
                   required
-                  className="w-full rounded-xl border border-border bg-[#0B1120] py-3 pl-4 text-sm text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10"
+                  value={displaySlot}
+                  onChange={(e) => setTimeSlot(e.target.value)}
+                  disabled={!date || loadingSlots || allSlotsBooked}
+                  className="w-full rounded-xl border border-border bg-[#0B1120] py-3 pl-4 text-sm text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10 disabled:opacity-50"
                 >
                   <option value="" disabled>
-                    Select a time slot
+                    {allSlotsBooked
+                      ? "All slots booked on this date"
+                      : date
+                        ? "Select a time slot"
+                        : "Pick a date first"}
                   </option>
-                  <option value="09:00-11:00">09:00 - 11:00 AM</option>
-                  <option value="11:00-13:00">11:00 AM - 01:00 PM</option>
-                  <option value="13:00-15:00">01:00 - 03:00 PM</option>
-                  <option value="15:00-17:00">03:00 - 05:00 PM</option>
-                  <option value="17:00-19:00">05:00 - 07:00 PM</option>
+                  {TIME_SLOTS.map((slot) => {
+                    const isBookedSlot = bookedSlots.includes(slot.value);
+                    return (
+                      <option key={slot.value} value={slot.value} disabled={isBookedSlot}>
+                        {slot.label}
+                        {isBookedSlot ? " (booked)" : ""}
+                      </option>
+                    );
+                  })}
                 </select>
+                {allSlotsBooked && (
+                  <p className="mt-2 text-xs text-red-400">
+                    This studio is fully booked on {date}. Try another date.
+                  </p>
+                )}
               </div>
 
               <div className="mb-6">
