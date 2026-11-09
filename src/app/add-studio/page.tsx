@@ -63,9 +63,9 @@ export default function HostingPage() {
   const [formData, setFormData] = useState<FormData>(initialFormData);
 
   const inputClass =
-    "mt-2 w-full rounded-xl border border-[#334155] bg-[#0B1120] px-4 py-3.5 text-sm text-[#F1F5F9] outline-none transition placeholder:text-[#94A3B8] focus:border-[#38BDF8] focus:ring-2 focus:ring-[#38BDF8]/10";
+    "mt-2 w-full rounded-xl border border-slate-200 dark:border-[#334155] bg-white dark:bg-[#0B1120] px-4 py-3.5 text-sm text-slate-900 dark:text-[#F1F5F9] outline-none transition placeholder:text-slate-400 dark:placeholder:text-[#94A3B8] focus:border-[#38BDF8] focus:ring-2 focus:ring-[#38BDF8]/10";
 
-  const labelClass = "text-sm font-medium text-[#F1F5F9]";
+  const labelClass = "text-sm font-medium text-slate-900 dark:text-[#F1F5F9]";
 
   // Handle Input Change
   const handleChange = (
@@ -142,20 +142,20 @@ export default function HostingPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#0B1120] px-4 py-12 text-[#F1F5F9] sm:px-6 lg:px-8">
+    <main className="min-h-screen bg-white dark:bg-[#0B1120] px-4 py-12 text-slate-900 dark:text-[#F1F5F9] sm:px-6 lg:px-8">
       <div className="mx-auto max-w-4xl">
 
         {/* Header */}
         <Link
           href="/"
-          className="mb-8 inline-flex items-center gap-2 text-sm text-[#94A3B8] transition hover:text-[#38BDF8]"
+          className="mb-8 inline-flex items-center gap-2 text-sm text-slate-500 dark:text-[#94A3B8] transition hover:text-[#38BDF8]"
         >
           <ArrowLeft size={17} />
           Back to Home
         </Link>
 
         <div className="mb-10">
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#38BDF8]/20 bg-[#38BDF8]/10 px-4 py-2 text-sm text-[#7DD3FC]">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#38BDF8]/20 bg-[#38BDF8]/10 px-4 py-2 text-sm text-sky-600 dark:text-[#7DD3FC]">
             <Sparkles size={15} />
             Become a Host
           </div>
@@ -164,7 +164,7 @@ export default function HostingPage() {
             List Your <span className="text-[#38BDF8]">Creative Space</span>
           </h1>
 
-          <p className="mt-3 max-w-2xl text-sm leading-7 text-[#94A3B8]">
+          <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-500 dark:text-[#94A3B8]">
             Share your creative space with photographers, filmmakers,
             podcasters, and other creators. Fill in the details below to get
             started.
@@ -174,14 +174,14 @@ export default function HostingPage() {
         {/* Form */}
         <form
           onSubmit={handleSubmit}
-          className="space-y-8 rounded-2xl border border-[#334155] bg-[#1E293B] p-5 sm:p-8"
+          className="space-y-8 rounded-2xl border border-slate-200 dark:border-[#334155] bg-white dark:bg-[#1E293B] p-5 sm:p-8"
         >
 
           {/* Basic Information */}
           <section>
             <div className="mb-6">
               <h2 className="text-xl font-semibold">Basic Information</h2>
-              <p className="mt-1 text-sm text-[#94A3B8]">
+              <p className="mt-1 text-sm text-slate-500 dark:text-[#94A3B8]">
                 Tell creators about your studio.
               </p>
             </div>
@@ -241,12 +241,12 @@ export default function HostingPage() {
             </div>
           </section>
 
-          <div className="h-px bg-[#334155]" />
+          <div className="h-px bg-slate-200 dark:bg-[#334155]" />
 
           {/* Pricing */}
           <section>
             <h2 className="text-xl font-semibold">Pricing & Capacity</h2>
-            <p className="mb-6 mt-1 text-sm text-[#94A3B8]">
+            <p className="mb-6 mt-1 text-sm text-slate-500 dark:text-[#94A3B8]">
               Set your rental price and studio capacity.
             </p>
 
@@ -304,12 +304,12 @@ export default function HostingPage() {
             </div>
           </section>
 
-          <div className="h-px bg-[#334155]" />
+          <div className="h-px bg-slate-200 dark:bg-[#334155]" />
 
           {/* Location */}
           <section>
             <h2 className="text-xl font-semibold">Studio Location</h2>
-            <p className="mb-5 mt-1 text-sm text-[#94A3B8]">
+            <p className="mb-5 mt-1 text-sm text-slate-500 dark:text-[#94A3B8]">
               Where can creators find your studio?
             </p>
 
@@ -329,12 +329,12 @@ export default function HostingPage() {
             />
           </section>
 
-          <div className="h-px bg-[#334155]" />
+          <div className="h-px bg-slate-200 dark:bg-[#334155]" />
 
           {/* Image */}
           <section>
             <h2 className="text-xl font-semibold">Studio Cover Image</h2>
-            <p className="mb-5 mt-1 text-sm text-[#94A3B8]">
+            <p className="mb-5 mt-1 text-sm text-slate-500 dark:text-[#94A3B8]">
               Add a high-quality image of your creative space.
             </p>
 
@@ -355,7 +355,7 @@ export default function HostingPage() {
             />
 
             {formData.image && (
-              <div className="mt-4 overflow-hidden rounded-xl border border-[#334155]">
+              <div className="mt-4 overflow-hidden rounded-xl border border-slate-200 dark:border-[#334155]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={formData.image}
@@ -366,12 +366,12 @@ export default function HostingPage() {
             )}
           </section>
 
-          <div className="h-px bg-[#334155]" />
+          <div className="h-px bg-slate-200 dark:bg-[#334155]" />
 
           {/* Amenities */}
           <section>
             <h2 className="text-xl font-semibold">Studio Amenities</h2>
-            <p className="mb-5 mt-1 text-sm text-[#94A3B8]">
+            <p className="mb-5 mt-1 text-sm text-slate-500 dark:text-[#94A3B8]">
               Select all facilities available in your studio.
             </p>
 
@@ -381,8 +381,8 @@ export default function HostingPage() {
                   key={item}
                   className={`flex cursor-pointer items-center gap-3 rounded-xl border p-3.5 text-sm transition ${
                     amenities.includes(item)
-                      ? "border-[#38BDF8] bg-[#38BDF8]/10 text-[#7DD3FC]"
-                      : "border-[#334155] bg-[#0B1120] text-[#94A3B8] hover:border-[#38BDF8]/50"
+                      ? "border-[#38BDF8] bg-[#38BDF8]/10 text-sky-600 dark:text-[#7DD3FC]"
+                      : "border-slate-200 dark:border-[#334155] bg-white dark:bg-[#0B1120] text-slate-500 dark:text-[#94A3B8] hover:border-[#38BDF8]/50"
                   }`}
                 >
                   <input
@@ -398,8 +398,8 @@ export default function HostingPage() {
           </section>
 
           {/* Submit */}
-          <div className="border-t border-[#334155] pt-6">
-            <p className="mb-5 text-xs leading-6 text-[#94A3B8]">
+          <div className="border-t border-slate-200 dark:border-[#334155] pt-6">
+            <p className="mb-5 text-xs leading-6 text-slate-500 dark:text-[#94A3B8]">
               By submitting this listing, you confirm that the information
               provided is accurate and that you have permission to rent this
               creative space.

@@ -77,9 +77,9 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-[#0B1120] px-4 py-12 text-[#F1F5F9] sm:px-6 lg:px-8">
+    <main className="flex min-h-screen items-center justify-center bg-white dark:bg-[#0B1120] px-4 py-12 text-slate-900 dark:text-[#F1F5F9] sm:px-6 lg:px-8">
       <div className="w-full max-w-md">
-        <Card className="border border-[#334155] bg-[#1E293B] text-foreground shadow-2xl">
+        <Card className="border border-slate-200 dark:border-[#334155] bg-white dark:bg-[#1E293B] text-foreground shadow-2xl">
           <CardHeader className="space-y-2 text-center">
             <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
               <Sparkles size={24} />
@@ -105,7 +105,7 @@ export default function LoginPage() {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="name@example.com"
-                    className="w-full rounded-xl border border-border bg-[#0B1120] py-3 pl-10 pr-4 text-sm text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10"
+                    className="w-full rounded-xl border border-border bg-white dark:bg-[#0B1120] py-3 pl-10 pr-4 text-sm text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10"
                   />
                 </div>
               </div>
@@ -121,7 +121,7 @@ export default function LoginPage() {
                     value={formData.password}
                     onChange={handleChange}
                     placeholder="••••••••"
-                    className="w-full rounded-xl border border-border bg-[#0B1120] py-3 pl-10 pr-4 text-sm text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10"
+                    className="w-full rounded-xl border border-border bg-white dark:bg-[#0B1120] py-3 pl-10 pr-4 text-sm text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10"
                   />
                 </div>
               </div>
@@ -143,10 +143,10 @@ export default function LoginPage() {
             </form>
 
             <div className="mt-6 space-y-4">
-              <div className="flex items-center gap-3 text-xs text-[#64748B]">
-                <span className="h-px flex-1 bg-[#334155]" />
+              <div className="flex items-center gap-3 text-xs text-slate-500 dark:text-[#64748B]">
+                <span className="h-px flex-1 bg-slate-200 dark:bg-[#334155]" />
                 or continue with
-                <span className="h-px flex-1 bg-[#334155]" />
+                <span className="h-px flex-1 bg-slate-200 dark:bg-[#334155]" />
               </div>
               <div className="flex justify-center">
                 <GoogleLogin
@@ -159,7 +159,7 @@ export default function LoginPage() {
                 />
               </div>
               {googleLoading && (
-                <p className="flex items-center justify-center gap-2 text-xs text-[#94A3B8]">
+                <p className="flex items-center justify-center gap-2 text-xs text-slate-500 dark:text-[#94A3B8]">
                   <Loader2 className="animate-spin" size={14} />
                   Signing you in with Google…
                 </p>

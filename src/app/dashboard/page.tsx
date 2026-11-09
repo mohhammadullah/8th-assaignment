@@ -72,12 +72,12 @@ function StatCard({
 }) {
   return (
     <Link href={href} className="group block">
-      <Card className="border-[#334155] bg-[#1E293B] transition hover:border-[#38BDF8]/60">
+      <Card className="border-slate-200 dark:border-[#334155] bg-white dark:bg-[#1E293B] transition hover:border-[#38BDF8]/60">
         <CardContent className="flex items-start justify-between gap-3 pt-6">
           <div>
-            <p className="text-xs font-medium text-[#94A3B8]">{label}</p>
-            <p className="mt-2 text-2xl font-bold text-[#F1F5F9]">{value}</p>
-            <p className="mt-1 text-xs text-[#64748B]">{sub}</p>
+            <p className="text-xs font-medium text-slate-500 dark:text-[#94A3B8]">{label}</p>
+            <p className="mt-2 text-2xl font-bold text-slate-900 dark:text-[#F1F5F9]">{value}</p>
+            <p className="mt-1 text-xs text-slate-500 dark:text-[#64748B]">{sub}</p>
           </div>
           <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#38BDF8]/10 text-[#38BDF8] transition group-hover:bg-[#38BDF8]/20">
             {icon}
@@ -142,10 +142,10 @@ function DashboardContent({ user }: { user: AuthUser }) {
   ).length;
 
   return (
-    <main className="min-h-screen bg-[#0B1120] text-[#F1F5F9]">
+    <main className="min-h-screen bg-white dark:bg-[#0B1120] text-slate-900 dark:text-[#F1F5F9]">
       <div className="mx-auto max-w-7xl space-y-8 px-4 py-8 sm:px-6 lg:px-8">
         {/* Welcome banner */}
-        <section className="overflow-hidden rounded-2xl border border-[#334155] bg-gradient-to-br from-[#1E293B] via-[#162033] to-[#0B1120] p-6 sm:p-8">
+        <section className="overflow-hidden rounded-2xl border border-slate-200 dark:border-[#334155] bg-gradient-to-br from-slate-50 dark:from-[#1E293B] via-slate-100 dark:via-[#162033] to-slate-50 dark:to-[#0B1120] p-6 sm:p-8">
           <div className="flex flex-col items-start gap-5 sm:flex-row sm:items-center">
             <Avatar className="h-16 w-16 shrink-0">
               {(user.photoUrl ?? user.image) && (
@@ -162,10 +162,10 @@ function DashboardContent({ user }: { user: AuthUser }) {
               <h1 className="truncate text-2xl font-bold sm:text-3xl">
                 Welcome back, {user.name}
               </h1>
-              <p className="mt-1 truncate text-sm text-[#94A3B8]">
+              <p className="mt-1 truncate text-sm text-slate-500 dark:text-[#94A3B8]">
                 {user.email}
               </p>
-              <p className="mt-2 text-sm text-[#64748B]">
+              <p className="mt-2 text-sm text-slate-500 dark:text-[#64748B]">
                 Manage your listings, bookings, and studio activity in one
                 place.
               </p>
@@ -212,7 +212,7 @@ function DashboardContent({ user }: { user: AuthUser }) {
                     className="transition group-hover:translate-x-0.5"
                   />
                 </p>
-                <p className="mt-1 text-xs text-[#64748B]">Publish a listing</p>
+                <p className="mt-1 text-xs text-slate-500 dark:text-[#64748B]">Publish a listing</p>
               </CardContent>
             </Card>
           </Link>
@@ -234,7 +234,7 @@ function DashboardContent({ user }: { user: AuthUser }) {
 
         {/* Recent activity */}
         <section className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-          <Card className="border-[#334155] bg-[#1E293B]">
+          <Card className="border-slate-200 dark:border-[#334155] bg-white dark:bg-[#1E293B]">
             <CardContent className="pt-6">
               <div className="mb-4 flex items-center justify-between">
                 <h2 className="text-lg font-semibold">Recent Listings</h2>
@@ -253,7 +253,7 @@ function DashboardContent({ user }: { user: AuthUser }) {
                   cta={{ href: "/add-studio", label: "Add your first studio" }}
                 />
               ) : (
-                <ul className="divide-y divide-[#334155]">
+                <ul className="divide-y divide-slate-200 dark:divide-[#334155]">
                   {recentListings.map((studio) => (
                     <li
                       key={studio._id}
@@ -261,7 +261,7 @@ function DashboardContent({ user }: { user: AuthUser }) {
                     >
                       <div className="min-w-0">
                         <p className="truncate font-medium">{studio.title}</p>
-                        <p className="truncate text-xs text-[#64748B]">
+                        <p className="truncate text-xs text-slate-500 dark:text-[#64748B]">
                           {studio.createdAt
                             ? `Listed ${new Date(studio.createdAt).toLocaleDateString()}`
                             : "Recently listed"}
@@ -277,7 +277,7 @@ function DashboardContent({ user }: { user: AuthUser }) {
             </CardContent>
           </Card>
 
-          <Card className="border-[#334155] bg-[#1E293B]">
+          <Card className="border-slate-200 dark:border-[#334155] bg-white dark:bg-[#1E293B]">
             <CardContent className="pt-6">
               <div className="mb-4 flex items-center justify-between">
                 <h2 className="text-lg font-semibold">Recent Bookings</h2>
@@ -296,7 +296,7 @@ function DashboardContent({ user }: { user: AuthUser }) {
                   cta={{ href: "/studios", label: "Explore studios" }}
                 />
               ) : (
-                <ul className="divide-y divide-[#334155]">
+                <ul className="divide-y divide-slate-200 dark:divide-[#334155]">
                   {recentBookings.map((booking, i) => (
                     <li
                       key={booking._id ?? booking.id ?? `${i}`}
@@ -306,7 +306,7 @@ function DashboardContent({ user }: { user: AuthUser }) {
                         <p className="truncate font-medium">
                           {booking.studioName}
                         </p>
-                        <p className="truncate text-xs text-[#64748B]">
+                        <p className="truncate text-xs text-slate-500 dark:text-[#64748B]">
                           {booking.date
                             ? new Date(booking.date).toLocaleDateString()
                             : ""}
@@ -335,7 +335,7 @@ function DashboardContent({ user }: { user: AuthUser }) {
             <Link
               key={href}
               href={href}
-              className="flex items-center justify-center gap-2 rounded-xl border border-[#334155] bg-[#1E293B] px-4 py-3.5 text-sm font-medium text-[#CBD5E1] transition hover:border-[#38BDF8]/60 hover:text-[#38BDF8]"
+              className="flex items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-[#334155] bg-white dark:bg-[#1E293B] px-4 py-3.5 text-sm font-medium text-slate-700 dark:text-[#CBD5E1] transition hover:border-[#38BDF8]/60 hover:text-[#38BDF8]"
             >
               <Icon size={17} /> {label}
             </Link>
@@ -348,7 +348,7 @@ function DashboardContent({ user }: { user: AuthUser }) {
 
 function LoadingRow() {
   return (
-    <div className="flex items-center gap-3 py-6 text-[#94A3B8]">
+    <div className="flex items-center gap-3 py-6 text-slate-500 dark:text-[#94A3B8]">
       <Loader2 className="h-5 w-5 animate-spin text-[#38BDF8]" />
       <span className="text-sm">Loading…</span>
     </div>
@@ -364,7 +364,7 @@ function EmptyState({
 }) {
   return (
     <div className="py-6 text-center">
-      <p className="text-sm text-[#94A3B8]">{text}</p>
+      <p className="text-sm text-slate-500 dark:text-[#94A3B8]">{text}</p>
       <Link
         href={cta.href}
         className="mt-2 inline-block text-sm font-medium text-[#38BDF8] hover:underline"
@@ -380,7 +380,7 @@ export default function DashboardPage() {
 
   if (isLoading) {
     return (
-      <div className="flex min-h-[70vh] items-center justify-center bg-[#0B1120]">
+      <div className="flex min-h-[70vh] items-center justify-center bg-white dark:bg-[#0B1120]">
         <Loader2 className="h-8 w-8 animate-spin text-[#38BDF8]" />
       </div>
     );
@@ -391,7 +391,7 @@ export default function DashboardPage() {
       {user ? (
         <DashboardContent user={user} />
       ) : (
-        <div className="flex min-h-[70vh] items-center justify-center bg-[#0B1120]">
+        <div className="flex min-h-[70vh] items-center justify-center bg-white dark:bg-[#0B1120]">
           <Loader2 className="h-8 w-8 animate-spin text-[#38BDF8]" />
         </div>
       )}

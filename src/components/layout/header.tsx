@@ -132,7 +132,7 @@ function UserMenu({
         </Avatar>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent align="end" className="w-56 bg-[#1E293B] border-[#334155] text-white">
+      <DropdownMenuContent align="end" className="w-56 bg-white dark:bg-[#1E293B] border-slate-200 dark:border-[#334155] text-slate-900 dark:text-white">
         
         {/* User Info Group */}
         <DropdownMenuGroup>
@@ -146,7 +146,7 @@ function UserMenu({
           </DropdownMenuLabel>
         </DropdownMenuGroup>
 
-        <DropdownMenuSeparator className="bg-[#334155]" />
+        <DropdownMenuSeparator className="bg-slate-200 dark:bg-[#334155]" />
 
         {/* Menu Items Group */}
         <DropdownMenuGroup>
@@ -167,7 +167,7 @@ function UserMenu({
           </DropdownMenuItem>
         </DropdownMenuGroup>
 
-        <DropdownMenuSeparator className="bg-[#334155]" />
+        <DropdownMenuSeparator className="bg-slate-200 dark:bg-[#334155]" />
 
         {/* Logout Group */}
         <DropdownMenuGroup>
@@ -191,7 +191,7 @@ export function SiteHeader() {
   return (
     <header
       data-slot="site-header"
-      className="sticky top-0 z-50 w-full border-b border-[#334155] bg-[#0B1120]/90 backdrop-blur-md supports-[backdrop-filter]:bg-[#0B1120]/70"
+      className="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-[#334155] bg-white/90 dark:bg-white dark:bg-[#0B1120]/90 backdrop-blur-md supports-[backdrop-filter]:bg-white/70 dark:bg-white dark:bg-[#0B1120]/70"
     >
       <div className="mx-auto flex h-16 w-full max-w-7xl items-center gap-4 px-4 sm:px-6">
         <Logo />
@@ -215,7 +215,7 @@ export function SiteHeader() {
             <>
               <Link
                 href="/login"
-                className="inline-flex h-9 items-center justify-center whitespace-nowrap rounded-md px-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 text-slate-300 hover:text-white hover:bg-slate-800"
+                className="inline-flex h-9 items-center justify-center whitespace-nowrap rounded-md px-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800"
               >
                 Login
               </Link>
@@ -239,7 +239,7 @@ export function SiteHeader() {
         <Button
           variant="ghost"
           size="icon"
-          className="md:hidden text-white"
+          className="md:hidden text-slate-900 dark:text-white"
           aria-expanded={mobileOpen}
           aria-controls="mobile-nav"
           onClick={() => setMobileOpen((open) => !open)}
@@ -253,7 +253,7 @@ export function SiteHeader() {
       {mobileOpen && (
         <div
           id="mobile-nav"
-          className="border-t border-[#334155] bg-[#0B1120]/95 md:hidden backdrop-blur-xl"
+          className="border-t border-slate-200 dark:border-[#334155] bg-white/95 dark:bg-white dark:bg-[#0B1120]/95 md:hidden backdrop-blur-xl"
         >
           <nav
             aria-label="Mobile"
@@ -268,7 +268,7 @@ export function SiteHeader() {
               />
             ))}
 
-            <div className="mt-4 flex flex-col gap-3 border-t border-[#334155] pt-4">
+            <div className="mt-4 flex flex-col gap-3 border-t border-slate-200 dark:border-[#334155] pt-4">
               {user ? (
                 <div className="flex flex-col gap-3">
                   <div className="flex items-center gap-3 px-2">
@@ -280,10 +280,10 @@ export function SiteHeader() {
                     </Avatar>
 
                     <div className="min-w-0">
-                      <div className="truncate text-sm font-semibold text-white">
+                      <div className="truncate text-sm font-semibold text-slate-900 dark:text-white">
                         {user.name}
                       </div>
-                      <div className="truncate text-xs text-slate-400">
+                      <div className="truncate text-xs text-slate-500 dark:text-slate-400">
                         {user.email}
                       </div>
                     </div>
@@ -293,28 +293,28 @@ export function SiteHeader() {
                     <Link
                       href="/dashboard"
                       onClick={() => setMobileOpen(false)}
-                      className="flex items-center gap-2 rounded-xl bg-slate-800/60 p-2.5 text-xs font-medium text-slate-200 border border-slate-700/50"
+                      className="flex items-center gap-2 rounded-xl bg-slate-100 dark:bg-slate-800/60 p-2.5 text-xs font-medium text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700/50"
                     >
                       <LayoutDashboard size={15} className="text-[#38BDF8]" /> Dashboard
                     </Link>
                     <Link
                       href="/add-studio"
                       onClick={() => setMobileOpen(false)}
-                      className="flex items-center gap-2 rounded-xl bg-slate-800/60 p-2.5 text-xs font-medium text-slate-200 border border-slate-700/50"
+                      className="flex items-center gap-2 rounded-xl bg-slate-100 dark:bg-slate-800/60 p-2.5 text-xs font-medium text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700/50"
                     >
                       <CirclePlus size={15} className="text-[#38BDF8]" /> Add Studio
                     </Link>
                     <Link
                       href="/my-listings"
                       onClick={() => setMobileOpen(false)}
-                      className="flex items-center gap-2 rounded-xl bg-slate-800/60 p-2.5 text-xs font-medium text-slate-200 border border-slate-700/50"
+                      className="flex items-center gap-2 rounded-xl bg-slate-100 dark:bg-slate-800/60 p-2.5 text-xs font-medium text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700/50"
                     >
                       <Building size={15} className="text-[#38BDF8]" /> My Listings
                     </Link>
                     <Link
                       href="/my-bookings"
                       onClick={() => setMobileOpen(false)}
-                      className="flex items-center gap-2 rounded-xl bg-slate-800/60 p-2.5 text-xs font-medium text-slate-200 border border-slate-700/50"
+                      className="flex items-center gap-2 rounded-xl bg-slate-100 dark:bg-slate-800/60 p-2.5 text-xs font-medium text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700/50"
                     >
                       <CalendarCheck size={15} className="text-[#38BDF8]" /> My Bookings
                     </Link>
@@ -337,7 +337,7 @@ export function SiteHeader() {
                   <Link
                     href="/login"
                     onClick={() => setMobileOpen(false)}
-                    className="inline-flex h-10 items-center justify-center whitespace-nowrap rounded-md px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-slate-700 bg-transparent text-slate-200 hover:bg-slate-800 hover:text-white"
+                    className="inline-flex h-10 items-center justify-center whitespace-nowrap rounded-md px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-slate-300 dark:border-slate-700 bg-transparent text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white"
                   >
                     Login
                   </Link>

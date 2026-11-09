@@ -60,7 +60,7 @@ function SlideVisual({ slide }: { slide: Slide }) {
         className="object-cover"
       />
       {/* Cinematic scrim: deep dark base with warm amber glow at bottom edge */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0B1120]/95 via-[#0B1120]/60 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-white/90 dark:from-[#0B1120]/95 via-white/50 dark:via-[#0B1120]/60 to-transparent" />
       <div className="absolute inset-x-0 bottom-[20%] h-[30%] bg-gradient-to-t from-[#38BDF8]/20 to-transparent pointer-events-none" />
 
       <div className="absolute inset-0 flex items-end">
@@ -139,7 +139,7 @@ export function SiteHero() {
         type="button"
         aria-label="Previous slide"
         onClick={() => swiperRef.current?.slidePrev()}
-        className="absolute top-1/2 left-3 z-10 hidden -translate-y-1/2 items-center justify-center rounded-full bg-[#0B1120]/80 border border-border size-10 text-foreground opacity-0 backdrop-blur-sm transition-all duration-300 outline-none group-hover/site-hero:opacity-100 focus-visible:opacity-100 hover:bg-primary hover:text-primary-foreground hover:border-primary sm:flex"
+        className="absolute top-1/2 left-3 z-10 hidden -translate-y-1/2 items-center justify-center rounded-full bg-white/80 dark:bg-[#0B1120]/80 border border-border size-10 text-foreground opacity-0 backdrop-blur-sm transition-all duration-300 outline-none group-hover/site-hero:opacity-100 focus-visible:opacity-100 hover:bg-primary hover:text-primary-foreground hover:border-primary sm:flex"
       >
         <ChevronLeft className="size-5" />
       </button>
@@ -147,7 +147,7 @@ export function SiteHero() {
         type="button"
         aria-label="Next slide"
         onClick={() => swiperRef.current?.slideNext()}
-        className="absolute top-1/2 right-3 z-10 hidden -translate-y-1/2 items-center justify-center rounded-full bg-[#0B1120]/80 border border-border size-10 text-foreground opacity-0 backdrop-blur-sm transition-all duration-300 outline-none group-hover/site-hero:opacity-100 focus-visible:opacity-100 hover:bg-primary hover:text-primary-foreground hover:border-primary sm:flex"
+        className="absolute top-1/2 right-3 z-10 hidden -translate-y-1/2 items-center justify-center rounded-full bg-white/80 dark:bg-[#0B1120]/80 border border-border size-10 text-foreground opacity-0 backdrop-blur-sm transition-all duration-300 outline-none group-hover/site-hero:opacity-100 focus-visible:opacity-100 hover:bg-primary hover:text-primary-foreground hover:border-primary sm:flex"
       >
         <ChevronRight className="size-5" />
       </button>

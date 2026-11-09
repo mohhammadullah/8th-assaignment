@@ -24,7 +24,7 @@ export default function AboutSection() {
   return (
 <section
   id="about-us"
-  className="relative scroll-mt-20 overflow-hidden bg-[#0B1120] px-5 py-24 text-[#F1F5F9] sm:px-8 lg:px-12"
+  className="relative scroll-mt-20 overflow-hidden bg-white dark:bg-[#0B1120] px-5 py-24 text-slate-900 dark:text-[#F1F5F9] sm:px-8 lg:px-12"
 >
       {/* Background Glow */}
       <div className="pointer-events-none absolute -left-40 top-20 h-96 w-96 rounded-full bg-[#38BDF8]/10 blur-[120px]" />
@@ -33,7 +33,7 @@ export default function AboutSection() {
       <div className="relative mx-auto max-w-7xl">
         {/* Section Heading */}
         <div className="mx-auto mb-16 max-w-3xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[#38BDF8]/30 bg-[#38BDF8]/10 px-4 py-2 text-xs font-semibold tracking-[0.2em] text-[#7DD3FC]">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[#38BDF8]/30 bg-[#38BDF8]/10 px-4 py-2 text-xs font-semibold tracking-[0.2em] text-sky-600 dark:text-[#7DD3FC]">
             <Aperture size={15} />
             ABOUT STUDIO SPACE
           </span>
@@ -45,7 +45,7 @@ export default function AboutSection() {
             </span>
           </h2>
 
-          <p className="mt-6 text-base leading-8 text-[#94A3B8] sm:text-lg">
+          <p className="mt-6 text-base leading-8 text-slate-500 dark:text-[#94A3B8] sm:text-lg">
             Every great idea deserves the perfect environment. We connect
             creative minds with inspiring spaces to bring extraordinary
             ideas to life.
@@ -58,7 +58,7 @@ export default function AboutSection() {
           <div className="group relative">
             <div className="absolute -inset-2 rounded-3xl bg-gradient-to-br from-[#38BDF8]/30 to-[#818CF8]/10 opacity-70 blur-xl transition duration-500 group-hover:opacity-100" />
 
-            <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-[#334155]">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-slate-200 dark:border-[#334155]">
               <Image
                 src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1200&q=85"
                 alt="Creative studio workspace"
@@ -68,7 +68,8 @@ export default function AboutSection() {
                 className="object-cover transition duration-700 group-hover:scale-105"
               />
 
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0B1120]/80 via-transparent to-transparent" />
+              {/* Dark scrim in both themes — caption text is white on a photo */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0B1120]/80 dark:from-[#0B1120]/80 via-transparent to-transparent" />
 
               <div className="absolute bottom-6 left-6 right-6">
                 <div className="flex items-center gap-3">
@@ -90,7 +91,7 @@ export default function AboutSection() {
 
           {/* Text Content */}
           <div>
-            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-[#7DD3FC]">
+            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-sky-600 dark:text-[#7DD3FC]">
               Our Story
             </p>
 
@@ -99,14 +100,14 @@ export default function AboutSection() {
               <span className="text-[#38BDF8]"> A Place to Create.</span>
             </h3>
 
-            <p className="mt-6 leading-8 text-[#94A3B8]">
+            <p className="mt-6 leading-8 text-slate-500 dark:text-[#94A3B8]">
               StudioSpace is a creative studio rental marketplace built for
               photographers, filmmakers, podcasters, musicians, and
               creators. We make it easier to discover and book inspiring
               spaces that match your creative vision.
             </p>
 
-            <p className="mt-4 leading-8 text-[#94A3B8]">
+            <p className="mt-4 leading-8 text-slate-500 dark:text-[#94A3B8]">
               Whether you are working on your next photoshoot, recording a
               podcast, or producing a film, we help you find the right
               environment to make it happen.
@@ -114,19 +115,19 @@ export default function AboutSection() {
 
             {/* Mission & Vision */}
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
-              <div className="rounded-2xl border border-[#334155] bg-[#1E293B] p-5 transition hover:border-[#38BDF8]/50">
+              <div className="rounded-2xl border border-slate-200 dark:border-[#334155] bg-white dark:bg-[#1E293B] p-5 transition hover:border-[#38BDF8]/50">
                 <Target className="mb-4 text-[#38BDF8]" size={28} />
                 <h4 className="mb-2 font-semibold">Our Mission</h4>
-                <p className="text-sm leading-7 text-[#94A3B8]">
+                <p className="text-sm leading-7 text-slate-500 dark:text-[#94A3B8]">
                   To make creative spaces accessible, affordable, and
                   inspiring for everyone.
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-[#334155] bg-[#1E293B] p-5 transition hover:border-[#818CF8]/50">
+              <div className="rounded-2xl border border-slate-200 dark:border-[#334155] bg-white dark:bg-[#1E293B] p-5 transition hover:border-[#818CF8]/50">
                 <Lightbulb className="mb-4 text-[#818CF8]" size={28} />
                 <h4 className="mb-2 font-semibold">Our Vision</h4>
-                <p className="text-sm leading-7 text-[#94A3B8]">
+                <p className="text-sm leading-7 text-slate-500 dark:text-[#94A3B8]">
                   To become the trusted destination for creative spaces
                   around the world.
                 </p>
@@ -151,13 +152,13 @@ export default function AboutSection() {
             return (
               <div
                 key={stat.label}
-                className="rounded-2xl border border-[#334155] bg-[#1E293B]/80 p-6 text-center transition duration-300 hover:-translate-y-2 hover:border-[#38BDF8]/50"
+                className="rounded-2xl border border-slate-200 dark:border-[#334155] bg-white/80 dark:bg-white dark:bg-[#1E293B]/80 p-6 text-center transition duration-300 hover:-translate-y-2 hover:border-[#38BDF8]/50"
               >
                 <Icon className="mx-auto mb-4 text-[#38BDF8]" size={26} />
-                <h4 className="text-3xl font-bold text-[#F1F5F9]">
+                <h4 className="text-3xl font-bold text-slate-900 dark:text-[#F1F5F9]">
                   {stat.value}
                 </h4>
-                <p className="mt-2 text-sm text-[#94A3B8]">
+                <p className="mt-2 text-sm text-slate-500 dark:text-[#94A3B8]">
                   {stat.label}
                 </p>
               </div>
@@ -166,7 +167,7 @@ export default function AboutSection() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="relative mt-20 overflow-hidden rounded-3xl border border-[#38BDF8]/20 bg-gradient-to-r from-[#1E293B] via-[#1E293B] to-[#1E293B] px-6 py-12 text-center sm:px-12">
+        <div className="relative mt-20 overflow-hidden rounded-3xl border border-[#38BDF8]/20 bg-gradient-to-r from-slate-50 dark:from-[#1E293B] via-white dark:via-[#1E293B] to-slate-50 dark:to-[#1E293B] px-6 py-12 text-center sm:px-12">
           <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-[#38BDF8]/15 blur-[80px]" />
 
           <div className="relative">
@@ -174,12 +175,12 @@ export default function AboutSection() {
 
             <h3 className="text-3xl font-bold sm:text-4xl">
               Your Next Great Creation
-              <span className="block text-[#7DD3FC]">
+              <span className="block text-sky-600 dark:text-[#7DD3FC]">
                 Starts Here.
               </span>
             </h3>
 
-            <p className="mx-auto mt-5 max-w-2xl leading-7 text-[#94A3B8]">
+            <p className="mx-auto mt-5 max-w-2xl leading-7 text-slate-500 dark:text-[#94A3B8]">
               Find the perfect space, bring your vision to life, and
               create something extraordinary with StudioSpace.
             </p>

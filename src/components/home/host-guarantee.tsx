@@ -88,7 +88,7 @@ export function HostGuarantee() {
       data-slot="host-guarantee"
       className="mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 relative overflow-hidden"
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#1E293B]/30 to-transparent pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white dark:via-[#1E293B]/30 to-transparent pointer-events-none" />
       <div className="relative z-10">
         <div className="flex flex-wrap items-end justify-between gap-4 mb-12">
           <div className="max-w-xl">

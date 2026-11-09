@@ -58,7 +58,7 @@ export default function AddStudioPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#0B1120] px-4 py-12 text-[#F1F5F9] sm:px-6 lg:px-8">
+    <main className="min-h-screen bg-white dark:bg-[#0B1120] px-4 py-12 text-slate-900 dark:text-[#F1F5F9] sm:px-6 lg:px-8">
       <div className="mx-auto max-w-2xl">
         <Link
           href="/studios"
@@ -69,74 +69,74 @@ export default function AddStudioPage() {
 
         <ToastContainer position="top-right" />
 
-        <div className="rounded-2xl border border-[#334155] bg-[#1E293B] p-6 sm:p-8 shadow-xl">
-          <h1 className="text-2xl font-bold mb-6 text-[#F1F5F9]">Add New Studio Listing</h1>
+        <div className="rounded-2xl border border-slate-200 dark:border-[#334155] bg-white dark:bg-[#1E293B] p-6 sm:p-8 shadow-xl">
+          <h1 className="text-2xl font-bold mb-6 text-slate-900 dark:text-[#F1F5F9]">Add New Studio Listing</h1>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-[#94A3B8] mb-2">Studio Title</label>
+              <label className="block text-sm font-medium text-slate-500 dark:text-[#94A3B8] mb-2">Studio Title</label>
               <input
                 type="text"
                 name="title"
                 required
                 placeholder="e.g. Apex Sound Studio"
-                className="w-full rounded-xl border border-[#334155] bg-[#0B1120] py-3 px-4 text-sm text-[#F1F5F9] outline-none transition focus:border-[#38BDF8] focus:ring-2 focus:ring-[#38BDF8]/10"
+                className="w-full rounded-xl border border-slate-200 dark:border-[#334155] bg-white dark:bg-[#0B1120] py-3 px-4 text-sm text-slate-900 dark:text-[#F1F5F9] outline-none transition focus:border-[#38BDF8] focus:ring-2 focus:ring-[#38BDF8]/10"
               />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-[#94A3B8] mb-2">Category</label>
+                <label className="block text-sm font-medium text-slate-500 dark:text-[#94A3B8] mb-2">Category</label>
                 <input
                   type="text"
                   name="category"
                   required
                   placeholder="e.g. Audio Recording"
-                  className="w-full rounded-xl border border-[#334155] bg-[#0B1120] py-3 px-4 text-sm text-[#F1F5F9] outline-none transition focus:border-[#38BDF8] focus:ring-2 focus:ring-[#38BDF8]/10"
+                  className="w-full rounded-xl border border-slate-200 dark:border-[#334155] bg-white dark:bg-[#0B1120] py-3 px-4 text-sm text-slate-900 dark:text-[#F1F5F9] outline-none transition focus:border-[#38BDF8] focus:ring-2 focus:ring-[#38BDF8]/10"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-[#94A3B8] mb-2">Hourly Rate ($ / ৳)</label>
+                <label className="block text-sm font-medium text-slate-500 dark:text-[#94A3B8] mb-2">Hourly Rate ($ / ৳)</label>
                 <input
                   type="number"
                   name="hourlyRate"
                   required
                   placeholder="50"
-                  className="w-full rounded-xl border border-[#334155] bg-[#0B1120] py-3 px-4 text-sm text-[#F1F5F9] outline-none transition focus:border-[#38BDF8] focus:ring-2 focus:ring-[#38BDF8]/10"
+                  className="w-full rounded-xl border border-slate-200 dark:border-[#334155] bg-white dark:bg-[#0B1120] py-3 px-4 text-sm text-slate-900 dark:text-[#F1F5F9] outline-none transition focus:border-[#38BDF8] focus:ring-2 focus:ring-[#38BDF8]/10"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-[#94A3B8] mb-2">Location</label>
+              <label className="block text-sm font-medium text-slate-500 dark:text-[#94A3B8] mb-2">Location</label>
               <input
                 type="text"
                 name="location"
                 required
                 placeholder="e.g. Banani, Dhaka"
-                className="w-full rounded-xl border border-[#334155] bg-[#0B1120] py-3 px-4 text-sm text-[#F1F5F9] outline-none transition focus:border-[#38BDF8] focus:ring-2 focus:ring-[#38BDF8]/10"
+                className="w-full rounded-xl border border-slate-200 dark:border-[#334155] bg-white dark:bg-[#0B1120] py-3 px-4 text-sm text-slate-900 dark:text-[#F1F5F9] outline-none transition focus:border-[#38BDF8] focus:ring-2 focus:ring-[#38BDF8]/10"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-[#94A3B8] mb-2">Image URL</label>
+              <label className="block text-sm font-medium text-slate-500 dark:text-[#94A3B8] mb-2">Image URL</label>
               <input
                 type="url"
                 name="image"
                 placeholder="https://images.unsplash.com/..."
-                className="w-full rounded-xl border border-[#334155] bg-[#0B1120] py-3 px-4 text-sm text-[#F1F5F9] outline-none transition focus:border-[#38BDF8] focus:ring-2 focus:ring-[#38BDF8]/10"
+                className="w-full rounded-xl border border-slate-200 dark:border-[#334155] bg-white dark:bg-[#0B1120] py-3 px-4 text-sm text-slate-900 dark:text-[#F1F5F9] outline-none transition focus:border-[#38BDF8] focus:ring-2 focus:ring-[#38BDF8]/10"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-[#94A3B8] mb-2">Overview / Description</label>
+              <label className="block text-sm font-medium text-slate-500 dark:text-[#94A3B8] mb-2">Overview / Description</label>
               <textarea
                 name="overview"
                 rows={4}
                 required
                 placeholder="Describe your studio space, equipment, and amenities..."
-                className="w-full rounded-xl border border-[#334155] bg-[#0B1120] py-3 px-4 text-sm text-[#F1F5F9] outline-none transition focus:border-[#38BDF8] focus:ring-2 focus:ring-[#38BDF8]/10 resize-none"
+                className="w-full rounded-xl border border-slate-200 dark:border-[#334155] bg-white dark:bg-[#0B1120] py-3 px-4 text-sm text-slate-900 dark:text-[#F1F5F9] outline-none transition focus:border-[#38BDF8] focus:ring-2 focus:ring-[#38BDF8]/10 resize-none"
               ></textarea>
             </div>
 

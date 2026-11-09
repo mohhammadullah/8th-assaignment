@@ -50,7 +50,7 @@ const socials = [
 
 export default function Footer() {
   return (
-    <footer className="relative isolate overflow-hidden border-t border-[#334155]/10 bg-[#0B1120] text-[#F1F5F9]">
+    <footer className="relative isolate overflow-hidden border-t border-slate-200 dark:border-[#334155]/10 bg-white dark:bg-[#0B1120] text-slate-900 dark:text-[#F1F5F9]">
       {/* Background Effects */}
       <div className="pointer-events-none absolute -left-40 top-0 -z-10 size-[400px] rounded-full bg-[#38BDF8]/10 blur-[120px]" />
       <div className="pointer-events-none absolute -right-40 bottom-0 -z-10 size-[400px] rounded-full bg-[#818CF8]/10 blur-[120px]" />
@@ -58,7 +58,7 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
         {/* Newsletter Banner */}
         <div className="py-14 md:py-16">
-          <div className="relative overflow-hidden rounded-3xl border border-[#38BDF8]/20 bg-gradient-to-br from-[#0B1120] via-[#1E293B] to-[#38BDF8] p-7 sm:p-10 lg:p-12">
+          <div className="relative overflow-hidden rounded-3xl border border-[#38BDF8]/20 bg-gradient-to-br from-white dark:from-[#0B1120] via-white dark:via-[#1E293B] to-[#38BDF8] p-7 sm:p-10 lg:p-12">
             <div className="pointer-events-none absolute -right-16 -top-24 size-72 rounded-full bg-[#38BDF8]/15 blur-[90px]" />
 
             <div className="relative flex flex-col justify-between gap-8 lg:flex-row lg:items-center">
@@ -75,7 +75,7 @@ export default function Footer() {
                   </span>
                 </h2>
 
-                <p className="mt-4 text-sm leading-7 text-[#94A3B8] sm:text-base">
+                <p className="mt-4 text-sm leading-7 text-slate-500 dark:text-[#94A3B8] sm:text-base">
                   Get creative ideas, studio updates, and exclusive offers
                   delivered straight to your inbox.
                 </p>
@@ -87,7 +87,7 @@ export default function Footer() {
                     type="email"
                     placeholder="Enter your email address"
                     aria-label="Email address"
-                    className="h-12 border-[#334155]/10 bg-[#0B1120]/80 text-white placeholder:text-[#94A3B8] focus-visible:border-[#38BDF8] focus-visible:ring-[#38BDF8]/30"
+                    className="h-12 border-slate-200 dark:border-[#334155]/10 bg-white/80 dark:bg-[#0B1120]/80 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-[#94A3B8] focus-visible:border-[#38BDF8] focus-visible:ring-[#38BDF8]/30"
                   />
 
                   <Button
@@ -99,7 +99,7 @@ export default function Footer() {
                   </Button>
                 </div>
 
-                <p className="mt-3 text-xs text-[#94A3B8]">
+                <p className="mt-3 text-xs text-slate-500 dark:text-[#94A3B8]">
                   Join our creative community. No spam, ever.
                 </p>
               </div>
@@ -119,7 +119,7 @@ export default function Footer() {
                 Studio<span className="text-[#38BDF8]">Space</span>
               </span>
             </Link>
-            <p className="mt-6 max-w-xs text-sm leading-7 text-[#94A3B8]">
+            <p className="mt-6 max-w-xs text-sm leading-7 text-slate-500 dark:text-[#94A3B8]">
               We believe every great idea deserves the perfect environment. Our mission is to connect creative minds with inspiring spaces and make every creative journey easier.
             </p>
             <div className="mt-7 flex items-center gap-2">
@@ -130,7 +130,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.name}
-                  className="inline-flex size-10 items-center justify-center rounded-md border border-[#334155]/10 bg-[#0B1120] text-[#94A3B8] transition-colors hover:border-[#38BDF8]/50 hover:bg-[#38BDF8] hover:text-white"
+                  className="inline-flex size-10 items-center justify-center rounded-md border border-slate-200 dark:border-[#334155]/10 bg-white dark:bg-[#0B1120] text-slate-500 dark:text-[#94A3B8] transition-colors hover:border-[#38BDF8]/50 hover:bg-[#38BDF8] hover:text-white"
                 >
                   <SocialIcon name={social.name} />
                 </a>
@@ -150,7 +150,7 @@ export default function Footer() {
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="group inline-flex items-center gap-2 text-sm text-[#94A3B8] transition-colors hover:text-[#818CF8]"
+                    className="group inline-flex items-center gap-2 text-sm text-slate-500 dark:text-[#94A3B8] transition-colors hover:text-[#818CF8]"
                   >
                     <ArrowUpRight className="size-3.5 text-[#38BDF8] opacity-0 transition group-hover:opacity-100" />
                     {item.name}
@@ -172,7 +172,7 @@ export default function Footer() {
                 <li key={category.name}>
                   <Link
                     href={category.href}
-                    className="group inline-flex items-center gap-2 text-sm text-[#94A3B8] transition-colors hover:text-[#818CF8]"
+                    className="group inline-flex items-center gap-2 text-sm text-slate-500 dark:text-[#94A3B8] transition-colors hover:text-[#818CF8]"
                   >
                     <Camera className="size-3.5 text-[#818CF8] opacity-0 transition group-hover:opacity-100" />
                     {category.name}
@@ -189,23 +189,23 @@ export default function Footer() {
               <span className="size-1.5 rounded-full bg-[#38BDF8]" />
             </h3>
 
-            <p className="mb-6 text-sm leading-7 text-[#94A3B8]">
+            <p className="mb-6 text-sm leading-7 text-slate-500 dark:text-[#94A3B8]">
               Have questions or need help? We would love to hear from you.
               Get in touch with our team.
             </p>
 
             <a
               href="mailto:support@studiospace.com"
-              className="flex items-center gap-3 text-sm text-[#94A3B8] transition hover:text-[#818CF8]"
+              className="flex items-center gap-3 text-sm text-slate-500 dark:text-[#94A3B8] transition hover:text-[#818CF8]"
             >
-              <span className="flex size-9 items-center justify-center rounded-lg border border-[#334155]/10 bg-[#0B1120] text-[#38BDF8]">
+              <span className="flex size-9 items-center justify-center rounded-lg border border-slate-200 dark:border-[#334155]/10 bg-white dark:bg-[#0B1120] text-[#38BDF8]">
                 <Mail className="size-4" />
               </span>
               support@studiospace.com
             </a>
 
-            <div className="mt-4 flex items-center gap-3 text-sm text-[#94A3B8]">
-              <span className="flex size-9 items-center justify-center rounded-lg border border-[#334155]/10 bg-[#0B1120] text-[#38BDF8]">
+            <div className="mt-4 flex items-center gap-3 text-sm text-slate-500 dark:text-[#94A3B8]">
+              <span className="flex size-9 items-center justify-center rounded-lg border border-slate-200 dark:border-[#334155]/10 bg-white dark:bg-[#0B1120] text-[#38BDF8]">
                 <MapPin className="size-4" />
               </span>
               Creative spaces, everywhere.
@@ -213,15 +213,15 @@ export default function Footer() {
           </div>
         </div>
 
-        <Separator className="bg-[#334155]/10" />
+        <Separator className="bg-slate-200 dark:bg-[#334155]/10" />
 
         {/* Bottom Footer */}
         <div className="flex flex-col items-center justify-between gap-5 py-7 text-center sm:flex-row sm:text-left">
-          <p className="text-xs leading-6 text-[#94A3B8] sm:text-sm">
+          <p className="text-xs leading-6 text-slate-500 dark:text-[#94A3B8] sm:text-sm">
             © {new Date().getFullYear()} StudioSpace. All rights reserved.
           </p>
 
-          <div className="flex items-center gap-5 text-xs text-[#94A3B8] sm:text-sm">
+          <div className="flex items-center gap-5 text-xs text-slate-500 dark:text-[#94A3B8] sm:text-sm">
             <Link
               href="/privacy"
               className="transition hover:text-[#818CF8]"
@@ -236,7 +236,7 @@ export default function Footer() {
             </Link>
           </div>
 
-          <p className="text-xs text-[#94A3B8] sm:text-sm">
+          <p className="text-xs text-slate-500 dark:text-[#94A3B8] sm:text-sm">
             Made with <span className="text-[#38BDF8]">♥</span> for creators
           </p>
         </div>

@@ -158,10 +158,10 @@ export default function RegisterPage() {
   };
 
   const inputClass =
-    "w-full bg-[#0F172A] border border-[#334155] rounded-xl py-3.5 pl-11 pr-4 text-white placeholder:text-[#64748B] outline-none transition-all duration-300 focus:border-[#38BDF8] focus:ring-2 focus:ring-[#38BDF8]/20";
+    "w-full bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-[#334155] rounded-xl py-3.5 pl-11 pr-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-[#64748B] outline-none transition-all duration-300 focus:border-[#38BDF8] focus:ring-2 focus:ring-[#38BDF8]/20";
 
   return (
-    <main className="min-h-screen bg-[#080F1D] flex items-center justify-center px-4 py-12 relative overflow-hidden">
+    <main className="min-h-screen bg-slate-50 dark:bg-[#080F1D] flex items-center justify-center px-4 py-12 relative overflow-hidden">
 
       {/* Background Effects */}
       <div className="absolute -top-40 -left-40 w-96 h-96 bg-[#0EA5E9]/10 rounded-full blur-[120px]" />
@@ -170,12 +170,12 @@ export default function RegisterPage() {
       <div className="w-full max-w-5xl grid lg:grid-cols-2 bg-[#111C2E] border border-[#25344A] rounded-3xl overflow-hidden shadow-2xl relative z-10">
 
         {/* Left Side */}
-        <div className="hidden lg:flex flex-col justify-between p-12 bg-gradient-to-br from-[#0F2942] via-[#10243A] to-[#111C2E] relative overflow-hidden">
+        <div className="hidden lg:flex flex-col justify-between p-12 bg-gradient-to-br from-slate-200 dark:from-[#0F2942] via-slate-100 dark:via-[#10243A] to-slate-50 dark:to-[#111C2E] relative overflow-hidden">
 
           <div className="absolute w-72 h-72 bg-sky-500/10 rounded-full blur-3xl -top-20 -right-20" />
 
           <div className="relative z-10">
-            <Link href="/" className="text-2xl font-bold text-white flex items-center gap-2">
+            <Link href="/" className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
               <span className="text-[#38BDF8]">✦</span>
               StudioSpace
             </Link>
@@ -186,7 +186,7 @@ export default function RegisterPage() {
                 Creative Spaces, Endless Possibilities
               </span>
 
-              <h1 className="text-4xl xl:text-5xl font-bold text-white leading-tight mt-7">
+              <h1 className="text-4xl xl:text-5xl font-bold text-slate-900 dark:text-white leading-tight mt-7">
                 Your Creative
                 <br />
                 Journey Starts
@@ -194,15 +194,15 @@ export default function RegisterPage() {
                 <span className="text-[#38BDF8]">Right Here.</span>
               </h1>
 
-              <p className="text-[#94A3B8] mt-6 leading-8 max-w-md">
+              <p className="text-slate-500 dark:text-[#94A3B8] mt-6 leading-8 max-w-md">
                 Join StudioSpace and discover amazing creative spaces.
                 Connect with hosts, explore studios, and bring your ideas to life.
               </p>
             </div>
           </div>
 
-          <div className="relative z-10 border-t border-[#334155] pt-6">
-            <p className="text-[#94A3B8] text-sm">
+          <div className="relative z-10 border-t border-slate-200 dark:border-[#334155] pt-6">
+            <p className="text-slate-500 dark:text-[#94A3B8] text-sm">
               © 2026 StudioSpace. Built for creators.
             </p>
           </div>
@@ -212,16 +212,16 @@ export default function RegisterPage() {
         <div className="p-6 sm:p-10 lg:p-12">
 
           <div className="mb-8">
-            <Link href="/" className="lg:hidden text-xl font-bold text-white">
+            <Link href="/" className="lg:hidden text-xl font-bold text-slate-900 dark:text-white">
               <span className="text-[#38BDF8]">✦</span> StudioSpace
             </Link>
 
             <div className="mt-8 lg:mt-0">
-              <h2 className="text-3xl font-bold text-white">
+              <h2 className="text-3xl font-bold text-slate-900 dark:text-white">
                 Create Account
               </h2>
 
-              <p className="text-[#94A3B8] mt-2">
+              <p className="text-slate-500 dark:text-[#94A3B8] mt-2">
                 Get started with your creative journey today.
               </p>
             </div>
@@ -231,12 +231,12 @@ export default function RegisterPage() {
 
             {/* Name */}
             <div>
-              <label className="text-sm font-medium text-[#CBD5E1] mb-2 block">
+              <label className="text-sm font-medium text-slate-700 dark:text-[#CBD5E1] mb-2 block">
                 Full Name
               </label>
 
               <div className="relative">
-                <User className="absolute left-4 top-1/2 -translate-y-1/2 text-[#64748B]" size={18} />
+                <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 dark:text-[#64748B]" size={18} />
 
                 <input
                   name="name"
@@ -252,12 +252,12 @@ export default function RegisterPage() {
 
             {/* Email */}
             <div>
-              <label className="text-sm font-medium text-[#CBD5E1] mb-2 block">
+              <label className="text-sm font-medium text-slate-700 dark:text-[#CBD5E1] mb-2 block">
                 Email Address
               </label>
 
               <div className="relative">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-[#64748B]" size={18} />
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 dark:text-[#64748B]" size={18} />
 
                 <input
                   name="email"
@@ -273,12 +273,12 @@ export default function RegisterPage() {
 
             {/* Photo URL */}
             <div>
-              <label className="text-sm font-medium text-[#CBD5E1] mb-2 block">
+              <label className="text-sm font-medium text-slate-700 dark:text-[#CBD5E1] mb-2 block">
                 Profile Photo URL
               </label>
 
               <div className="relative">
-                <Camera className="absolute left-4 top-1/2 -translate-y-1/2 text-[#64748B]" size={18} />
+                <Camera className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 dark:text-[#64748B]" size={18} />
 
                 <input
                   name="photoUrl"
@@ -301,7 +301,7 @@ export default function RegisterPage() {
                       e.currentTarget.style.display = "none";
                     }}
                   />
-                  <span className="text-xs text-[#94A3B8]">
+                  <span className="text-xs text-slate-500 dark:text-[#94A3B8]">
                     Profile preview
                   </span>
                 </div>
@@ -310,12 +310,12 @@ export default function RegisterPage() {
 
             {/* Password */}
             <div>
-              <label className="text-sm font-medium text-[#CBD5E1] mb-2 block">
+              <label className="text-sm font-medium text-slate-700 dark:text-[#CBD5E1] mb-2 block">
                 Password
               </label>
 
               <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-[#64748B]" size={18} />
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 dark:text-[#64748B]" size={18} />
 
                 <input
                   name="password"
@@ -330,7 +330,7 @@ export default function RegisterPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-[#64748B] hover:text-white"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 dark:text-[#64748B] hover:text-slate-900 dark:hover:text-white"
                   aria-label="Toggle password visibility"
                 >
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -351,7 +351,7 @@ export default function RegisterPage() {
                               : passwordStrength === 3
                                 ? "bg-yellow-400"
                                 : "bg-green-500"
-                            : "bg-[#334155]"
+                            : "bg-slate-200 dark:bg-[#334155]"
                         }`}
                       />
                     ))}
@@ -362,7 +362,7 @@ export default function RegisterPage() {
                       <div
                         key={rule.label}
                         className={`flex items-center gap-2 text-xs ${
-                          rule.valid ? "text-green-400" : "text-[#64748B]"
+                          rule.valid ? "text-green-400" : "text-slate-500 dark:text-[#64748B]"
                         }`}
                       >
                         {rule.valid ? <Check size={13} /> : <X size={13} />}
@@ -376,12 +376,12 @@ export default function RegisterPage() {
 
             {/* Confirm Password */}
             <div>
-              <label className="text-sm font-medium text-[#CBD5E1] mb-2 block">
+              <label className="text-sm font-medium text-slate-700 dark:text-[#CBD5E1] mb-2 block">
                 Confirm Password
               </label>
 
               <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-[#64748B]" size={18} />
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 dark:text-[#64748B]" size={18} />
 
                 <input
                   name="confirmPassword"
@@ -396,7 +396,7 @@ export default function RegisterPage() {
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-[#64748B] hover:text-white"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 dark:text-[#64748B] hover:text-slate-900 dark:hover:text-white"
                   aria-label="Toggle confirm password visibility"
                 >
                   {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -437,10 +437,10 @@ export default function RegisterPage() {
 
             {/* Google Sign-Up */}
             <div className="space-y-4 pt-2">
-              <div className="flex items-center gap-3 text-xs text-[#64748B]">
-                <span className="h-px flex-1 bg-[#334155]" />
+              <div className="flex items-center gap-3 text-xs text-slate-500 dark:text-[#64748B]">
+                <span className="h-px flex-1 bg-slate-200 dark:bg-[#334155]" />
                 or sign up with
-                <span className="h-px flex-1 bg-[#334155]" />
+                <span className="h-px flex-1 bg-slate-200 dark:bg-[#334155]" />
               </div>
               <div className="flex justify-center">
                 <GoogleLogin
@@ -453,7 +453,7 @@ export default function RegisterPage() {
                 />
               </div>
               {googleLoading && (
-                <p className="flex items-center justify-center gap-2 text-xs text-[#94A3B8]">
+                <p className="flex items-center justify-center gap-2 text-xs text-slate-500 dark:text-[#94A3B8]">
                   <Loader2 className="animate-spin" size={14} />
                   Creating your account with Google…
                 </p>
@@ -461,7 +461,7 @@ export default function RegisterPage() {
             </div>
 
             {/* Login Link */}
-            <p className="text-center text-sm text-[#94A3B8] pt-2">
+            <p className="text-center text-sm text-slate-500 dark:text-[#94A3B8] pt-2">
               Already have an account?{" "}
               <Link
                 href="/login"
