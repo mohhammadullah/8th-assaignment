@@ -7,8 +7,10 @@ import { HowItWorks } from "@/components/home/how-it-works";
 import { HostGuarantee } from "@/components/home/host-guarantee";
 import AboutSection from "@/components/home/about-us";
 import Footer from "@/components/layout/fotter";
+import { connection } from "next/server";
+export default async function HomePage() {
+  await connection();
 
-export default function Home() {
   return (
     <>
       <SiteHero />

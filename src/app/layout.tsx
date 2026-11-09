@@ -1,5 +1,7 @@
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Suspense } from "react";
 import { Toaster } from "sonner";
 
 import { SiteHeader } from "@/components/layout/header";
@@ -25,7 +27,11 @@ export const metadata: Metadata = {
     "Discover and book photo studios, sound stages, podcast rooms, music suites, and art workshops by the hour.",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html
       lang="en"
@@ -33,28 +39,30 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-background text-foreground">
+        <Suspense fallback={null}>
+          <ThemeProvider>
+            <GoogleAuthProvider>
+              <AuthProvider>
+                <Toaster
+                  position="top-right"
+                  richColors
+                  closeButton
+                  theme="system"
+                  toastOptions={{
+                    style: {
+                      background: "var(--card)",
+                      color: "var(--card-foreground)",
+                      border: "1px solid var(--border)",
+                    },
+                  }}
+                />
 
-        <ThemeProvider>
-          <GoogleAuthProvider>
-            <AuthProvider>
-              <Toaster
-                position="top-right"
-                richColors
-                closeButton
-                theme="system"
-                toastOptions={{
-                  style: {
-                    background: "var(--card)",
-                    color: "var(--card-foreground)",
-                    border: "1px solid var(--border)",
-                  },
-                }}
-              />
-              <SiteHeader />
-              <main className="flex-1">{children}</main>
-            </AuthProvider>
-          </GoogleAuthProvider>
-        </ThemeProvider>
+                <SiteHeader />
+                <main className="flex-1">{children}</main>
+              </AuthProvider>
+            </GoogleAuthProvider>
+          </ThemeProvider>
+        </Suspense>
       </body>
     </html>
   );
