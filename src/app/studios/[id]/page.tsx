@@ -14,6 +14,8 @@ type Studio = {
   location: string;
   hourlyRate: number;
   description?: string;
+  overview?: string;
+  detailedOverview?: string;
   ownerEmail?: string;
 };
 
@@ -32,31 +34,33 @@ type PageProps = {
 };
 
 export default function StudioDetailsPage({ params }: PageProps) {
-  // Next.js 15+ অনুযায়ী React.use() দিয়ে params আনর্যাপ করা হয়েছে
   const resolvedParams = use(params);
   const id = resolvedParams.id;
 
   const [studio, setStudio] = useState<Studio | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(() => Boolean(id && id !== "new"));
   const [isBooked, setIsBooked] = useState(false);
   const [bookingError, setBookingError] = useState<string | null>(null);
   const router = useRouter();
 
   useEffect(() => {
+ 
+    if (!id || id === 'new') {
+      return;
+    }
+
     let cancelled = false;
 
-    if (id) {
-      getStudioDetails(id)
-        .then((studioDetails) => {
-          if (!cancelled) setStudio(studioDetails);
-        })
-        .catch(() => {
-          if (!cancelled) setStudio(null);
-        })
-        .finally(() => {
-          if (!cancelled) setLoading(false);
-        });
-    }
+    getStudioDetails(id)
+      .then((studioDetails) => {
+        if (!cancelled) setStudio(studioDetails);
+      })
+      .catch(() => {
+        if (!cancelled) setStudio(null);
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
 
     return () => {
       cancelled = true;
@@ -87,6 +91,12 @@ export default function StudioDetailsPage({ params }: PageProps) {
         }),
       });
 
+   
+      if (res.status === 401 || res.status === 403) {
+        router.push("/login");
+        return;
+      }
+
       if (!res.ok) {
         const errorData = await res.json();
         throw new Error(errorData.message || "Booking failed");
@@ -98,6 +108,14 @@ export default function StudioDetailsPage({ params }: PageProps) {
       setBookingError(error instanceof Error ? error.message : "Booking failed");
     }
   };
+
+  if (id === 'new') {
+    return (
+      <main className="flex min-h-screen items-center justify-center bg-[#0B1120] text-[#F1F5F9]">
+        <p>Loading Add Studio Form...</p>
+      </main>
+    );
+  }
 
   if (loading) {
     return (
@@ -157,7 +175,7 @@ export default function StudioDetailsPage({ params }: PageProps) {
           <div className="mt-6 border-t border-[#334155] pt-6">
             <h3 className="text-lg font-semibold text-[#F1F5F9]">About This Studio</h3>
             <p className="mt-2 text-sm leading-relaxed text-[#94A3B8]">
-              {studio.description || "No description provided for this studio yet. Enjoy a professional creative space equipped with top-tier amenities for your next project."}
+              {studio.overview || studio.description || studio.detailedOverview || "No description provided for this studio yet. Enjoy a professional creative space equipped with top-tier amenities for your next project."}
             </p>
           </div>
 
@@ -235,7 +253,7 @@ export default function StudioDetailsPage({ params }: PageProps) {
               <button
                 type="submit"
                 disabled={isBooked}
-                className="w-full rounded-xl bg-gradient-to-r from-primary to-[#818CF8] py-4 font-semibold text-primary-foreground transition hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full rounded-xl bg-gradient-to-r from-primary to-[#818CF8] py-4 font-semibold text-primary-foreground transition hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
               >
                 {isBooked ? "Booking..." : "Book Now"}
               </button>

@@ -21,6 +21,7 @@ const nextConfig: NextConfig = {
       },
     },
   },
+  // 🔴 rewrites অংশটি এখান থেকে মুছে দিন
 };
 
 export default nextConfig;

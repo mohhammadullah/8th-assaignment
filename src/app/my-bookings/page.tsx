@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
 
 interface UserBooking {
-  _id?: string; // MongoDB _id সমর্থন করার জন্য
+  _id?: string;
   id?: string;
   studioId: string;
   studioName: string;
@@ -21,7 +21,7 @@ interface UserBooking {
 }
 
 export default function MyBookingsPage() {
-  const { user, isLoading, logout } = useUser();
+  const { user, isLoading } = useUser();
   const router = useRouter();
   const [bookings, setBookings] = useState<UserBooking[]>([]);
   const [loading, setLoading] = useState(true);
@@ -51,7 +51,6 @@ export default function MyBookingsPage() {
     }
   }, []);
 
-  // The booking fetch is intentionally triggered by auth state changes.
   useEffect(() => {
     if (!user) return;
 
@@ -63,7 +62,6 @@ export default function MyBookingsPage() {
   }, [user, fetchMyBookings]);
 
   const handleCancel = async (booking: UserBooking) => {
-    // MongoDB _id অথবা 일반 id যেকোনো একটি পিক করবে
     const bookingId = booking._id || booking.id;
 
     if (!bookingId) {
@@ -72,7 +70,7 @@ export default function MyBookingsPage() {
     }
 
     if (!window.confirm('Are you sure you want to cancel this booking?')) return;
-    
+
     try {
       const res = await fetch(`${API_BASE_URL}/api/bookings/${bookingId}`, {
         method: 'DELETE',
@@ -81,11 +79,17 @@ export default function MyBookingsPage() {
           'Content-Type': 'application/json',
         },
       });
+
       if (!res.ok) {
         throw new Error('Failed to cancel booking');
       }
+
+      // ✅ ইনস্ট্যান্ট UI আপডেট: ক্লিয়ার করার সাথে সাথে কার্ড সরিয়ে ফেলা
+      setBookings((prevBookings) =>
+        prevBookings.filter((b) => (b._id || b.id) !== bookingId)
+      );
+
       toast.success('Booking cancelled successfully');
-      void fetchMyBookings();
     } catch (err) {
       console.error('Cancel error:', err);
       toast.error('Failed to cancel booking');
@@ -101,7 +105,7 @@ export default function MyBookingsPage() {
   }
 
   if (!user) {
-    return null; // ProtectedRoute will handle redirect
+    return null;
   }
 
   if (error) {
@@ -162,7 +166,7 @@ export default function MyBookingsPage() {
                   <div className="mt-4 pt-4 border-t border-[#334155]">
                     <button
                       onClick={() => handleCancel(booking)}
-                      className="w-full rounded-xl bg-red-500/10 text-red-400 hover:bg-red-500/20 border border-red-500/20 py-3 font-medium text-center"
+                      className="w-full rounded-xl bg-red-500/10 text-red-400 hover:bg-red-500/20 border border-red-500/20 py-3 font-medium text-center transition-colors cursor-pointer"
                     >
                       Cancel Booking
                     </button>
