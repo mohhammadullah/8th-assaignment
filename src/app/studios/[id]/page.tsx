@@ -336,7 +336,7 @@ export default function StudioDetailsPage({ params }: PageProps) {
             <Dialog open={bookingOpen} onOpenChange={setBookingOpen}>
               <DialogTrigger
                 render={
-                  <Button className="mt-6 w-full rounded-xl bg-sky-500 py-3.5 text-sm font-semibold text-slate-950 hover:bg-sky-400" />
+                  <Button className="mt-6 w-full cursor-pointer rounded-xl bg-sky-500 py-3.5 text-sm font-semibold text-slate-950 transition-colors hover:bg-sky-400" />
                 }
               >
                 Book this Studio
@@ -412,7 +412,11 @@ export default function StudioDetailsPage({ params }: PageProps) {
                     <Button type="button" variant="outline" onClick={() => setBookingOpen(false)}>
                       Cancel
                     </Button>
-                    <Button type="submit" disabled={bookingSubmitting || allSlotsBooked || !displaySlot}>
+                    <Button
+                      type="submit"
+                      className="cursor-pointer transition-colors hover:opacity-90"
+                      disabled={bookingSubmitting || allSlotsBooked || !displaySlot}
+                    >
                       {bookingSubmitting ? "Booking..." : "Confirm Booking"}
                     </Button>
                   </DialogFooter>
