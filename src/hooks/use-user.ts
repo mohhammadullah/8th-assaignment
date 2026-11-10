@@ -5,11 +5,14 @@ import {
   createElement,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
+  useRef,
   type ReactNode,
 } from "react";
 import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
+import { clearAccessToken, syncAccessToken } from "@/lib/session-token";
 
 export type AuthUser = {
   id?: string;
@@ -37,6 +40,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
   const { data, isPending, refetch } = authClient.useSession();
+  const syncAttemptedRef = useRef<string | null>(null);
 
   const user: AuthUser | null = useMemo(() => {
     const sessionUser = data?.user;
@@ -51,16 +55,39 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
   }, [data]);
 
+  useEffect(() => {
+    if (isPending) return;
+    if (!user?.id && !user?.email) {
+      syncAttemptedRef.current = null;
+      return;
+    }
+    const key = user.id || user.email || "";
+    if (syncAttemptedRef.current === key) return;
+    syncAttemptedRef.current = key;
+    // Best-effort: issue JWT cookie bound to Better Auth session after auth becomes available
+    // (covers email login, registration, OAuth redirect landing, and reloads).
+    void syncAccessToken();
+  }, [isPending, user?.id, user?.email]);
+
   const refreshUser = useCallback(async () => {
     await refetch();
+    // After refreshing Better Auth session, ensure JWT cookie is issued if session exists.
+    void syncAccessToken();
   }, [refetch]);
 
   const logout = useCallback(async () => {
+    try {
+      // Clear JWT HTTPOnly cookie on the API (best-effort).
+      await clearAccessToken();
+    } catch {
+      // Ignore
+    }
     try {
       await authClient.signOut();
     } catch {
       // Ignore network errors — clear local state regardless.
     } finally {
+      syncAttemptedRef.current = null;
       router.push("/login");
     }
   }, [router]);

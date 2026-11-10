@@ -10,6 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { useUser } from "@/hooks/use-user";
 import { authClient } from "@/lib/auth-client";
 import { signInWithGoogle } from "@/lib/google-auth";
+import { issueAccessToken } from "@/lib/session-token";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -40,6 +41,10 @@ export default function LoginPage() {
       }
 
       await refreshUser();
+      const tokenIssued = await issueAccessToken();
+      if (!tokenIssued) {
+        throw new Error("Login succeeded but failed to initialize secure API session. Please try again.");
+      }
       toast.success("Successfully logged in!");
       router.push("/");
     } catch (error: unknown) {

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import { toast } from "sonner";
-import { API_BASE_URL } from "@/lib/api";
+import { apiFetch } from "@/lib/api";
 import { validateImageUrl } from "@/components/studio-image";
 import ProtectedRoute from "@/components/ProtectedRoute";
 
@@ -20,6 +20,9 @@ type Studio = {
   image: string;
   overview?: string;
   amenities?: string[];
+  ownerEmail?: string;
+  ownerName?: string;
+  hostName?: string;
 };
 
 function EditForm({ id }: { id: string }) {
@@ -43,8 +46,7 @@ function EditForm({ id }: { id: string }) {
     let cancelled = false;
     (async () => {
       try {
-        const res = await fetch(`${API_BASE_URL}/api/studios/${id}`, {
-          credentials: "include",
+        const res = await apiFetch(`/api/studios/${id}`, {
           cache: "no-store",
         });
         if (res.status === 404 || res.status === 400) {
@@ -93,9 +95,8 @@ function EditForm({ id }: { id: string }) {
     }
     setSaving(true);
     try {
-      const res = await fetch(`${API_BASE_URL}/api/studios/${id}`, {
+      const res = await apiFetch(`/api/studios/${id}`, {
         method: "PUT",
-        credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           title: form.title.trim(),
@@ -171,6 +172,27 @@ function EditForm({ id }: { id: string }) {
           <h1 className="text-2xl font-bold mb-6">Edit Studio Listing</h1>
 
           <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 rounded-xl border border-slate-200 dark:border-[#334155] bg-slate-50 dark:bg-[#0F172A] p-4">
+              <div>
+                <label className={labelClass}>Host Name (read-only)</label>
+                <input
+                  type="text"
+                  value={(studio as Studio & { ownerName?: string; hostName?: string }).ownerName || (studio as Studio & { hostName?: string }).hostName || "Studio Host"}
+                  readOnly
+                  className={`${inputClass} opacity-80 cursor-not-allowed`}
+                />
+              </div>
+              <div>
+                <label className={labelClass}>Host Email (read-only)</label>
+                <input
+                  type="text"
+                  value={studio.ownerEmail || "Not available"}
+                  readOnly
+                  className={`${inputClass} opacity-80 cursor-not-allowed`}
+                />
+              </div>
+            </div>
+
             <div>
               <label className={labelClass}>Studio Title</label>
               <input

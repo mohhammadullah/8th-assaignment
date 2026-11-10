@@ -11,6 +11,7 @@ type Studio = {
   category: string;
   location: string;
   hourlyRate: number;
+  rating?: number;
 };
 
 async function getStudios(category?: string): Promise<Studio[]> {
@@ -86,7 +87,7 @@ export default async function StudiosPage({
                       {studio.location}
                     </span>
                     <span className="flex items-center gap-1 font-semibold text-[#818CF8]">
-                      <Star size={14} className="fill-[#818CF8]" /> 4.9
+                      <Star size={14} className="fill-[#818CF8]" /> {studio.rating?.toFixed(1) ?? "New"}
                     </span>
                   </div>
 

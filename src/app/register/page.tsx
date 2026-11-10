@@ -20,6 +20,7 @@ import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
 import { signInWithGoogle } from "@/lib/google-auth";
 import { useUser } from "@/hooks/use-user";
+import { issueAccessToken } from "@/lib/session-token";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -113,6 +114,10 @@ export default function RegisterPage() {
       }
 
       await refreshUser();
+      const tokenIssued = await issueAccessToken();
+      if (!tokenIssued) {
+        throw new Error("Registration succeeded but failed to initialize secure API session. Please try again.");
+      }
       toast.success("Registration successful! Welcome to StudioSpace.");
       router.push("/");
     } catch (error: unknown) {

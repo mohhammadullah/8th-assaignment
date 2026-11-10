@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
-import { API_BASE_URL } from '@/lib/api';
+import { apiFetch } from '@/lib/api';
 import { useUser } from '@/hooks/use-user';
 import { Loader2 } from 'lucide-react';
 import Link from 'next/link';
@@ -31,12 +31,8 @@ export default function MyListingsPage() {
   const fetchListings = useCallback(async () => {
     if (!user?.email) return [];
     try {
-      const res = await fetch(`${API_BASE_URL}/api/studios/user/${encodeURIComponent(user.email)}`, {
+      const res = await apiFetch(`/api/studios/user/${encodeURIComponent(user.email)}`, {
         method: 'GET',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
       });
 
       if (res.status === 401 || res.status === 403) {
@@ -91,12 +87,8 @@ export default function MyListingsPage() {
     if (!selectedId) return;
 
     try {
-      const res = await fetch(`${API_BASE_URL}/api/studios/${selectedId}`, {
+      const res = await apiFetch(`/api/studios/${selectedId}`, {
         method: 'DELETE',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
       });
 
       if (res.status === 401 || res.status === 403) {

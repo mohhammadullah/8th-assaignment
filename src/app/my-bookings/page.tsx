@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { toast } from 'sonner';
 
-import { API_BASE_URL } from '@/lib/api';
+import { apiFetch } from '@/lib/api';
 import { downloadInvoice } from '@/lib/invoice';
 import { useUser } from '@/hooks/use-user';
 import { FileDown, Loader2 } from 'lucide-react';
@@ -20,6 +20,25 @@ interface UserBooking {
   createdAt: string;
 }
 
+function StatusBadge({ status }: { status: UserBooking['status'] }) {
+  const styles: Record<UserBooking['status'], string> = {
+    Pending:
+      'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/30',
+    Confirmed:
+      'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30',
+    Cancelled:
+      'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/30',
+  };
+
+  return (
+    <span
+      className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold ${styles[status] || 'bg-slate-500/10 text-slate-600 border-slate-500/30'}`}
+    >
+      {status}
+    </span>
+  );
+}
+
 export default function MyBookingsPage() {
   const { user, isLoading } = useUser();
   const [bookings, setBookings] = useState<UserBooking[]>([]);
@@ -29,12 +48,8 @@ export default function MyBookingsPage() {
   // Fetch only the logged-in user's bookings
   const fetchMyBookings = useCallback(async () => {
     try {
-      const res = await fetch(`${API_BASE_URL}/api/bookings/my-bookings`, {
+      const res = await apiFetch('/api/bookings/my-bookings', {
         method: 'GET',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
       });
       if (!res.ok) {
         throw new Error('Failed to fetch your bookings');
@@ -61,9 +76,10 @@ export default function MyBookingsPage() {
   }, [user, fetchMyBookings]);
 
   const [cancelTarget, setCancelTarget] = useState<UserBooking | null>(null);
+  const [isCancelling, setIsCancelling] = useState(false);
 
   const confirmCancel = async () => {
-    if (!cancelTarget) return;
+    if (!cancelTarget || isCancelling) return;
     const bookingId = cancelTarget._id || cancelTarget.id;
 
     if (!bookingId) {
@@ -72,30 +88,32 @@ export default function MyBookingsPage() {
       return;
     }
 
+    setIsCancelling(true);
     try {
-      const res = await fetch(`${API_BASE_URL}/api/bookings/${bookingId}`, {
+      const res = await apiFetch(`/api/bookings/${bookingId}`, {
         method: 'DELETE',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
       });
 
       if (!res.ok) {
-        throw new Error('Failed to cancel booking');
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.message || 'Failed to cancel booking');
       }
 
-   
+      // Backend performs a soft-cancel (status -> Cancelled) and preserves the
+      // record for history/auditing. Remove it from the active My Bookings list
+      // immediately so it does not remain visible or reappear after refetch/reload.
       setBookings((prevBookings) =>
         prevBookings.filter((b) => (b._id || b.id) !== bookingId)
       );
 
       toast.success('Booking cancelled successfully');
+      setCancelTarget(null);
     } catch (err) {
       console.error('Cancel error:', err);
-      toast.error('Failed to cancel booking');
+      toast.error(err instanceof Error ? err.message : 'Failed to cancel booking');
+      // Keep the booking in the UI and dialog state unchanged on failure.
     } finally {
-      setCancelTarget(null);
+      setIsCancelling(false);
     }
   };
 
@@ -115,14 +133,12 @@ export default function MyBookingsPage() {
     return (
       <div className="p-6 bg-white dark:bg-[#0F172A] min-h-screen text-red-400">
         <p>{error}</p>
-        
       </div>
     );
   }
 
   return (
     <div className="p-6 bg-white dark:bg-[#0F172A] min-h-screen">
-      
       <h1 className="text-2xl font-bold text-slate-900 dark:text-[#F1F5F9] mb-6">My Bookings</h1>
 
       {bookings.length === 0 ? (
@@ -151,7 +167,10 @@ export default function MyBookingsPage() {
                     </div>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-xl font-bold text-slate-900 dark:text-[#F1F5F9] truncate">{booking.studioName}</h3>
+                    <div className="flex items-start justify-between gap-2">
+                      <h3 className="text-xl font-bold text-slate-900 dark:text-[#F1F5F9] truncate">{booking.studioName}</h3>
+                      <StatusBadge status={booking.status} />
+                    </div>
                     <p className="text-sm text-slate-600 dark:text-[#94A3B8] mt-1">
                       {booking.date ? new Date(booking.date).toLocaleDateString() : ''} | {booking.timeSlot}
                     </p>
@@ -161,7 +180,7 @@ export default function MyBookingsPage() {
                 <div className="mt-4 pt-4 border-t border-slate-200 dark:border-[#334155]">
                   <p className="text-sm text-slate-600 dark:text-[#94A3B8] mb-2">Price</p>
                   <p className="text-lg font-bold text-sky-600 dark:text-[#38BDF8]">
-                    {booking.price} ৳ / hr
+                    ${booking.price} / hr
                   </p>
                 </div>
 
@@ -182,8 +201,10 @@ export default function MyBookingsPage() {
                       Cancel Booking
                     </button>
                   ) : (
-                    <p className="text-sm text-slate-500 dark:text-[#64748B]">
-                      Status: <span className="font-medium text-sky-600 dark:text-[#38BDF8]">{booking.status}</span>
+                    <p className="text-sm text-slate-500 dark:text-[#64748B] text-center">
+                      {booking.status === 'Cancelled'
+                        ? 'This booking has been cancelled.'
+                        : 'This booking is confirmed.'}
                     </p>
                   )}
                 </div>
@@ -193,7 +214,6 @@ export default function MyBookingsPage() {
         </div>
       )}
 
-     
       {cancelTarget && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm">
           <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-6 shadow-md transition-colors duration-300 dark:border-[#334155] dark:bg-[#1E293B]">
@@ -210,15 +230,17 @@ export default function MyBookingsPage() {
             <div className="flex justify-end gap-3">
               <button
                 onClick={() => setCancelTarget(null)}
-                className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition-colors duration-300 hover:bg-slate-100 cursor-pointer dark:border-[#334155] dark:bg-[#0F172A] dark:text-[#F1F5F9] dark:hover:bg-[#334155]"
+                disabled={isCancelling}
+                className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition-colors duration-300 hover:bg-slate-100 cursor-pointer disabled:cursor-not-allowed disabled:opacity-60 dark:border-[#334155] dark:bg-[#0F172A] dark:text-[#F1F5F9] dark:hover:bg-[#334155]"
               >
                 Keep booking
               </button>
               <button
                 onClick={() => void confirmCancel()}
-                className="rounded-xl bg-red-600 px-4 py-2 text-sm font-semibold text-white transition-colors duration-300 hover:bg-red-700 cursor-pointer"
+                disabled={isCancelling}
+                className="rounded-xl bg-red-600 px-4 py-2 text-sm font-semibold text-white transition-colors duration-300 hover:bg-red-700 cursor-pointer disabled:cursor-not-allowed disabled:opacity-60"
               >
-                Yes, cancel
+                {isCancelling ? 'Cancelling...' : 'Yes, cancel'}
               </button>
             </div>
           </div>

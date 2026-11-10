@@ -1,9 +1,10 @@
 "use client";
 
 import { toast } from "sonner";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import type { ChangeEvent, FormEvent } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   ArrowLeft,
   Camera,
@@ -11,10 +12,13 @@ import {
   MapPin,
   Plus,
   Sparkles,
+  Upload,
+  User,
 } from "lucide-react";
-import { API_BASE_URL } from "@/lib/api";
+import { apiFetch } from "@/lib/api";
 import { StudioImage, validateImageUrl } from "@/components/studio-image";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import { useUser } from "@/hooks/use-user";
 
 const categories = [
   "Photography Studio",
@@ -67,35 +71,84 @@ export default function HostingPage() {
   );
 }
 
+async function uploadImageFile(file: File): Promise<string> {
+  const apiKey = process.env.NEXT_PUBLIC_IMGBB_API_KEY;
+  if (!apiKey) {
+    throw new Error(
+      "Image upload service is not configured. Please paste a public https image URL instead."
+    );
+  }
+
+  const body = new FormData();
+  body.append("image", file);
+
+  const res = await fetch(`https://api.imgbb.com/1/upload?key=${encodeURIComponent(apiKey)}`, {
+    method: "POST",
+    body,
+  });
+  const data = (await res.json()) as {
+    success?: boolean;
+    data?: { url?: string; display_url?: string };
+    error?: { message?: string };
+  };
+
+  if (!res.ok || !data.success) {
+    throw new Error(data.error?.message || "Image upload failed");
+  }
+
+  const url = data.data?.display_url || data.data?.url;
+  if (!url) throw new Error("Image upload did not return a URL");
+  return url;
+}
+
 function HostingForm() {
+  const router = useRouter();
+  const { user } = useUser();
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [amenities, setAmenities] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
   const [formData, setFormData] = useState<FormData>(initialFormData);
 
   const inputClass =
     "mt-2 w-full rounded-xl border border-slate-200 dark:border-[#334155] bg-white dark:bg-[#0F172A] px-4 py-3.5 text-sm text-slate-900 dark:text-[#F1F5F9] outline-none transition placeholder:text-slate-400 dark:placeholder:text-[#94A3B8] focus:border-sky-500 dark:border-[#38BDF8] focus:ring-2 focus:ring-sky-500";
-
   const labelClass = "text-sm font-medium text-slate-900 dark:text-[#F1F5F9]";
+  const readOnlyClass = `${inputClass} cursor-not-allowed opacity-80`;
 
-  
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
-
 
   const toggleAmenity = (item: string) => {
     setAmenities((prev) =>
-      prev.includes(item)
-        ? prev.filter((amenity) => amenity !== item)
-        : [...prev, item]
+      prev.includes(item) ? prev.filter((amenity) => amenity !== item) : [...prev, item]
     );
+  };
+
+  const handleImageFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      toast.error("Please select a valid image file.");
+      e.target.value = "";
+      return;
+    }
+
+    setIsUploadingImage(true);
+    try {
+      const url = await uploadImageFile(file);
+      setFormData((prev) => ({ ...prev, image: url }));
+      toast.success("Image uploaded successfully.");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Image upload failed.");
+    } finally {
+      setIsUploadingImage(false);
+      e.target.value = "";
+    }
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -110,47 +163,37 @@ function HostingForm() {
     setIsSubmitting(true);
 
     const studioData = {
-      ...formData,
+      title: formData.title.trim(),
+      category: formData.category.trim(),
       hourlyRate: Number(formData.hourlyRate),
-      securityDeposit: Number(formData.securityDeposit),
-      maxCapacity: Number(formData.maxCapacity),
+      securityDeposit: formData.securityDeposit ? Number(formData.securityDeposit) : undefined,
+      maxCapacity: formData.maxCapacity ? Number(formData.maxCapacity) : undefined,
+      location: formData.location.trim(),
+      image: formData.image.trim(),
+      overview: formData.overview.trim(),
+      description: formData.overview.trim(),
       amenities,
     };
 
     try {
-     
-     const res = await fetch(`${API_BASE_URL}/api/studios`, {
+      const res = await apiFetch("/api/studios", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(studioData),
       });
 
-      const data = await res.json();
-
+      const data = await res.json().catch(() => ({}));
       if (!res.ok) {
         throw new Error(data.message || "Failed to submit studio");
       }
 
-      console.log("Backend Response:", data);
-      console.log("Studio Data:", studioData);
-
       toast.success("Studio listed successfully!");
-
       setFormData(initialFormData);
       setAmenities([]);
-
+      router.push("/my-listings");
     } catch (error) {
       console.error("Submission Error:", error);
-
-      toast.error(
-        error instanceof Error
-          ? error.message
-          : "Failed to submit listing."
-      );
-
+      toast.error(error instanceof Error ? error.message : "Failed to submit listing.");
     } finally {
       setIsSubmitting(false);
     }
@@ -159,8 +202,6 @@ function HostingForm() {
   return (
     <main className="min-h-screen bg-white dark:bg-[#0F172A] px-4 py-12 text-slate-900 dark:text-[#F1F5F9] sm:px-6 lg:px-8">
       <div className="mx-auto max-w-4xl">
-
-        {/* Header */}
         <Link
           href="/"
           className="mb-8 inline-flex items-center gap-2 text-sm text-slate-600 dark:text-[#94A3B8] transition hover:text-sky-600 dark:text-[#38BDF8]"
@@ -180,19 +221,39 @@ function HostingForm() {
           </h1>
 
           <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600 dark:text-[#94A3B8]">
-            Share your creative space with photographers, filmmakers,
-            podcasters, and other creators. Fill in the details below to get
-            started.
+            Share your creative space with photographers, filmmakers, podcasters, and other creators.
+            Fill in the details below to get started.
           </p>
         </div>
 
-        {/* Form */}
         <form
           onSubmit={handleSubmit}
           className="space-y-8 rounded-2xl border border-slate-200 dark:border-[#334155] bg-white dark:bg-[#1E293B] p-5 sm:p-8"
         >
+          <section>
+            <div className="mb-6">
+              <h2 className="text-xl font-semibold">Host Information</h2>
+              <p className="mt-1 text-sm text-slate-600 dark:text-[#94A3B8]">
+                This information comes from your authenticated account and cannot be edited here.
+              </p>
+            </div>
+            <div className="grid gap-5 sm:grid-cols-2">
+              <div>
+                <label className={labelClass}>
+                  <User size={15} className="mr-1 inline text-sky-600 dark:text-[#38BDF8]" />
+                  Host Name (read-only)
+                </label>
+                <input value={user?.name || ""} readOnly className={readOnlyClass} />
+              </div>
+              <div>
+                <label className={labelClass}>Host Email (read-only)</label>
+                <input value={user?.email || ""} readOnly className={readOnlyClass} />
+              </div>
+            </div>
+          </section>
 
-          {/* Basic Information */}
+          <div className="h-px bg-slate-200 dark:bg-[#334155]" />
+
           <section>
             <div className="mb-6">
               <h2 className="text-xl font-semibold">Basic Information</h2>
@@ -203,9 +264,7 @@ function HostingForm() {
 
             <div className="space-y-5">
               <div>
-                <label htmlFor="title" className={labelClass}>
-                  Studio Title *
-                </label>
+                <label htmlFor="title" className={labelClass}>Studio Title *</label>
                 <input
                   id="title"
                   name="title"
@@ -218,9 +277,7 @@ function HostingForm() {
               </div>
 
               <div>
-                <label htmlFor="category" className={labelClass}>
-                  Studio Category *
-                </label>
+                <label htmlFor="category" className={labelClass}>Studio Category *</label>
                 <select
                   id="category"
                   name="category"
@@ -231,17 +288,13 @@ function HostingForm() {
                 >
                   <option value="">Select a category</option>
                   {categories.map((category) => (
-                    <option key={category} value={category}>
-                      {category}
-                    </option>
+                    <option key={category} value={category}>{category}</option>
                   ))}
                 </select>
               </div>
 
               <div>
-                <label htmlFor="overview" className={labelClass}>
-                  Studio Overview *
-                </label>
+                <label htmlFor="overview" className={labelClass}>Studio Overview *</label>
                 <textarea
                   id="overview"
                   name="overview"
@@ -258,7 +311,6 @@ function HostingForm() {
 
           <div className="h-px bg-slate-200 dark:bg-[#334155]" />
 
-          {/* Pricing */}
           <section>
             <h2 className="text-xl font-semibold">Pricing & Capacity</h2>
             <p className="mb-6 mt-1 text-sm text-slate-600 dark:text-[#94A3B8]">
@@ -267,9 +319,7 @@ function HostingForm() {
 
             <div className="grid gap-5 sm:grid-cols-3">
               <div>
-                <label htmlFor="hourlyRate" className={labelClass}>
-                  Hourly Rate (৳) *
-                </label>
+                <label htmlFor="hourlyRate" className={labelClass}>Hourly Rate ($) *</label>
                 <input
                   id="hourlyRate"
                   type="number"
@@ -277,16 +327,14 @@ function HostingForm() {
                   min="1"
                   value={formData.hourlyRate}
                   onChange={handleChange}
-                  placeholder="1500"
+                  placeholder="50"
                   className={inputClass}
                   required
                 />
               </div>
 
               <div>
-                <label htmlFor="securityDeposit" className={labelClass}>
-                  Security Deposit (৳) *
-                </label>
+                <label htmlFor="securityDeposit" className={labelClass}>Security Deposit ($) *</label>
                 <input
                   id="securityDeposit"
                   type="number"
@@ -294,16 +342,14 @@ function HostingForm() {
                   min="0"
                   value={formData.securityDeposit}
                   onChange={handleChange}
-                  placeholder="2000"
+                  placeholder="100"
                   className={inputClass}
                   required
                 />
               </div>
 
               <div>
-                <label htmlFor="maxCapacity" className={labelClass}>
-                  Max Capacity *
-                </label>
+                <label htmlFor="maxCapacity" className={labelClass}>Max Capacity *</label>
                 <input
                   id="maxCapacity"
                   type="number"
@@ -321,7 +367,6 @@ function HostingForm() {
 
           <div className="h-px bg-slate-200 dark:bg-[#334155]" />
 
-          {/* Location */}
           <section>
             <h2 className="text-xl font-semibold">Studio Location</h2>
             <p className="mb-5 mt-1 text-sm text-slate-600 dark:text-[#94A3B8]">
@@ -338,7 +383,7 @@ function HostingForm() {
               name="location"
               value={formData.location}
               onChange={handleChange}
-              placeholder="e.g. Khulna, Bangladesh"
+              placeholder="e.g. Banani, Dhaka"
               className={inputClass}
               required
             />
@@ -346,43 +391,62 @@ function HostingForm() {
 
           <div className="h-px bg-slate-200 dark:bg-[#334155]" />
 
-          {/* Image */}
           <section>
             <h2 className="text-xl font-semibold">Studio Cover Image</h2>
             <p className="mb-5 mt-1 text-sm text-slate-600 dark:text-[#94A3B8]">
-              Add a high-quality image of your creative space.
+              Upload an image file or provide a public https image URL.
             </p>
 
-            <label htmlFor="image" className={labelClass}>
-              <Camera size={15} className="mr-1 inline text-sky-600 dark:text-[#38BDF8]" />
-              Image URL *
-            </label>
+            <div className="space-y-4">
+              <div>
+                <label className={labelClass}>
+                  <Upload size={15} className="mr-1 inline text-sky-600 dark:text-[#38BDF8]" />
+                  Image Upload
+                </label>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageFileChange}
+                  className="mt-2 block w-full text-sm text-slate-600 dark:text-[#94A3B8] file:mr-4 file:rounded-lg file:border-0 file:bg-sky-500/10 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-sky-700 dark:file:text-sky-300 hover:file:bg-sky-500/20"
+                />
+                <p className="mt-2 text-xs text-slate-500 dark:text-[#64748B]">
+                  File upload uses the configured image upload service when available. You can also paste an image URL below.
+                </p>
+                {isUploadingImage && (
+                  <p className="mt-2 inline-flex items-center gap-2 text-xs text-sky-600 dark:text-[#38BDF8]">
+                    <Loader2 size={14} className="animate-spin" /> Uploading image...
+                  </p>
+                )}
+              </div>
 
-            <input
-              id="image"
-              type="url"
-              name="image"
-              value={formData.image}
-              onChange={handleChange}
-              placeholder="https://example.com/studio-image.jpg"
-              className={inputClass}
-              required
-            />
-
-            {formData.image && (
-              <div className="relative mt-4 aspect-[4/3] w-full overflow-hidden rounded-xl border border-slate-200 dark:border-[#334155]">
-                <StudioImage
-                  src={formData.image}
-                  alt="Studio preview"
-                  sizes="(min-width: 1024px) 50vw, 100vw"
+              <div>
+                <label htmlFor="image" className={labelClass}>
+                  <Camera size={15} className="mr-1 inline text-sky-600 dark:text-[#38BDF8]" />
+                  Image URL *
+                </label>
+                <input
+                  id="image"
+                  type="url"
+                  name="image"
+                  value={formData.image}
+                  onChange={handleChange}
+                  placeholder="https://example.com/studio-image.jpg"
+                  className={inputClass}
+                  required
                 />
               </div>
-            )}
+
+              {formData.image && (
+                <div className="relative mt-2 aspect-[4/3] w-full overflow-hidden rounded-xl border border-slate-200 dark:border-[#334155]">
+                  <StudioImage src={formData.image} alt="Studio preview" sizes="(min-width: 1024px) 50vw, 100vw" />
+                </div>
+              )}
+            </div>
           </section>
 
           <div className="h-px bg-slate-200 dark:bg-[#334155]" />
 
-          {/* Amenities */}
           <section>
             <h2 className="text-xl font-semibold">Studio Amenities</h2>
             <p className="mb-5 mt-1 text-sm text-slate-600 dark:text-[#94A3B8]">
@@ -411,17 +475,15 @@ function HostingForm() {
             </div>
           </section>
 
-          {/* Submit */}
           <div className="border-t border-slate-200 dark:border-[#334155] pt-6">
             <p className="mb-5 text-xs leading-6 text-slate-600 dark:text-[#94A3B8]">
-              By submitting this listing, you confirm that the information
-              provided is accurate and that you have permission to rent this
-              creative space.
+              By submitting this listing, you confirm that the information provided is accurate and that you
+              have permission to rent this creative space.
             </p>
 
             <button
               type="submit"
-              disabled={isSubmitting}
+              disabled={isSubmitting || isUploadingImage}
               className="flex w-full items-center justify-center gap-2 rounded-xl bg-sky-500 hover:bg-sky-400 px-6 py-4 font-semibold text-slate-950 transition-all duration-300 active:scale-[0.99] disabled:opacity-50 sm:w-auto"
             >
               {isSubmitting ? (
@@ -437,7 +499,6 @@ function HostingForm() {
               )}
             </button>
           </div>
-
         </form>
       </div>
     </main>
